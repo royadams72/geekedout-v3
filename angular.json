@@ -3,5 +3,126 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-  }
+    "geeked-out-web": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "projects/geeked-out-web",
+      "sourceRoot": "projects/geeked-out-web/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/geeked-out-web",
+            "index": "projects/geeked-out-web/src/index.html",
+            "main": "projects/geeked-out-web/src/main.ts",
+            "polyfills": "projects/geeked-out-web/src/polyfills.ts",
+            "tsConfig": "projects/geeked-out-web/tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "projects/geeked-out-web/src/favicon.ico",
+              "projects/geeked-out-web/src/assets"
+            ],
+            "styles": [
+              "projects/geeked-out-web/src/styles.scss"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/geeked-out-web/src/environments/environment.ts",
+                  "with": "projects/geeked-out-web/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "geeked-out-web:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "geeked-out-web:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "geeked-out-web:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/geeked-out-web/src/test.ts",
+            "polyfills": "projects/geeked-out-web/src/polyfills.ts",
+            "tsConfig": "projects/geeked-out-web/tsconfig.spec.json",
+            "karmaConfig": "projects/geeked-out-web/karma.conf.js",
+            "assets": [
+              "projects/geeked-out-web/src/favicon.ico",
+              "projects/geeked-out-web/src/assets"
+            ],
+            "styles": [
+              "projects/geeked-out-web/src/styles.scss"
+            ],
+            "scripts": []
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/geeked-out-web/tsconfig.app.json",
+              "projects/geeked-out-web/tsconfig.spec.json",
+              "projects/geeked-out-web/e2e/tsconfig.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        },
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "projects/geeked-out-web/e2e/protractor.conf.js",
+            "devServerTarget": "geeked-out-web:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "geeked-out-web:serve:production"
+            }
+          }
+        }
+      }
+    }
+  },
+  "defaultProject": "geeked-out-web"
 }
