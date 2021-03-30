@@ -1,7 +1,7 @@
-import { Comic, ComicResponse } from '../../shared/models/comic.model';
-import { Game } from '../../shared/models/game.model';
-import { MoviesResponse } from '../../shared/models/movies.model';
-import { MusicResponse } from '../../shared/models/music.model';
+import { Comic, ComicResponse } from '../../shared/interfaces/comic';
+import { Game } from '../../shared/interfaces/game';
+import { MoviesResponse } from '../../shared/interfaces/movies';
+import { MusicResponse } from '../../shared/interfaces/music';
 import { createReducer, on, Action } from '@ngrx/store';
 import { AppActions } from '../actions';
 

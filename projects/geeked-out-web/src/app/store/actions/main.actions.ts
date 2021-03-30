@@ -1,7 +1,7 @@
-import { ComicResponse } from '../../shared/models/comic.model';
-import { Game } from '../../shared/models/game.model';
-import { MoviesResponse } from '../../shared/models/movies.model';
-import { MusicResponse } from '../../shared/models/music.model';
+import { ComicResponse } from '@web-interfaces/comic';
+import { Game } from '@web-interfaces/game';
+import { MoviesResponse } from '@web-interfaces/movies';
+import { MusicResponse } from '@web-interfaces/music';
 import { createAction, props } from '@ngrx/store';
 
 export const loadComicData = createAction('[loadComicData] loading...');

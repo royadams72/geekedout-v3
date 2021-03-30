@@ -1,13 +1,11 @@
 import { Injectable } from '@angular/core';
 import { createEffect, ofType, Actions } from '@ngrx/effects';
 import { AppActions } from '../actions/';
-import { switchMap, map, mergeMap, catchError, takeUntil } from 'rxjs/operators';
-
-import { of } from 'rxjs';
-import { ComicsService } from '../../shared/services/comics.service';
-import { MusicService } from '../../shared/services/music.service';
-import { MoviesService } from '../../shared/services/movies.service';
-import { GamesService } from '../../shared/services/games.service';
+import { switchMap, map } from 'rxjs/operators';
+import { ComicsService } from '@web-services/comics.service';
+import { MusicService } from '@web-services/music.service';
+import { MoviesService } from '@web-services/movies.service';
+import { GamesService } from '@web-services/games.service';
 @Injectable()
 export class AppEffects {
 

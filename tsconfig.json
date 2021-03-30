@@ -3,6 +3,14 @@
   "compileOnSave": false,
   "compilerOptions": {
     "baseUrl": "./",
+    "paths": {
+      "@web/*": ["projects/geeked-out-web/src/app/*"],
+      "@web-interfaces/*": ["projects/geeked-out-web/src/app/shared/interfaces/*"],
+      "@web-services/*": ["projects/geeked-out-web/src/app/shared/services/*"],
+      "@web-components/*": ["projects/geeked-out-web/src/app/shared/components/*"],
+      "@web-store/*": ["projects/geeked-out-web/src/app/store/*"],
+      "@envweb/*": ["projects/geeked-out-web/src/environments/*"]
+    },
     "outDir": "./dist/out-tsc",
     "forceConsistentCasingInFileNames": true,
     "strict": true,
@@ -20,10 +28,6 @@
       "es2018",
       "dom"
     ]
-  },
-  "paths": {
-    "@app/*": ["src/app/*"],
-    "@env/*": ["environments/*"]
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

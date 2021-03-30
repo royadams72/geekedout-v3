@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { AppActions } from './store/actions';
+import { AppActions } from '@web-store/actions';
 
 @Component({
   selector: 'app-root',

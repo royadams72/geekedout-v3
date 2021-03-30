@@ -9,11 +9,6 @@
     "src/main.ts",
     "src/polyfills.ts"
   ],
-  "baseUrl": "src",
-    "paths": {
-      "@app/*": ["app/*"],
-      "@env/*": ["environments/*"]
-    },
   "include": [
     "src/**/*.d.ts"
   ]
