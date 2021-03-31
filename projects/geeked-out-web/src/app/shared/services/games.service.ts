@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { environment } from '@envweb/environment';
+import { environment } from '@web-env/environment';
 import { catchError} from 'rxjs/operators';
-import { Game } from '@web-interfaces/game';
+import { Game } from '@web/shared/interfaces/game';
 
 
 @Injectable({

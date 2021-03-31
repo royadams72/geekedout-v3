@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
-import { environment } from '@envweb/environment';
+import { environment } from '@web-env/environment';
 import { map, mergeMap } from 'rxjs/operators';
-import { MoviesResponse, MoviesImageData } from '@web-interfaces/movies';
+import { MoviesResponse, MoviesImageData } from '@web/shared/interfaces/movies';
 @Injectable({
   providedIn: 'root'
 })

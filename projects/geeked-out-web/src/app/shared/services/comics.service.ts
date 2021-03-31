@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders} from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { environment } from '@envweb/environment';
-import { ComicResponse } from '@web-interfaces/comic';
+import { environment } from '@web-env/environment';
+import { ComicResponse } from '@web/shared/interfaces/comic';
 
 @Injectable({
   providedIn: 'root'

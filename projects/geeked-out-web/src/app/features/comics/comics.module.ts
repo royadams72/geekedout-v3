@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ComicsMainComponent } from './components/comics-main/comics-main.component';
 import { CustomersRoutingModule } from './comics.routing';
-import { ComicsService } from '@web-services/comics.service';
+import { ComicsService } from '@web/shared/services/comics.service';
 import { HttpClientModule } from '@angular/common/http';
 
 
