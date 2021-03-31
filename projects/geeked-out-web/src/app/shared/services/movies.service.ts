@@ -20,7 +20,6 @@ export class MoviesService {
   }
 
    getMoviesInfo(imageData: any): Observable<MoviesResponse> {
-    console.log(imageData);
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.http.get<MoviesResponse>(`${environment.apiUrl}/movies/preview`, { headers })
     .pipe(
