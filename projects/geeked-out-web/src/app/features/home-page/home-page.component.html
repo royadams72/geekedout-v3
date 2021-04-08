@@ -1,2 +1,5 @@
 <p>home-page works!</p>
-<app-category></app-category>
+<app-category [items]="(comicPreview$ | async)" [link]="'comics'"></app-category>
+<app-category [items]="(musicPreview$ | async)" [link]="'music'"></app-category>
+<app-category [items]="(gamesPreview$ | async)" [link]="'games'"></app-category>
+<app-category [items]="(moviesPreview$ | async)" [link]="'movies'"></app-category>

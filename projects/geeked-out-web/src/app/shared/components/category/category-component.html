@@ -1,8 +1,10 @@
 <div>
   Category Component!!
-    <!-- <div *ngFor="let item of items">
-      <a [routerLink]="[item.link , item.query]">
-        <img *ngIf="item?.img">
+  <div *ngIf="items">
+    <div *ngFor="let item of items">
+      <a [routerLink]="item.id ? [item.id] : link">
+        <img *ngIf="item?.image" src="{{item.image}}">
       </a>
-    </div> -->
+    </div>
+  </div>
 </div>

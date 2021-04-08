@@ -1,4 +1,4 @@
-import { Comic, ComicResponse } from '../../shared/interfaces/comic';
+import { Comic, ComicStore } from '../../shared/interfaces/comic';
 import { Game } from '../../shared/interfaces/game';
 import { MoviesResponse } from '../../shared/interfaces/movies';
 import { MusicResponse } from '../../shared/interfaces/music';
@@ -7,14 +7,14 @@ import { AppActions } from '../actions';
 
 
 export interface AppState {
-  comics: ComicResponse;
+  comics: ComicStore;
   music: MusicResponse;
   movies: MoviesResponse;
   games: Game[];
 }
 
 export const initialAppState: AppState = {
-  comics: {} as ComicResponse,
+  comics: {} as ComicStore,
   music: {} as MusicResponse,
   movies: {} as MoviesResponse,
   games: [] as Game[]

@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-
-
+import { select, Store } from '@ngrx/store';
+import { ComicStore } from '@web/shared/interfaces/comic';
+import { Preview } from '@web/shared/interfaces/preview';
+import { State } from '@web/store/reducers';
+import { getAllComics } from '@web/store/selectors';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-comics-main',
@@ -8,17 +12,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./comics-main.component.scss']
 })
 export class ComicsMainComponent implements OnInit {
-cDate: any;
-  constructor() { }
+  store$ = new Observable<Array<Preview>>();
+  constructor(private store: Store<State>) { }
 
   ngOnInit(): void {
-      // this.comicsService.getPreview(50).subscribe((data: ComicResponse) =>
-      // {
-      //   this.cDate = data.results[0].dates[0].date;
-      //   console.log(data);
-      // }
-
-      // );
+  this.store$ = this.store.pipe(select(getAllComics));
   }
 
 }

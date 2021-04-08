@@ -1,19 +1,19 @@
-import { Component, Input, OnChanges, SimpleChanges, SimpleChange } from '@angular/core';
-
-
+import { Component, Input, OnChanges, SimpleChanges, OnInit } from '@angular/core';
 @Component({
   selector: 'app-category',
   templateUrl: './category-component.html'
 })
-export class CategoryComponent implements OnChanges{
+export class CategoryComponent implements OnInit {
 
-  @Input() items: Array<any> = [];
+  @Input() items: any;
   @Input() isPreview = true;
   @Input() link = '';
-  constructor() { }
+  constructor() {
 
-  ngOnChanges(changes: SimpleChanges): void {
-    console.log(changes);
+   }
+
+  ngOnInit(): void {
+    console.log(this.items);
   }
 
 }
