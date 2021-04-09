@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
-import { environment } from '../../../environments/environment';
+import { environment } from '@web-env/environment';
 import { catchError, map } from 'rxjs/operators';
-import { MusicResponse } from '../../shared/models/music.model';
+import { MusicResponse } from '@web/shared/interfaces/music';
 
 @Injectable({
   providedIn: 'root'

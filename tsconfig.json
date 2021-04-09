@@ -3,6 +3,10 @@
   "compileOnSave": false,
   "compilerOptions": {
     "baseUrl": "./",
+     "paths": {
+      "@web/*": ["projects/geeked-out-web/src/app/*"],
+      "@web-env/*": ["projects/geeked-out-web/src/environments/*"],
+    },
     "outDir": "./dist/out-tsc",
     "forceConsistentCasingInFileNames": true,
     "strict": true,
@@ -20,10 +24,6 @@
       "es2018",
       "dom"
     ]
-  },
-  "paths": {
-    "@app/*": ["src/app/*"],
-    "@env/*": ["environments/*"]
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

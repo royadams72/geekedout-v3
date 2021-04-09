@@ -1,11 +1,11 @@
-import { ComicResponse } from '../../shared/models/comic.model';
-import { Game } from '../../shared/models/game.model';
-import { MoviesResponse } from '../../shared/models/movies.model';
-import { MusicResponse } from '../../shared/models/music.model';
+import { ComicStore } from '@web/shared/interfaces/comic';
+import { Game } from '@web/shared/interfaces/game';
+import { MoviesResponse } from '@web/shared/interfaces/movies';
+import { MusicResponse } from '@web/shared/interfaces/music';
 import { createAction, props } from '@ngrx/store';
 
 export const loadComicData = createAction('[loadComicData] loading...');
-export const loadComicDataComplete = createAction('[loadComicDataComplete] Data Loaded', props<{comics: ComicResponse}>());
+export const loadComicDataComplete = createAction('[loadComicDataComplete] Data Loaded', props<{comics: ComicStore}>());
 export const loadMusicData = createAction('[loadMusicData] loading...');
 export const loadMusicDataComplete = createAction('[loadMusicDataComplete] Data Loaded', props<{music: MusicResponse}>());
 export const loadMoviesData = createAction('[loadMoviesData] loading...');

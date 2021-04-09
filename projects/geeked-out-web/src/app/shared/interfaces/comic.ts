@@ -57,7 +57,7 @@ export interface Items {
     type?: string;
 }
 
-export interface ComicResponse {
+export interface ComicStore {
     count?: number;
     limit?: number;
     offset?: number;
