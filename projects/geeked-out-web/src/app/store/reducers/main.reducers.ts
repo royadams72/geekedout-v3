@@ -5,19 +5,21 @@ import { MusicResponse } from '../../shared/interfaces/music';
 import { createReducer, on, Action } from '@ngrx/store';
 import { AppActions } from '../actions';
 
-
+export const idReducerFeatureKey = 'featureName';
 export interface AppState {
   comics: ComicStore;
   music: MusicResponse;
   movies: MoviesResponse;
   games: Game[];
+  selectedId: string;
 }
 
 export const initialAppState: AppState = {
   comics: {} as ComicStore,
   music: {} as MusicResponse,
   movies: {} as MoviesResponse,
-  games: [] as Game[]
+  games: [] as Game[],
+  selectedId: ''
 };
 
 
@@ -30,7 +32,8 @@ export const appReducer = createReducer(
     on(AppActions.loadMoviesData, (state) => (state)),
     on(AppActions.loadMoviesDataComplete, (state, { movies }) => ({...state, movies})),
     on(AppActions.loadGamesData, (state) => (state)),
-    on(AppActions.loadGamesDataComplete, (state, { games }) => ({...state, games}))
+    on(AppActions.loadGamesDataComplete, (state, { games }) => ({...state, games})),
+    on(AppActions.setIds, (state, { id }) => ({ ...state, selectedId: id }))
     );
 
 

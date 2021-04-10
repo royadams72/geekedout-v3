@@ -8,6 +8,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AppEffects } from '@web/store/effects/main.effects';
 import { HttpClientModule } from '@angular/common/http';
+import { routerReducer, StoreRouterConnectingModule } from '@ngrx/router-store';
+import { RouterEffects } from './store/effects/router.effects.service';
 
 @NgModule({
   declarations: [
@@ -17,9 +19,11 @@ import { HttpClientModule } from '@angular/common/http';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    StoreModule.forRoot(reducers, { metaReducers }),
+    StoreModule.forRoot({...reducers,  router: routerReducer}, { metaReducers }),
     StoreDevtoolsModule.instrument({ maxAge: 25 }),
-    EffectsModule.forRoot([AppEffects]),
+    EffectsModule.forRoot([AppEffects, RouterEffects]),
+    StoreRouterConnectingModule.forRoot({ stateKey: 'router',
+    routerState: 1}),
   ],
   bootstrap: [AppComponent]
 })
