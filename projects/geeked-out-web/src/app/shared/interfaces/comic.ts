@@ -1,32 +1,46 @@
 export interface Comic {
-characters: Obj;
-collectedIssues: [];
-creators: Obj;
-dates: ComicDate[];
-description: string;
-diamondCode: string;
-digitalId?: number;
-ean: string;
-events: Obj;
-format: string;
-id?: number;
-images: ImageModel[];
-isbn: string;
-issn: string;
-issueNumber: number;
-modified: string;
-pageCount: number;
-prices: Price[];
-resourceURI: string;
-series: Items;
-stories: Obj;
-textObjects: [];
-thumbnail: ImageModel;
-title: string;
-upc: string;
-urls: DataUrls[];
-variantDescription: string;
-variants: Items[];
+    characters: Obj;
+    collectedIssues: [];
+    creators: Obj;
+    dates: ComicDate[];
+    description: string;
+    diamondCode: string;
+    digitalId?: number;
+    ean: string;
+    events: Obj;
+    format: string;
+    id?: number;
+    images: ImageModel[];
+    isbn: string;
+    issn: string;
+    issueNumber: number;
+    modified: string;
+    pageCount: number;
+    prices: Price[];
+    resourceURI: string;
+    series: Items;
+    stories: Obj;
+    textObjects: [];
+    thumbnail: ImageModel;
+    title: string;
+    upc: string;
+    urls: DataUrls[];
+    variantDescription: string;
+    variants: Items[];
+}
+
+export interface ComicDetail {
+    creators?: Array<{name: string, role:string} | undefined>;
+    onsaleDate: string;
+    description?: string;
+    id?: number;
+    image: string;
+    isbn: string;
+    issueNumber?: number;
+    pageCount?: number;
+    printPrice?: string;
+    title?: string;
+    purchaseUrl?: string;
 }
 
 export interface ComicDate {
@@ -40,7 +54,7 @@ export interface Price {
 }
 
 export interface Obj {
-    available: number; collectionURI: string; items: Items[]; returned?: number;
+    available?: number; collectionURI?: string; items: Items[]; returned?: number;
 }
 
 export interface DataUrls {
@@ -52,9 +66,10 @@ export interface ImageModel {
 }
 
 export interface Items {
-    resourceURI: string;
+    resourceURI?: string;
     name: string;
     type?: string;
+    role?: string;
 }
 
 export interface ComicStore {

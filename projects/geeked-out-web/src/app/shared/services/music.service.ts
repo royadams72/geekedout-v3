@@ -14,7 +14,7 @@ export class MusicService {
 
   getMusic(limit: number): Observable<MusicResponse> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.http.get<any>(`${environment.apiUrl}/music/preview/${limit}`, { headers })
+    return this.http.get<MusicResponse>(`${environment.apiUrl}/music/preview/${limit}`, { headers })
       .pipe(
         // map((music) => music),
         catchError(this.handleError<MusicResponse>('getMusic', {} as MusicResponse))
