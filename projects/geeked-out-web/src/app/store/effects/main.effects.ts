@@ -12,9 +12,9 @@ export class AppEffects {
   loadComicData$ = createEffect(() => this.actions$.pipe(
     ofType<any>(AppActions.loadComicData),
     switchMap((action) => {
-      return this.comicsService.getPreview(40).pipe(
+      return this.comicsService.getComics(40).pipe(
         // takeUntil(this.subService.unsubscribe$),
-        map((comics) => AppActions.loadComicDataComplete( {comics}))
+        map((comics) => AppActions.loadComicDataComplete({comics}))
       );
     })
   ));
@@ -24,7 +24,7 @@ export class AppEffects {
     switchMap((action) => {
       return this.musicService.getMusic(40).pipe(
         // takeUntil(this.subService.unsubscribe$),
-        map((music) => AppActions.loadMusicDataComplete( {music}))
+        map((music) => AppActions.loadMusicDataComplete({music}))
       );
     })
   ));
@@ -34,7 +34,7 @@ export class AppEffects {
     switchMap((action) => {
       return this.moviesService.getMovies().pipe(
         // takeUntil(this.subService.unsubscribe$),
-        map((movies) => AppActions.loadMoviesDataComplete( {movies}))
+        map((movies) => AppActions.loadMoviesDataComplete({movies}))
       );
     })
   ));
@@ -44,7 +44,7 @@ export class AppEffects {
     switchMap((action) => {
       return this.gamesService.getGames().pipe(
         // takeUntil(this.subService.unsubscribe$),
-        map((games) => AppActions.loadGamesDataComplete( {games}))
+        map((games) => AppActions.loadGamesDataComplete({games}))
       );
     })
   ));

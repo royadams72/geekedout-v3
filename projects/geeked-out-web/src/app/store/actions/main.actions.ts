@@ -12,9 +12,10 @@ export const loadMoviesData = createAction('[loadMoviesData] loading...');
 export const loadMoviesDataComplete = createAction('[loadMoviesDataComplete] Data Loaded', props<{movies: MoviesResponse}>());
 export const loadGamesData = createAction('[loadGamesData] loading...');
 export const loadGamesDataComplete = createAction('[loadGamesDataComplete] Data Loaded', props<{games: Game[]}>());
-
+export const setIds = createAction('[Id] Load Ids', props<{ id: string }>());
 
 export type AppActionsUnion = ReturnType<typeof loadComicData | typeof loadComicDataComplete |
                                         typeof loadMusicData | typeof loadMusicDataComplete |
                                         typeof loadMoviesData | typeof loadMoviesDataComplete |
-                                        typeof loadGamesData | typeof loadGamesDataComplete>;
+                                        typeof loadGamesData | typeof loadGamesDataComplete |
+                                        typeof setIds>;
