@@ -9,7 +9,7 @@ import { AppComponent } from './app.component';
 import { AppEffects } from '@web/store/effects/main.effects';
 import { HttpClientModule } from '@angular/common/http';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
-import { RouterEffects } from './store/effects/router.effects';
+import { RouterEffects } from '@web/store/effects/router.effects';
 
 @NgModule({
   declarations: [

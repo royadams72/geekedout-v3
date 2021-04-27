@@ -31,7 +31,7 @@ export interface Artist {
     uri: string;
 }
 
-export interface MusicResponse {
+export interface MusicStore {
     href: string;
     items: Albums[];
     limit: number;

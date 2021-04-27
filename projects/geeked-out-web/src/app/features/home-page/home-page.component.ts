@@ -4,7 +4,8 @@ import { Preview } from '@web/shared/interfaces/preview';
 
 import { AppActions } from '@web/store/actions';
 import { State } from '@web/store/reducers';
-import {getComicPreview, getGamesPreview, getMoviesPreview, getMusicPreview } from '@web/store/selectors';
+import {getComicPreview, getGamesPreview, getMoviesPreview, getMusicPreview} from '@web/store/selectors';
+
 import { Observable } from 'rxjs';
 @Component({
   selector: 'app-home-page',

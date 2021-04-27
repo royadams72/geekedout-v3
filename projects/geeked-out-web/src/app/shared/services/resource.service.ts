@@ -12,7 +12,7 @@ export class ResourceService<T> {
   constructor(protected httpClient: HttpClient) {}
 
 
-  read(limit?: number, offset?: number) {
+  read(limit?: number, offset: string = '') {
         const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.httpClient.get<T>(`${environment.apiUrl}${this.endPointUrl}${limit}/${offset}`, this.httpOptions);
   }

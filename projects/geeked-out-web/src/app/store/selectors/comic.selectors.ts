@@ -13,7 +13,7 @@ export const comics = createSelector(
     (state: AppState) => state.comics
 );
 
-export const getRouteID = createSelector(
+ const getRouteID = createSelector(
   appState,
   (state: AppState) => {
       return +state.selectedId;

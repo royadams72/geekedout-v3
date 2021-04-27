@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { select, Store } from '@ngrx/store';
+import { Preview } from '@web/shared/interfaces/preview';
+import { State } from '@web/store/reducers';
+import { getAllAlbums } from '@web/store/selectors/';
+import { Observable } from 'rxjs';
 
 
 @Component({
@@ -7,12 +12,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./music-main.component.scss']
 })
 export class MusicMainComponent implements OnInit {
-
-  constructor() { }
+  store$ = new Observable<Array<Preview>>();
+  constructor(private store: Store<State>) { }
 
   ngOnInit(): void {
-    // this.musicService.getMusic(3)
-    // .subscribe(data => console.log(data));
+    this.store$ = this.store.pipe(select(getAllAlbums));
   }
 
 }

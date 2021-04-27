@@ -1,14 +1,14 @@
 import { Comic, ComicStore } from '../../shared/interfaces/comic';
 import { Game } from '../../shared/interfaces/game';
 import { MoviesResponse } from '../../shared/interfaces/movies';
-import { MusicResponse } from '../../shared/interfaces/music';
+import { MusicStore } from '../../shared/interfaces/music';
 import { createReducer, on, Action } from '@ngrx/store';
 import { AppActions } from '../actions';
 
 export const idReducerFeatureKey = 'featureName';
 export interface AppState {
   comics: ComicStore;
-  music: MusicResponse;
+  music: MusicStore;
   movies: MoviesResponse;
   games: Game[];
   selectedId: string;
@@ -16,7 +16,7 @@ export interface AppState {
 
 export const initialAppState: AppState = {
   comics: {} as ComicStore,
-  music: {} as MusicResponse,
+  music: {} as MusicStore,
   movies: {} as MoviesResponse,
   games: [] as Game[],
   selectedId: ''

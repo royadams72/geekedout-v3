@@ -14,7 +14,7 @@ export class ComicsService extends ResourceService<ComicStore> {
     this.endPointUrl = '/comics/preview/';
    }
 
-getComics(limit?: number, offset?: number): Observable<ComicStore> {
+  getComics(limit?: number, offset = '0'): Observable<ComicStore> {
     return this.read(limit, offset);
   }
 

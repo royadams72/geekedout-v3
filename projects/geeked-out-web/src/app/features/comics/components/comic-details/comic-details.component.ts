@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
-import { Comic } from '@web/shared/interfaces/comic';
 import { State } from '@web/store/reducers';
 import { getComicDetail } from '@web/store/selectors';
 import { Observable } from 'rxjs';
