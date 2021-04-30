@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { Artist } from '@web/shared/interfaces/music';
 import { State } from '@web/store/reducers';
-import { getDetail } from '@web/store/selectors';
+import { getDetailm } from '@web/store/selectors';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -18,7 +18,7 @@ export class MusicDetailsComponent implements OnInit {
    }
 
   ngOnInit(): void {
-    this.albumDetail$ = this.store.pipe(select(getDetail)).subscribe(data => console.log(data));
+    this.albumDetail$ = this.store.pipe(select(getDetailm)).subscribe(data => console.log(data));
   }
 
 }

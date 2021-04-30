@@ -7,28 +7,59 @@ import { AppState } from '../reducers/main.reducers';
 
 const appState = (state: State) => state.state;
 
-
 export const comics = createSelector(
     appState,
     (state: AppState) => state.comics
 );
-
- const getRouteID = createSelector(
-  appState,
-  (state: AppState) => {
-      return +state.selectedId;
+export const getSubstate = () => {
+    createSelector(
+        appState,
+        (state: AppState) => state.comics
+    );
+};
+const getRouteID = createSelector(
+    appState,
+    (state: AppState) => {
+        return +state.selectedId;
     }
 );
+
+export const getSubState = (subState: string): any => {
+   return createSelector(
+            appState,
+            (state: any) => state[`${subState}`]
+        );
+
+
+};
+
+export const getDetail = (subState: string, arrayName: any): any => {
+    return createSelector(
+        getSubState(subState),
+        getRouteID,
+        (state: any, routeId: number): any | undefined => {
+            const selectedItem: any | undefined = state[`${arrayName}`].find((item: any): boolean => {
+                // console.log(comic.id === routeId);
+                console.log(appState);
+                return item.id === routeId;
+            });
+            return selectedItem ? mapComicDetail(selectedItem) : undefined;
+        }
+    );
+
+
+ };
 export const getComicDetail = createSelector(
-    comics,
+    getSubState('comics'),
     getRouteID,
-    (state: ComicStore, routeId: number): ComicDetail | undefined =>  {
-    const selectedComic: Comic = state.results.find((comic: Comic ): boolean => {
-        // console.log(comic.id === routeId);
-        return comic.id === routeId;
-    })!;
-    return mapComicDetail(selectedComic);
-}
+    (state: ComicStore, routeId: number): ComicDetail | undefined => {
+        const selectedComic: Comic | undefined = state.results.find((comic: Comic): boolean => {
+            // console.log(comic.id === routeId);
+            console.log(appState);
+            return comic.id === routeId;
+        });
+        return selectedComic ? mapComicDetail(selectedComic) : undefined;
+    }
 );
 
 export const getAllComics = createSelector(
@@ -36,7 +67,7 @@ export const getAllComics = createSelector(
     (state: ComicStore): Preview[] => {
         if (!state.results) { return []; }
         return state.results.map((el) => {
-            return  {id: el.id, image: `${el.images[0].path}.${el.images[0].extension}`, title: el.title};
+            return { id: el.id, image: `${el.images[0].path}.${el.images[0].extension}`, title: el.title };
         });
     }
 );
@@ -46,29 +77,33 @@ export const getComicPreview = createSelector(
     (state: ComicStore): Preview[] => {
         if (!state.results) { return []; }
         return state.results.slice(0, 4).map((el) => {
-            return  {image: `${el.images[0].path}.${el.images[0].extension}`, title: el.title};
+            return { image: `${el.images[0].path}.${el.images[0].extension}`, title: el.title };
         });
     }
 );
 
 
-function mapComicDetail(selectedComic: Comic ): ComicDetail | undefined {
-    if(!selectedComic) { return; }
-    const {isbn, description, issueNumber,  pageCount, prices, title, urls ,images:[{path,extension}], dates: [{date:onsaleDate}], creators:{items: creators}}: any = selectedComic;
-    let comic: ComicDetail = {
+function mapComicDetail(selectedComic: Comic): ComicDetail | undefined {
+    if (!selectedComic) { return; }
+    console.log(selectedComic);
+    const { isbn, description, issueNumber, pageCount, prices, title, urls, images: [{ path, extension }],
+    dates: [{ date: onsaleDate }], creators: { items: creators } }: any = selectedComic;
+    const purchaseUrl = urls.find((c: any) => c.type === 'purchase');
+
+    const comic: ComicDetail = {
         onsaleDate,
-        creators: creators.map((c: Items) => {return {name: c.name, role: c.role};}),
+        creators: creators.map((c: Items) => ({ name: c.name, role: c.role })),
         description,
         image: `${path}.${extension}`,
         isbn,
         issueNumber,
         pageCount,
         printPrice: prices.find((c: Price) => c.type === 'printPrice').price,
-        purchaseUrl: urls.find((c: any) => c.type === 'purchase').url,
+        purchaseUrl: purchaseUrl || undefined,
         title
     };
     return comic;
-    }
+}
 
 
 

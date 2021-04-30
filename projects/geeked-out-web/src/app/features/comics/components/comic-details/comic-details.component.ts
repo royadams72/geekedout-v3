@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { State } from '@web/store/reducers';
-import { getComicDetail } from '@web/store/selectors';
+import { getComicDetail, getDetail } from '@web/store/selectors';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -15,7 +15,10 @@ export class ComicDetailsComponent implements OnInit {
   constructor(private store: Store<State>) { }
 
   ngOnInit(): void {
-    this.comicDetail$ = this.store.pipe(select(getComicDetail)).subscribe(data => console.log(data));
+    // this.comicDetail$ = this.store.pipe(select(getComicDetail)).subscribe(data => console.log(data));
+    this.comicDetail$ = this.store.pipe(select(getDetail('comics', 'results'))).subscribe(data => console.log(data));
+
+    // getDetail = (subState: string, arrayName: any)
   }
 
 }

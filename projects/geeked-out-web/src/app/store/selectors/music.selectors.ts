@@ -13,7 +13,16 @@ export const albums = createSelector(
     appState,
     (state: AppState) => state.music
 );
-
+function setSelectors(){
+    const selectors =  {
+        ['getRouteID'] : createSelector(
+            appState,
+            (state: AppState): string => {
+                return state.selectedId;
+            }
+        )
+    }
+}
 const getRouteID = createSelector(
   appState,
   (state: AppState): string => {
@@ -21,16 +30,28 @@ const getRouteID = createSelector(
     }
 );
 
-export const getDetail = createSelector(
+export const getDetailm = createSelector(
         albums,
         getRouteID,
         (state: MusicStore, routeId: string): Artist | undefined =>  {
-        const item: Artist = state.items.find((artist: Artist ): boolean => {
+        const item: Artist | undefined = state.items.find((artist: Artist): boolean => {
             return artist.id === routeId;
-        })!;
-        return itemDetail(item);
+        });
+        return item ? itemDetail(item) : undefined;
     }
 );
+
+// function getAll(subState: any) {
+//     const getAll = createSelector(
+//         subState,
+//         (state: any): Preview[] => {
+//             if (!state.items) { return []; }
+//             return state.items.map((el: any) => {
+//                 return itemPreview(el);
+//             });
+//         }
+//     );
+// }
 
 export const getAllAlbums = createSelector(
     albums,
@@ -52,7 +73,7 @@ export const getMusicPreview = createSelector(
     }
 );
 
-function itemPreview(item: Albums) {
+function itemPreview(item: Albums): Preview {
     return { image: `${item.images[1].url}`, title: item.name };
 }
 
