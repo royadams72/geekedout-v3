@@ -33,12 +33,12 @@ export const getSubState = (subState: string): any => {
 
 };
 
-export const getDetail = (subState: string, arrayName: any): any => {
+export const getDetail = <T, U, D>(subState: string, arrayName: any): any => {
     return createSelector(
         getSubState(subState),
         getRouteID,
-        (state: any, routeId: number): any | undefined => {
-            const selectedItem: any | undefined = state[`${arrayName}`].find((item: any): boolean => {
+        (state: any, routeId: number): any | U => {
+            const selectedItem: Comic | undefined = state[`${arrayName}`].find((item: any): boolean => {
                 // console.log(comic.id === routeId);
                 console.log(appState);
                 return item.id === routeId;
@@ -49,18 +49,18 @@ export const getDetail = (subState: string, arrayName: any): any => {
 
 
  };
-export const getComicDetail = createSelector(
-    getSubState('comics'),
-    getRouteID,
-    (state: ComicStore, routeId: number): ComicDetail | undefined => {
-        const selectedComic: Comic | undefined = state.results.find((comic: Comic): boolean => {
-            // console.log(comic.id === routeId);
-            console.log(appState);
-            return comic.id === routeId;
-        });
-        return selectedComic ? mapComicDetail(selectedComic) : undefined;
-    }
-);
+// export const getComicDetail = createSelector(
+//     getSubState('comics'),
+//     getRouteID,
+//     (state: ComicStore, routeId: number): ComicDetail | undefined => {
+//         const selectedComic: Comic | undefined = state.results.find((comic: Comic): boolean => {
+//             // console.log(comic.id === routeId);
+//             console.log(appState);
+//             return comic.id === routeId;
+//         });
+//         return selectedComic ? mapComicDetail(selectedComic) : undefined;
+//     }
+// );
 
 export const getAllComics = createSelector(
     comics,
@@ -83,14 +83,36 @@ export const getComicPreview = createSelector(
 );
 
 
-function mapComicDetail(selectedComic: Comic): ComicDetail | undefined {
+// function mapComicDetail<T, U>(selectedComic: Comic): ComicDetail | undefined {
+//     if (!selectedComic) { return; }
+//     console.log(selectedComic);
+//     const { isbn, description, issueNumber, pageCount, prices, title, urls, images: [{ path, extension }],
+//     dates: [{ date: onsaleDate }], creators: { items: creators } }: any = selectedComic;
+//     const purchaseUrl = urls.find((c: any) => c.type === 'purchase');
+
+//     const comic: ComicDetail = {
+//         onsaleDate,
+//         creators: creators.map((c: Items) => ({ name: c.name, role: c.role })),
+//         description,
+//         image: `${path}.${extension}`,
+//         isbn,
+//         issueNumber,
+//         pageCount,
+//         printPrice: prices.find((c: Price) => c.type === 'printPrice').price,
+//         purchaseUrl: purchaseUrl || undefined,
+//         title
+//     };
+//     return comic;
+// }
+
+function mapComicDetail(selectedComic: Comic | undefined): ComicDetail | undefined {
     if (!selectedComic) { return; }
     console.log(selectedComic);
     const { isbn, description, issueNumber, pageCount, prices, title, urls, images: [{ path, extension }],
     dates: [{ date: onsaleDate }], creators: { items: creators } }: any = selectedComic;
     const purchaseUrl = urls.find((c: any) => c.type === 'purchase');
 
-    const comic: ComicDetail = {
+    const comic = {
         onsaleDate,
         creators: creators.map((c: Items) => ({ name: c.name, role: c.role })),
         description,
@@ -104,8 +126,6 @@ function mapComicDetail(selectedComic: Comic): ComicDetail | undefined {
     };
     return comic;
 }
-
-
 
 
 
