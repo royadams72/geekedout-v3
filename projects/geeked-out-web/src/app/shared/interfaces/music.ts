@@ -1,6 +1,6 @@
 export interface Albums {
     album_type: string;
-    artists: Artist[];
+    artists: Artists[];
     available_markets: Array<string>;
     external_urls: ExternalUrls;
     href: string;
@@ -22,7 +22,7 @@ export interface ExternalUrls {
     spotify: string;
 }
 
-export interface Artist {
+export interface Artists {
     external_urls: ExternalUrls;
     href: string;
     id: string;
@@ -30,7 +30,16 @@ export interface Artist {
     type: string;
     uri: string;
 }
+export interface AlbumDetail {
+    name: string;
+    artists: ArtistDetails[];
+    release_date: string;
 
+}
+export interface ArtistDetails {
+    name: string;
+    spotifyUrl: string;
+}
 export interface MusicStore {
     href: string;
     items: Albums[];

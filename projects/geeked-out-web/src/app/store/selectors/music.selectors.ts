@@ -1,5 +1,5 @@
 import { createSelector } from '@ngrx/store';
-import { Albums, Artist, MusicStore } from '@web/shared/interfaces/music';
+import { Albums, Artists, MusicStore } from '@web/shared/interfaces/music';
 // import { Comic, ComicDetail, ComicStore, ImageModel, Items, Obj, Price } from '@web/shared/interfaces/comic';
 import { Preview } from '@web/shared/interfaces/preview';
 import { State } from '@web/store/reducers';
@@ -33,8 +33,8 @@ const getRouteID = createSelector(
 export const getDetailm = createSelector(
         albums,
         getRouteID,
-        (state: MusicStore, routeId: string): Artist | undefined =>  {
-        const item: Artist | undefined = state.items.find((artist: Artist): boolean => {
+        (state: MusicStore, routeId: string): Artists | undefined =>  {
+        const item: Artists | undefined = state.items.find((artist: Artists): boolean => {
             return artist.id === routeId;
         });
         return item ? itemDetail(item) : undefined;
@@ -77,7 +77,7 @@ function itemPreview(item: Albums): Preview {
     return { image: `${item.images[1].url}`, title: item.name };
 }
 
-function itemDetail(item: Artist ): Artist | undefined {
+function itemDetail(item: Artists ): Artists | undefined {
     if(!item) { return; }
     // const {isbn, description, issueNumber,  pageCount, prices, title, urls ,images:[{path,extension}], dates: [{date:onsaleDate}], creators:{items: creators}}: any = selectedComic;
     // let comic: ComicDetail = {

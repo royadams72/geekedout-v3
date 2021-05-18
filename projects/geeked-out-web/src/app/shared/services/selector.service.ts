@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { createSelector } from '@ngrx/store';
-import { Albums, Artist, MusicStore } from '@web/shared/interfaces/music';
+import { Albums, Artists, MusicStore } from '@web/shared/interfaces/music';
 // import { Comic, ComicDetail, ComicStore, ImageModel, Items, Obj, Price } from '@web/shared/interfaces/comic';
 import { Preview } from '@web/shared/interfaces/preview';
 import { State } from '@web/store/reducers';

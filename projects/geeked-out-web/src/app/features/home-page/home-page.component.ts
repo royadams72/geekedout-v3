@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
+import { CategoryType } from '@web/shared/enums/category-type.enum';
 import { Preview } from '@web/shared/interfaces/preview';
 
 import { AppActions } from '@web/store/actions';
 import { State } from '@web/store/reducers';
-import {getComicPreview, getGamesPreview, getMoviesPreview, getMusicPreview} from '@web/store/selectors';
+import { getItems } from '@web/store/selectors';
 
 import { Observable } from 'rxjs';
 @Component({
@@ -18,17 +19,22 @@ export class HomePageComponent implements OnInit {
   gamesPreview$ = new Observable<Array<Preview>>();
   moviesPreview$ = new Observable<Array<Preview>>();
 
-  constructor(private store: Store<State>) {}
+  constructor(private store: Store<State>) {
+    this.store.dispatch(AppActions.loadComicData());
+    this.store.dispatch(AppActions.loadMusicData());
+    this.store.dispatch(AppActions.loadMoviesData());
+    this.store.dispatch(AppActions.loadGamesData());
+
+  }
   ngOnInit(): void {
 
-  this.store.dispatch(AppActions.loadComicData());
-  this.store.dispatch(AppActions.loadMusicData());
-  this.store.dispatch(AppActions.loadMoviesData());
-  this.store.dispatch(AppActions.loadGamesData());
-  this.comicPreview$ = this.store.pipe(select(getComicPreview));
-  this.moviesPreview$ = this.store.pipe(select(getMoviesPreview));
-  this.musicPreview$ = this.store.pipe(select(getMusicPreview));
-  this.gamesPreview$ = this.store.pipe(select(getGamesPreview));
+
+  this.comicPreview$ = this.store.pipe(select(getItems(CategoryType.Comics, true, 'results')));
+  this.moviesPreview$ = this.store.pipe(select(getItems(CategoryType.Movies, true, 'results')));
+  // this.moviesPreview$ = this.store.pipe(select(getMoviesPreview));
+  this.musicPreview$ = this.store.pipe(select(getItems(CategoryType.Music, true, 'items' )));
+  this.gamesPreview$ = this.store.pipe(select(getItems(CategoryType.Games, true)));
+  // this.gamesPreview$ = this.store.pipe(select(getGamesPreview));
   }
 
 }

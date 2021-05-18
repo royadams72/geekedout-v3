@@ -30,7 +30,7 @@ export interface Comic {
 }
 
 export interface ComicDetail {
-    creators?: Array<{name: string, role:string} | undefined>;
+    creators?: Array<{name: string, role: string} | undefined>;
     onsaleDate: string;
     description?: string;
     id?: number;
