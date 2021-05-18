@@ -2,10 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { CategoryType } from '@web/shared/enums/category-type.enum';
 import { Preview } from '@web/shared/interfaces/preview';
+import { MusicService } from '@web/shared/services/music.service';
 
 import { AppActions } from '@web/store/actions';
 import { State } from '@web/store/reducers';
 import { getItems } from '@web/store/selectors';
+
 
 import { Observable } from 'rxjs';
 @Component({
@@ -19,7 +21,7 @@ export class HomePageComponent implements OnInit {
   gamesPreview$ = new Observable<Array<Preview>>();
   moviesPreview$ = new Observable<Array<Preview>>();
 
-  constructor(private store: Store<State>) {
+  constructor(private store: Store<State>, private musicService: MusicService) {
     this.store.dispatch(AppActions.loadComicData());
     this.store.dispatch(AppActions.loadMusicData());
     this.store.dispatch(AppActions.loadMoviesData());
@@ -34,6 +36,10 @@ export class HomePageComponent implements OnInit {
   // this.moviesPreview$ = this.store.pipe(select(getMoviesPreview));
   this.musicPreview$ = this.store.pipe(select(getItems(CategoryType.Music, true, 'items' )));
   this.gamesPreview$ = this.store.pipe(select(getItems(CategoryType.Games, true)));
+  // this.musicService.getMusic2(40).subscribe((data) => {
+  //   console.log(data);
+  // })
+
   // this.gamesPreview$ = this.store.pipe(select(getGamesPreview));
   }
 

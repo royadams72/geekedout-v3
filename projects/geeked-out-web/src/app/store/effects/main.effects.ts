@@ -22,7 +22,7 @@ export class AppEffects {
   loadMusicData$ = createEffect(() => this.actions$.pipe(
     ofType<any>(AppActions.loadMusicData),
     switchMap((action) => {
-      return this.musicService.getMusic(40).pipe(
+      return this.musicService.getMusic2(40).pipe(
         // takeUntil(this.subService.unsubscribe$),
         map((music) => AppActions.loadMusicDataComplete({music}))
       );

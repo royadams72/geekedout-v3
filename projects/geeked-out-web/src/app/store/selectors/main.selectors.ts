@@ -73,7 +73,6 @@ export const getItems = (subState: string, preview: boolean, arrayName?: string)
 };
 
 function getSelectedItem<T>(state: AppState, arrayName: string, routeId: string | number): T | undefined {
-    console.log(state);
     return (state as any)[`${arrayName}`].find((item: any): boolean => {
         return item.id === routeId;
     });
@@ -100,7 +99,6 @@ function previewCategory(subState: string, item: any): Preview | undefined {
 
 function mapDetail(subState: string, selectedItem: any | undefined): any | undefined {
     if (!selectedItem) { return; }
-    console.log(selectedItem);
     let data;
     // const { isbn, description, issueNumber, pageCount, prices, title, urls, images: [{ path, extension }],
     // dates: [{ date: onsaleDate }], creators: { items: creators } }: any = selectedItem;
@@ -122,13 +120,11 @@ function musicDetail(selectedItem: Albums) : any | undefined {
     //     release_date: string;
 
     // };
-    console.log(selectedItem);
     return selectedItem;
 }
 
 function comicDetail(selectedItem: Comic) : ComicDetail | undefined {
     if (!selectedItem) { return; }
-    console.log(selectedItem);
     const { isbn, description, issueNumber, pageCount, prices, title, urls, images: [{ path, extension }],
     dates: [{ date: onsaleDate }], creators: { items: creators } }: any = selectedItem;
     const purchaseUrl = urls.find((c: any) => c.type === 'purchase');

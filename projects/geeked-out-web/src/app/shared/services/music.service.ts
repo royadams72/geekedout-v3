@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
+import { forkJoin, Observable, of } from 'rxjs';
 import { environment } from '@web-env/environment';
-import { catchError, map } from 'rxjs/operators';
-import { MusicStore } from '@web/shared/interfaces/music';
+import { catchError, map, mergeMap } from 'rxjs/operators';
+import { Albums, MusicStore } from '@web/shared/interfaces/music';
 import { ResourceService } from './resource.service';
 
 @Injectable({
@@ -16,18 +16,33 @@ export class MusicService extends ResourceService<MusicStore>{
     this.endPointUrl = '/music/preview/';
   }
 
-  // getMusic(limit: number): Observable<MusicStore> {
-  //   const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-  //   return this.httpClient.get<MusicStore>(`${environment.apiUrl}/music/preview/${limit}`, { headers });
-  //     // .pipe(
-  //     //   // map((music) => music),
-  //     //   // catchError(this.handleError<MusicStore>('getMusic', {} as MusicStore))
-  //     // );
-  // }
+  getMusic2(limit?: number): Observable<MusicStore> {
+    let httpArray: Array<Observable<any>> = [];
+    let musicStore = {} as MusicStore;
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.httpClient.get<MusicStore>(`${environment.apiUrl}${this.endPointUrl}${limit}`, this.httpOptions)
+      .pipe(
+        map((data) => {
+          musicStore = data;
+          data.items.map((item: Albums) => {
+            httpArray.push(this.httpClient.get<any>(`${environment.apiUrl}/music/getAlbum/${item.id}`, this.httpOptions));
+          });
 
+        }),
+        mergeMap(() => {
+          return forkJoin(httpArray);
 
-  getMusic(limit?: number): Observable<MusicStore> {
-    return this.read(limit);
+        }),
+        map((albumsArray: Albums[]) => {
+
+          musicStore.items = albumsArray;
+          console.log(musicStore);
+          return musicStore;
+
+        })
+
+      );
+
   }
   /**
    * Handle Http operation that failed.
