@@ -27,18 +27,13 @@ export class MusicService extends ResourceService<MusicStore>{
           data.items.map((item: Albums) => {
             httpArray.push(this.httpClient.get<any>(`${environment.apiUrl}/music/getAlbum/${item.id}`, this.httpOptions));
           });
-
         }),
         mergeMap(() => {
           return forkJoin(httpArray);
-
         }),
         map((albumsArray: Albums[]) => {
-
           musicStore.items = albumsArray;
-          console.log(musicStore);
           return musicStore;
-
         })
 
       );

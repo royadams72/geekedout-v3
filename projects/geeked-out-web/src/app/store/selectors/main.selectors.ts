@@ -3,7 +3,7 @@ import { ComicsMainComponent } from '@web/features/comics/components/comics-main
 import { CategoryType } from '@web/shared/enums/category-type.enum';
 import { Comic, ComicDetail, Items, Price } from '@web/shared/interfaces/comic';
 import { MoviesResponse } from '@web/shared/interfaces/movies';
-import { AlbumDetail, Albums } from '@web/shared/interfaces/music';
+import { AlbumDetail, Albums, Tracks } from '@web/shared/interfaces/music';
 import { Preview } from '@web/shared/interfaces/preview';
 import { State } from '@web/store/reducers';
 import { AppState } from '../reducers/main.reducers';
@@ -106,8 +106,8 @@ function mapDetail(subState: string, selectedItem: any | undefined): any | undef
 
     if (subState === CategoryType.Comics) {
         data = comicDetail(selectedItem);
-    }  else if (subState === CategoryType.Music) {
-        data = musicDetail(selectedItem);
+    } else if (subState === CategoryType.Music) {
+        data = albumDetail(selectedItem);
     }
     return data;
 }
@@ -142,4 +142,18 @@ function comicDetail(selectedItem: Comic) : ComicDetail | undefined {
     };
 }
 
+function albumDetail(selectedItem: Albums) : AlbumDetail | undefined {
+    if (!selectedItem) { return; }
+    const { name, artists: artistArray, images: [, {url: image}], external_urls: {spotify: spotify_link} , release_date , tracks: {items}} = selectedItem;
+    const tracks = items.map((item: any) => item.name);
+    const artists = artistArray.map((item: any) => item.name);
+    return {
+        name,
+        artists,
+        spotify_link,
+        image,
+        release_date,
+        tracks
+    };
+}
 

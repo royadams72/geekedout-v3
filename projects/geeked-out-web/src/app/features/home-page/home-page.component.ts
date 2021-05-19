@@ -36,11 +36,6 @@ export class HomePageComponent implements OnInit {
   // this.moviesPreview$ = this.store.pipe(select(getMoviesPreview));
   this.musicPreview$ = this.store.pipe(select(getItems(CategoryType.Music, true, 'items' )));
   this.gamesPreview$ = this.store.pipe(select(getItems(CategoryType.Games, true)));
-  // this.musicService.getMusic2(40).subscribe((data) => {
-  //   console.log(data);
-  // })
-
-  // this.gamesPreview$ = this.store.pipe(select(getGamesPreview));
   }
 
 }
