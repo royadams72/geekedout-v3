@@ -3,7 +3,7 @@ import { ComicsMainComponent } from '@web/features/comics/components/comics-main
 import { CategoryType } from '@web/shared/enums/category-type.enum';
 import { Comic, ComicDetail, Items, Price } from '@web/shared/interfaces/comic';
 import { MoviesResponse } from '@web/shared/interfaces/movies';
-import { AlbumDetail, Albums, Tracks } from '@web/shared/interfaces/music';
+import { AlbumDetail, Albums, Artists, Tracks } from '@web/shared/interfaces/music';
 import { Preview } from '@web/shared/interfaces/preview';
 import { State } from '@web/store/reducers';
 import { AppState } from '../reducers/main.reducers';
@@ -100,27 +100,12 @@ function previewCategory(subState: string, item: any): Preview | undefined {
 function mapDetail(subState: string, selectedItem: any | undefined): any | undefined {
     if (!selectedItem) { return; }
     let data;
-    // const { isbn, description, issueNumber, pageCount, prices, title, urls, images: [{ path, extension }],
-    // dates: [{ date: onsaleDate }], creators: { items: creators } }: any = selectedItem;
-    // const purchaseUrl = urls.find((c: any) => c.type === 'purchase');
-
     if (subState === CategoryType.Comics) {
         data = comicDetail(selectedItem);
     } else if (subState === CategoryType.Music) {
         data = albumDetail(selectedItem);
     }
     return data;
-}
-
-
-function musicDetail(selectedItem: Albums) : any | undefined {
-    // return {
-    //     name: string;
-    //     artists: ArtistDetails[];
-    //     release_date: string;
-
-    // };
-    return selectedItem;
 }
 
 function comicDetail(selectedItem: Comic) : ComicDetail | undefined {
@@ -142,15 +127,16 @@ function comicDetail(selectedItem: Comic) : ComicDetail | undefined {
     };
 }
 
-function albumDetail(selectedItem: Albums) : AlbumDetail | undefined {
+function albumDetail(selectedItem: Albums): AlbumDetail | undefined {
     if (!selectedItem) { return; }
-    const { name, artists: artistArray, images: [, {url: image}], external_urls: {spotify: spotify_link} , release_date , tracks: {items}} = selectedItem;
-    const tracks = items.map((item: any) => item.name);
-    const artists = artistArray.map((item: any) => item.name);
+    const { name, artists: artistArray,
+        images: [, {url: image}], external_urls: {spotify: spotifyLink }, release_date , tracks: {items}} = selectedItem;
+    const tracks = items.map((item: Artists) => item.name);
+    const artists = artistArray.map((item: Artists) => ({ name: item.name, spotifyUrl: item.external_urls.spotify}));
     return {
         name,
         artists,
-        spotify_link,
+        spotify_link: spotifyLink,
         image,
         release_date,
         tracks

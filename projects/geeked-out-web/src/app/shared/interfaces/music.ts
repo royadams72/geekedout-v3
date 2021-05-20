@@ -58,16 +58,7 @@ export interface MusicStore {
 export interface Tracks {
     href: string;
     items: [{
-        artists: [{
-            external_urls: {
-                spotify: string
-            };
-            href: string;
-            id: string;
-            name: string;
-            type: string;
-            uri: string
-        }];
+        artists: Array<Artists>;
         available_markets: Array<string>;
         disc_number: number;
         duration_ms: number;
