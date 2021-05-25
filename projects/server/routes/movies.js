@@ -56,7 +56,7 @@ router.get('/details/:id', function (req, res) {
          error: err
        })
      }
-        res.json({data: JSON.parse(body)});
+        res.json(JSON.parse(body));
     })
 
 });

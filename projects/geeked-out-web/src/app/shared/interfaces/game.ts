@@ -16,3 +16,15 @@ export interface Game {
     users: string;
     worth: string;
 }
+
+export interface GameDetail {
+    description: string;
+    gamerpower_url: string;
+    image: string;
+    instructions: string;
+    platforms: string;
+    published_date: string;
+    title: string;
+    type: string;
+    worth: string;
+}

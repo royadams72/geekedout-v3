@@ -35,12 +35,6 @@ export interface Artists {
     type: string;
     uri: string;
 }
-export interface AlbumDetail {
-    name: string;
-    artists: ArtistDetails[];
-    release_date: string;
-
-}
 export interface ArtistDetails {
     name: string;
     spotifyUrl: string;
@@ -73,7 +67,7 @@ export interface Tracks {
         track_number: number;
         type: string;
         uri: string;
-    }],
+    }];
     limit: number;
     next: number | null;
     offset: number;

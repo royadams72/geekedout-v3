@@ -2,7 +2,8 @@ import { createSelector } from '@ngrx/store';
 import { ComicsMainComponent } from '@web/features/comics/components/comics-main/comics-main.component';
 import { CategoryType } from '@web/shared/enums/category-type.enum';
 import { Comic, ComicDetail, Items, Price } from '@web/shared/interfaces/comic';
-import { MoviesResponse } from '@web/shared/interfaces/movies';
+import { Game, GameDetail } from '@web/shared/interfaces/game';
+import { Movie, MovieDetail, MoviesStore } from '@web/shared/interfaces/movies';
 import { AlbumDetail, Albums, Artists, Tracks } from '@web/shared/interfaces/music';
 import { Preview } from '@web/shared/interfaces/preview';
 import { State } from '@web/store/reducers';
@@ -25,13 +26,9 @@ export const getSubstate = () => {
 const getRouteID = createSelector(
     appState,
     (state: AppState) => {
-        let routeID;
-        if (typeof state.selectedId === 'number') {
-            routeID = +state.selectedId;
-        } else {
-            routeID = state.selectedId;
-        }
-        return routeID;
+        // let routeID;
+        console.log(typeof state.selectedId);
+        return state.selectedId;
     }
 );
 
@@ -45,13 +42,14 @@ export const getSubState = (subState: string): any => {
 
 };
 
-export const getDetail = <T>(subState: string, arrayName: string): any => {
+export const getDetail = <T>(subState: string, arrayName?: string): any => {
+    console.log(subState);
     return createSelector(
         getSubState(subState),
         getRouteID,
-        (state: AppState, routeId: string | number): T | undefined => {
-            const selectedItem: T | undefined = getSelectedItem(state, arrayName, routeId);
-
+        (state: AppState, routeId: string): T | undefined => {
+            console.log(routeId, arrayName);
+            const selectedItem: T | undefined = getSelectedItem(state, routeId, arrayName);
             return selectedItem ? mapDetail(subState, selectedItem) : undefined;
         }
     );
@@ -72,15 +70,18 @@ export const getItems = (subState: string, preview: boolean, arrayName?: string)
     );
 };
 
-function getSelectedItem<T>(state: AppState, arrayName: string, routeId: string | number): T | undefined {
-    return (state as any)[`${arrayName}`].find((item: any): boolean => {
-        return item.id === routeId;
+function getSelectedItem<T>(state: AppState, routeId: string, arrayName?: string): T | undefined {
+    console.log(state);
+    const arr = arrayName ? (state as any)[`${arrayName}`] : (state as any);
+    return arr.find((item: any): boolean => {
+
+        return item.id.toString() === routeId;
     });
 }
 
-function getImageDataIfMovies(state: MoviesResponse) {
-    if(!state.imageData) { return; }
-    moviesImagePath = `${state.imageData.secure_base_url}w300`;
+function getImageDataIfMovies(state: MoviesStore): string {
+    if (!state.imageData) { return ''; }
+    return moviesImagePath = `${state.imageData.secure_base_url}w300`;
 }
 
 function previewCategory(subState: string, item: any): Preview | undefined {
@@ -104,6 +105,10 @@ function mapDetail(subState: string, selectedItem: any | undefined): any | undef
         data = comicDetail(selectedItem);
     } else if (subState === CategoryType.Music) {
         data = albumDetail(selectedItem);
+    } else if (subState === CategoryType.Movies) {
+        data = movieDetail(selectedItem);
+    } else if (subState === CategoryType.Games) {
+        data = gameDetail(selectedItem);
     }
     return data;
 }
@@ -143,3 +148,34 @@ function albumDetail(selectedItem: Albums): AlbumDetail | undefined {
     };
 }
 
+function movieDetail(selectedItem: Movie): MovieDetail | undefined {
+    if (!selectedItem) { return; }
+    const { title, release_date, poster_path, homepage, imdb_id } = selectedItem;
+    const genres  = selectedItem.genres.map((item: any) => item.name);
+    // console.log(genres, `${moviesImagePath}${poster_path}`, homepage, `http://www.imdb.com/title/${imdb_id}`);
+    return {
+        imdb_link: `http://www.imdb.com/title/${imdb_id}`,
+        image: `${moviesImagePath}${poster_path}`,
+        release_date,
+        genres,
+        homepage,
+        title
+    };
+}
+
+function gameDetail(selectedItem: Game): GameDetail | undefined {
+    if (!selectedItem) { return; }
+    const { description, gamerpower_url, image, instructions, platforms, published_date, title, type, worth } = selectedItem;
+    console.log(description, gamerpower_url, image, instructions, platforms, title, type, worth);
+    return {
+        description,
+        gamerpower_url,
+        image,
+        instructions,
+        platforms,
+        published_date,
+        title,
+        type,
+        worth
+    };
+}

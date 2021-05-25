@@ -13,19 +13,19 @@ export class MusicService extends ResourceService<MusicStore>{
 
   constructor(httpClient: HttpClient) {
     super(httpClient);
-    this.endPointUrl = '/music/preview/';
+    this.endPointUrl = {preview: '/music/preview/', details: '/music/getAlbum/'};
   }
 
-  getMusic2(limit?: number): Observable<MusicStore> {
-    let httpArray: Array<Observable<any>> = [];
+  getMusic(limit?: number): Observable<MusicStore> {
+    const httpArray: Array<Observable<any>> = [];
     let musicStore = {} as MusicStore;
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.httpClient.get<MusicStore>(`${environment.apiUrl}${this.endPointUrl}${limit}`, this.httpOptions)
+    return this.httpClient.get<MusicStore>(`${environment.apiUrl}${this.endPointUrl.preview}${limit}`, this.httpOptions)
       .pipe(
         map((data) => {
           musicStore = data;
           data.items.map((item: Albums) => {
-            httpArray.push(this.httpClient.get<any>(`${environment.apiUrl}/music/getAlbum/${item.id}`, this.httpOptions));
+            httpArray.push(this.httpClient.get<any>(`${environment.apiUrl}${this.endPointUrl.details}${item.id}`, this.httpOptions));
           });
         }),
         mergeMap(() => {
