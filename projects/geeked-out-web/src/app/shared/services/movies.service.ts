@@ -33,7 +33,6 @@ export class MoviesService extends ResourceService<MoviesStore>{
       return forkJoin([this.httpClient.get<MoviesImageData>(`${environment.apiUrl}${this.endPointUrl.info}`, this.httpOptions), ...httpArray]);
     }),
     map((arr: any) => {
-      console.log(arr[1]);
       const [imageData, ...rest] = arr;
       moviesStore.imageData = imageData;
       moviesStore.results = rest;

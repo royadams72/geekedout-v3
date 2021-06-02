@@ -24,6 +24,7 @@ router.get('/info', function (req, res) {
 })
 
 router.get('/preview/', function (req, res, next) {
+
   var options = {
     url:'https://api.themoviedb.org/3/movie/now_playing?api_key='+process.env.MOVIES_APIKEY+'&language=en-GB&pageNum=1&region=GB'
   }
@@ -36,7 +37,7 @@ router.get('/preview/', function (req, res, next) {
          error: err
        })
      }
-    //  console.log(JSON.parse(body));
+
         res.json(JSON.parse(body));
         next();
     })

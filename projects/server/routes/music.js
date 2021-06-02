@@ -39,7 +39,7 @@ router.use(function (req, res, next) {
 })
 router.get('/preview/:limit', function (req, res) {
   let limit = req.params.limit;
-  console.log(limit);
+  console.log('music');
      var options = {
        url:'https://api.spotify.com/v1/browse/new-releases?limit='+limit+'&country=GB',
 

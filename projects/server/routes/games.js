@@ -38,6 +38,7 @@ to GET API endpoint
 
 // })
 router.get('/getgames/', function (req, res) {
+  console.log('games');
      var options = {
        url:'https://www.gamerpower.com/api/giveaways',
 
@@ -53,6 +54,7 @@ router.get('/getgames/', function (req, res) {
             error: err
           })
         }
+
            res.json(JSON.parse(body));
        })
 

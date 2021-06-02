@@ -13,22 +13,28 @@ import { AppState } from '../reducers/main.reducers';
 const appState = (state: State) => state.state;
 let moviesImagePath: string;
 
-export const comics = createSelector(
+// export const comics = createSelector(
+//     appState,
+//     (state: AppState) => state.comics
+// );
+// export const getSubstate = () => {
+//     createSelector(
+//         appState,
+//         (state: AppState) => state
+//     );
+// };
+export const isLoaded = createSelector(
     appState,
-    (state: AppState) => state.comics
-);
-export const getSubstate = () => {
-    createSelector(
-        appState,
-        (state: AppState) => state.comics
-    );
-};
+    (state: AppState): boolean => {
+        // let routeID;
+        return state.uiData.uiLoaded;
+    }
+)
 const getRouteID = createSelector(
     appState,
     (state: AppState) => {
         // let routeID;
-        console.log(typeof state.selectedId);
-        return state.selectedId;
+        return state.uiData.selectedId;
     }
 );
 
@@ -36,19 +42,20 @@ export const getSubState = (subState: string): any => {
    return createSelector(
             appState,
             // projection function
-            (state: any) => state[`${subState}`]
+            (state: any) => {
+                // console.log(state);
+               return state[`${subState}`];
+            }
         );
 
 
 };
 
 export const getDetail = <T>(subState: string, arrayName?: string): any => {
-    console.log(subState);
     return createSelector(
         getSubState(subState),
         getRouteID,
         (state: AppState, routeId: string): T | undefined => {
-            console.log(routeId, arrayName);
             const selectedItem: T | undefined = getSelectedItem(state, routeId, arrayName);
             return selectedItem ? mapDetail(subState, selectedItem) : undefined;
         }
@@ -59,9 +66,9 @@ export const getItems = (subState: string, preview: boolean, arrayName?: string)
     return createSelector(
         getSubState(subState),
         (state: any): Preview[] => {
-            if (!state) { return []; }
+            if (Object.entries(state).length === 0) { return [] as Preview[]; }
             let arr = !arrayName ? state : state[`${arrayName}`];
-            if (preview) {  arr = arr.slice(0, 4); }
+            if (preview) { arr = arr.slice(0, 4); }
             getImageDataIfMovies(state);
             return arr.map((el: Array<{}>) => {
                 return previewCategory(subState, el);
@@ -71,7 +78,7 @@ export const getItems = (subState: string, preview: boolean, arrayName?: string)
 };
 
 function getSelectedItem<T>(state: AppState, routeId: string, arrayName?: string): T | undefined {
-    console.log(state);
+    // console.log(state);
     const arr = arrayName ? (state as any)[`${arrayName}`] : (state as any);
     return arr.find((item: any): boolean => {
 
@@ -166,7 +173,7 @@ function movieDetail(selectedItem: Movie): MovieDetail | undefined {
 function gameDetail(selectedItem: Game): GameDetail | undefined {
     if (!selectedItem) { return; }
     const { description, gamerpower_url, image, instructions, platforms, published_date, title, type, worth } = selectedItem;
-    console.log(description, gamerpower_url, image, instructions, platforms, title, type, worth);
+    // console.log(description, gamerpower_url, image, instructions, platforms, title, type, worth);
     return {
         description,
         gamerpower_url,
