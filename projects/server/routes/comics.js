@@ -30,6 +30,7 @@ router.get('/preview/:limit/:offset', function (req, res, next) {
          error: err
        })
      }
+          // console.log(JSON.parse(body));
           res.json(JSON.parse(body).data);
         //  next();
     })
@@ -52,7 +53,6 @@ function findAndReplace(object, value, replacevalue) {
 }
 router.get('/details/:id', function (req, res, next) {
   let id = req.params.id;
-  console.log(req.params)
   var options = {
     url: url+'comics/'+id+'?ts='+ts+'&apikey='+process.env.COMICS_PUBLIC_APIKEY+'&hash='+hash.hex()
   }

@@ -13,7 +13,7 @@ export class CategoryComponent implements OnInit {
    }
 
   ngOnInit(): void {
-    console.log(this.items);
+    // console.log(this.items);
   }
 
 }

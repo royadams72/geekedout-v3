@@ -1,14 +1,24 @@
-export interface Movies {
+export interface Movie {
     adult: boolean;
     backdrop_path: string;
-    genre_ids: Array<number>;
+    belongs_to_collection: any;
+    budget: number;
+    genres: Array<{id: number; name: string}>;
+    homepage: string;
     id: number;
+    imdb_id: string;
     original_language: string;
     original_title: string;
     overview: string;
     popularity: number;
     poster_path: string;
+    production_companies: Array<{id: number, logo_path: string, name: string, origin_country: string}>;
+    production_countries: Array<{iso_3166_1: string, name: string}>;
     release_date: string;
+    revenue: number;
+    runtime: number;
+    spoken_languages: Array<{english_name: string, iso_639_1: string, name: string}>;
+    status: string;
     title: string;
     video: boolean;
     vote_average: number;
@@ -26,10 +36,18 @@ export interface MoviesImageData {
     still_sizes: Array<string>;
 }
 
-export interface MoviesResponse {
+export interface MovieDetail {
+    genres: Array<string>;
+    homepage: string;
+    image: string;
+    imdb_link: string;
+    release_date: string;
+    title: string;
+}
+export interface MoviesStore {
     dates: {maximun: string, minimum: string};
     page: number;
-    results: Movies[];
+    results: Movie[];
     total_pages: number;
     total_results: number;
     imageData: MoviesImageData;

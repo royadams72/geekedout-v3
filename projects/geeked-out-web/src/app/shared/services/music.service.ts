@@ -1,43 +1,61 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
+import { forkJoin, Observable, of } from 'rxjs';
 import { environment } from '@web-env/environment';
-import { catchError, map } from 'rxjs/operators';
-import { MusicResponse } from '@web/shared/interfaces/music';
+import { catchError, map, mergeMap } from 'rxjs/operators';
+import { Albums, MusicStore } from '@web/shared/interfaces/music';
+import { ResourceService } from './resource.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class MusicService {
+export class MusicService extends ResourceService<MusicStore>{
 
-  constructor(private http: HttpClient) { }
-
-  getMusic(limit: number): Observable<MusicResponse> {
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.http.get<any>(`${environment.apiUrl}/music/preview/${limit}`, { headers })
-      .pipe(
-        // map((music) => music),
-        catchError(this.handleError<MusicResponse>('getMusic', {} as MusicResponse))
-      );
+  constructor(httpClient: HttpClient) {
+    super(httpClient);
+    this.endPointUrl = {preview: '/music/preview/', details: '/music/getAlbum/'};
   }
 
+  getMusic(limit?: number): Observable<MusicStore> {
+    const httpArray: Array<Observable<any>> = [];
+    let musicStore = {} as MusicStore;
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.httpClient.get<MusicStore>(`${environment.apiUrl}${this.endPointUrl.preview}${limit}`, this.httpOptions)
+      .pipe(
+        map((data) => {
+          musicStore = data;
+          data.items.map((item: Albums) => {
+            httpArray.push(this.httpClient.get<any>(`${environment.apiUrl}${this.endPointUrl.details}${item.id}`, this.httpOptions));
+          });
+        }),
+        mergeMap(() => {
+          return forkJoin(httpArray);
+        }),
+        map((albumsArray: Albums[]) => {
+          musicStore.items = albumsArray;
+          return musicStore;
+        })
+
+      );
+
+  }
   /**
    * Handle Http operation that failed.
    * Let the app continue.
    * @param operation - name of the operation that failed
    * @param result - optional value to return as the observable result
    */
-   handleError<T>(operation = 'operation', result?: T): any {
-    return (error: any): Observable<T> => {
+  //  handleError<T>(operation = 'operation', result?: T): any {
+  //   return (error: any): Observable<T> => {
 
-      // TODO: send the error to remote logging infrastructure
-      console.error(error); // log to console instead
+  //     // TODO: send the error to remote logging infrastructure
+  //     console.error(error); // log to console instead
 
-      // TODO: better job of transforming error for user consumption
-      console.log(`${operation} failed: ${error.message}`);
+  //     // TODO: better job of transforming error for user consumption
+  //     console.log(`${operation} failed: ${error.message}`);
 
-      // Let the app keep running by returning an empty result.
-      return of(result as T);
-    };
-  }
+  //     // Let the app keep running by returning an empty result.
+  //     return of(result as T);
+  //   };
+  // }
 }

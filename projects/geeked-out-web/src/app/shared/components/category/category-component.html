@@ -2,7 +2,7 @@
   Category Component!!
   <div *ngIf="items">
     <div *ngFor="let item of items">
-      <a [routerLink]="item.id ? [item.id] : link">
+      <a [routerLink]="link ? [link] : item.id">
         <img *ngIf="item?.image" src="{{item.image}}">
       </a>
     </div>
