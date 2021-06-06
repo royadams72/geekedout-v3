@@ -30,7 +30,7 @@ export const isLoaded = createSelector(
         return state.uiData.uiLoaded;
     }
 )
-const getRouteID = createSelector(
+export const getRouteID = createSelector(
     appState,
     (state: AppState) => {
         // let routeID;
@@ -98,9 +98,9 @@ function previewCategory(subState: string, item: any): Preview | undefined {
     } else if (subState === CategoryType.Music) {
         data = { id: item.id, image: `${item.images[1].url}`, title: item.name };
     } else if (subState === CategoryType.Movies) {
-        data = {id: item.id, image: `${moviesImagePath}${item.poster_path}`, title: item.title};
+        data = { id: item.id, image: `${moviesImagePath}${item.poster_path}`, title: item.title };
     } else if (subState === CategoryType.Games) {
-        data = {id: item.id, image: item.image, title: item.title};
+        data = { id: item.id, image: item.image, title: item.title };
     }
     return data;
 }

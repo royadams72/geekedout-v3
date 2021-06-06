@@ -17,7 +17,10 @@ const routes: Routes = [
   },
   {
     path: ':id',
-    component: ComicDetailsComponent
+    component: ComicDetailsComponent,
+    resolve: {
+      category: CategoryResolver
+    }
   }
 ];
 
