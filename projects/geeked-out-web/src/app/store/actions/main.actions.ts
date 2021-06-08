@@ -11,7 +11,7 @@ import { createAction, props } from '@ngrx/store';
 // export const loadMoviesData = createAction('[loadMoviesData] loading...');
 // export const loadMoviesDataComplete = createAction('[loadMoviesDataComplete] Data Loaded', props<{movies: MoviesStore}>());
 // export const loadGamesData = createAction('[loadGamesData] loading...');
-// export const loadGamesDataComplete = createAction('[loadGamesDataComplete] Data Loaded', props<{games: Game[]}>());
+export const getCategoryDetail = createAction('[getCategoryDetail] Getting Detail', props<{category: string, routeId: string, array: string}>());
 
 export const loadData = createAction('[loadData] loading...');
 export const loadDataComplete = createAction('[loadDataComplete] Data Loaded', props<{games: Game[], movies: MoviesStore, music: MusicStore, comics: ComicStore}>());
@@ -20,4 +20,4 @@ export const setIds = createAction('[Id] Load Ids', props<{ id: string }>());
 export const setSelectedItem = createAction('[setSelectedItem] Set Selected Item', props<{item: MovieDetail | AlbumDetail}>());
 
 export type AppActionsUnion = ReturnType<typeof loadData |  typeof loadDataComplete |
-                                        typeof setIds | typeof setSelectedItem>;
+                                        typeof setIds | typeof setSelectedItem | typeof getCategoryDetail>;

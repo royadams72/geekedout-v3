@@ -21,8 +21,8 @@ export class ComicDetailsComponent implements OnInit {
     this.comicDetail$ = this.store.pipe(select(
       getDetail<ComicDetail>(CategoryType.Comics, 'results')))
       .subscribe(data => {
-         this.store.dispatch(AppActions.setSelectedItem({item: data}));
-         console.log(data);
+        //  this.store.dispatch(AppActions.setSelectedItem({item: data}));
+        //  console.log(data);
         });
 
     // getDetail = (subState: string, arrayName: any)
