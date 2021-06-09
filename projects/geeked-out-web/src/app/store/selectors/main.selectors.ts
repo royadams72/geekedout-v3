@@ -4,7 +4,7 @@ import { CategoryType } from '@web/shared/enums/category-type.enum';
 import { Comic, ComicDetail, Items, Price } from '@web/shared/interfaces/comic';
 import { Game, GameDetail } from '@web/shared/interfaces/game';
 import { Movie, MovieDetail, MoviesStore } from '@web/shared/interfaces/movies';
-import { AlbumDetail, Albums, Artists, Tracks } from '@web/shared/interfaces/music';
+import { AlbumDetail, Album, Artists, Tracks } from '@web/shared/interfaces/music';
 import { Preview } from '@web/shared/interfaces/preview';
 import { State } from '@web/store/reducers';
 import { AppState } from '../reducers/main.reducers';
@@ -13,37 +13,25 @@ import { AppState } from '../reducers/main.reducers';
 const appState = (state: State) => state.state;
 let moviesImagePath: string;
 
-// export const comics = createSelector(
-//     appState,
-//     (state: AppState) => state.comics
-// );
-// export const getSubstate = () => {
-//     createSelector(
-//         appState,
-//         (state: AppState) => state
-//     );
-// };
 export const isLoaded = createSelector(
     appState,
-    (state: AppState): boolean => {
-        // let routeID;
-        return state.uiData.uiLoaded;
-    }
-)
-const getRouteID = createSelector(
+    (state: AppState): boolean => state.uiData.uiLoaded);
+
+export const getRouteID = createSelector(
     appState,
     (state: AppState) => {
-        // let routeID;
         return state.uiData.selectedId;
     }
 );
 
+export const getItem = createSelector(
+    appState,
+    (state: AppState) => state.uiData.selectedItem);
+
 export const getSubState = (subState: string): any => {
    return createSelector(
             appState,
-            // projection function
             (state: any) => {
-                // console.log(state);
                return state[`${subState}`];
             }
         );
@@ -78,7 +66,6 @@ export const getItems = (subState: string, preview: boolean, arrayName?: string)
 };
 
 function getSelectedItem<T>(state: AppState, routeId: string, arrayName?: string): T | undefined {
-    // console.log(state);
     const arr = arrayName ? (state as any)[`${arrayName}`] : (state as any);
     return arr.find((item: any): boolean => {
 
@@ -98,9 +85,9 @@ function previewCategory(subState: string, item: any): Preview | undefined {
     } else if (subState === CategoryType.Music) {
         data = { id: item.id, image: `${item.images[1].url}`, title: item.name };
     } else if (subState === CategoryType.Movies) {
-        data = {id: item.id, image: `${moviesImagePath}${item.poster_path}`, title: item.title};
+        data = { id: item.id, image: `${moviesImagePath}${item.poster_path}`, title: item.title };
     } else if (subState === CategoryType.Games) {
-        data = {id: item.id, image: item.image, title: item.title};
+        data = { id: item.id, image: item.image, title: item.title };
     }
     return data;
 }
@@ -139,7 +126,7 @@ function comicDetail(selectedItem: Comic) : ComicDetail | undefined {
     };
 }
 
-function albumDetail(selectedItem: Albums): AlbumDetail | undefined {
+function albumDetail(selectedItem: Album): AlbumDetail | undefined {
     if (!selectedItem) { return; }
     const { name, artists: artistArray,
         images: [, {url: image}], external_urls: {spotify: spotifyLink }, release_date , tracks: {items}} = selectedItem;

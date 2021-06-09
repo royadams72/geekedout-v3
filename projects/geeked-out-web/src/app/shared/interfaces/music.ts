@@ -1,4 +1,4 @@
-export interface Albums {
+export interface Album {
     album_type: string;
     artists: Artists[];
     available_markets: Array<string>;
@@ -41,7 +41,7 @@ export interface ArtistDetails {
 }
 export interface MusicStore {
     href: string;
-    items: Albums[];
+    items: Album[];
     limit: number;
     next: string;
     offset: number;
