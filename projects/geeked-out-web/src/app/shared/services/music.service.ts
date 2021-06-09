@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { forkJoin, Observable, of } from 'rxjs';
 import { environment } from '@web-env/environment';
 import { catchError, map, mergeMap } from 'rxjs/operators';
-import { Albums, MusicStore } from '@web/shared/interfaces/music';
+import { Album, MusicStore } from '@web/shared/interfaces/music';
 import { ResourceService } from './resource.service';
 
 @Injectable({
@@ -24,14 +24,14 @@ export class MusicService extends ResourceService<MusicStore>{
       .pipe(
         map((data) => {
           musicStore = data;
-          data.items.map((item: Albums) => {
+          data.items.map((item: Album) => {
             httpArray.push(this.httpClient.get<any>(`${environment.apiUrl}${this.endPointUrl.details}${item.id}`, this.httpOptions));
           });
         }),
         mergeMap(() => {
           return forkJoin(httpArray);
         }),
-        map((albumsArray: Albums[]) => {
+        map((albumsArray: Album[]) => {
           musicStore.items = albumsArray;
           return musicStore;
         })

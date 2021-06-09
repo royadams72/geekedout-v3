@@ -1,10 +1,9 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { CategoryResolver } from '@web/shared/resolvers/category.resolver';
+import { ComicDetailResolver } from '@web/shared/resolvers/comic/comic-detail.resolver';
+import { ComicMainResolver } from '@web/shared/resolvers/comic/comic-main.resolver';
 import { ComicDetailsComponent } from './components/comic-details/comic-details.component';
 import { ComicsMainComponent } from './components/comics-main/comics-main.component';
-
-
 
 
 const routes: Routes = [
@@ -12,14 +11,14 @@ const routes: Routes = [
     path: '',
     component: ComicsMainComponent,
     resolve: {
-      category: CategoryResolver
+      category: ComicMainResolver
     }
   },
   {
     path: ':id',
     component: ComicDetailsComponent,
     resolve: {
-      category: CategoryResolver
+      detail: ComicDetailResolver
     }
   }
 ];
