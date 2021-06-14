@@ -10,10 +10,12 @@ import { AppEffects } from '@web/store/effects/main.effects';
 import { HttpClientModule } from '@angular/common/http';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { RouterEffects } from '@web/store/effects/router.effects';
+import { LoadingComponent } from './shared/components/ui/loading/loading/loading.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    LoadingComponent
   ],
   imports: [
     BrowserModule,

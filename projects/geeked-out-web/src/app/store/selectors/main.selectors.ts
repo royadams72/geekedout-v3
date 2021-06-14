@@ -28,6 +28,14 @@ export const getItem = createSelector(
     appState,
     (state: AppState) => state.uiData.selectedItem);
 
+export const getPageLoading = createSelector(
+    appState,
+    (state: AppState) => state.uiData.pageLoading);
+
+    export const getCurrPrevUrls = createSelector(
+        appState,
+        (state: AppState) => state.uiData.currDestUrls);
+
 export const getSubState = (subState: string): any => {
    return createSelector(
             appState,

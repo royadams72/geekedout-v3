@@ -33,12 +33,13 @@ export class CustomSerializer implements RouterStateSerializer<RouterStateUrl> {
     while (route.firstChild) {
       route = route.firstChild;
     }
+
     const {
       url,
       root: { queryParams },
     } = routerState;
     const { params } = route;
-
+    // console.log(route, routerState);
     return { url, params, queryParams };
   }
 }

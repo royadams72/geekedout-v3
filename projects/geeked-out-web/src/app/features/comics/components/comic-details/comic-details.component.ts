@@ -21,7 +21,7 @@ export class ComicDetailsComponent implements OnInit {
   ngOnInit(): void {
 
     this.comicDetail$ = this.store.pipe(select(getItem)).subscribe((d) =>{
-      console.log(d);
+      // console.log(d);
     })
 
   }
