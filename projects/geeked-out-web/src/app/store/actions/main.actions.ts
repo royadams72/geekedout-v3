@@ -12,10 +12,12 @@ export const getAlbumDetail = createAction(`[getAlbumDetail] Getting Album Detai
 export const setPageLoading = createAction(`[setPageLoading] Page Is Loading`, props<{ pageLoading: boolean }>());
 export const loadDataComplete = createAction('[loadDataComplete] Data Loaded', props<{games: Game[], movies: MoviesStore, music: MusicStore, comics: ComicStore}>());
 export const setIds = createAction('[Id] Load Ids', props<{ id: string }>());
+export const clearStore = createAction('[clearStore] Clear Store');
+
 export const setCurrPrevUrls = createAction('[setCurrPrevUrls] Setting Current and Destination URLs', props<{ currentUrl: string, previousUrl: string}>());
 export const setSelectedItem = createAction('[setSelectedItem] Set Selected Item', props<{item: MovieDetail | AlbumDetail}>());
 
-export type AppActionsUnion = ReturnType<typeof loadData | typeof loadDataComplete | typeof setIds | typeof setSelectedItem | typeof getComicDetail |
+export type AppActionsUnion = ReturnType<typeof loadData | typeof loadDataComplete | typeof setIds | typeof setSelectedItem | typeof getComicDetail | typeof clearStore |
                                          typeof getGameDetail | typeof getMovieDetail | typeof getAlbumDetail | typeof setPageLoading | typeof setCurrPrevUrls>;
 
 

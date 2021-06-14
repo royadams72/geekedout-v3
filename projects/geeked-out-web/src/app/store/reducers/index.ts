@@ -1,15 +1,9 @@
-import {
-  ActionReducer,
-  ActionReducerMap,
-  MetaReducer
-} from '@ngrx/store';
-import { environment } from '../../../environments/environment';
+import { ActionReducer, ActionReducerMap, MetaReducer, Action } from '@ngrx/store';
 import { AppState, reducer as AppReducer } from './main.reducers';
 import { localStorageSync } from 'ngrx-store-localstorage';
 import { Params, RouterStateSnapshot } from '@angular/router';
 import { RouterReducerState, RouterStateSerializer, routerReducer } from '@ngrx/router-store';
-
-
+import { AppActions } from '../actions';
 export interface State {
   state: AppState;
   router: RouterReducerState<any>;
@@ -33,17 +27,26 @@ export class CustomSerializer implements RouterStateSerializer<RouterStateUrl> {
     while (route.firstChild) {
       route = route.firstChild;
     }
-
     const {
       url,
       root: { queryParams },
     } = routerState;
     const { params } = route;
-    // console.log(route, routerState);
     return { url, params, queryParams };
   }
 }
+
+export function clearState(reducer: any) {
+  return function (state: State | undefined, action: Action) {
+    if (action.type === AppActions.clearStore.type) {
+      sessionStorage.clear();
+      state = {} as State;
+    }
+    return reducer(state, action);
+  };
+}
+
 export function localStorageSyncReducer(reducer: ActionReducer<State>): ActionReducer<State> {
   return localStorageSync({ keys: ['state'], rehydrate: true, storage: sessionStorage })(reducer);
 }
-export const metaReducers: MetaReducer<State>[] = [localStorageSyncReducer];
+export const metaReducers: MetaReducer<State>[] = [localStorageSyncReducer, clearState];

@@ -55,11 +55,11 @@ export class RouterEffects {
       return forkJoin([of({ currentUrl, previousUrl }), this.store.pipe(select(getCurrPrevUrls), first())]);
     }),
     map((urlArr) => {
-      let [{ previousUrl:newPreviousUrl,  currentUrl: newCurrentsUrl }, { previousUrl:oldPreviousUrl }] = urlArr;
+      let  [{ previousUrl:newPreviousUrl,  currentUrl: newCurrentsUrl }] = urlArr;
       let currentAndPreviousUrls = { currentUrl: newCurrentsUrl, previousUrl: newPreviousUrl};
       //  need to rehydrate previousUrl in store on page refresh
-      if(newPreviousUrl === '' && oldPreviousUrl) {
-        currentAndPreviousUrls.previousUrl = oldPreviousUrl;
+      if(newPreviousUrl === '' && urlArr[1] &&  urlArr[1].previousUrl) {
+        currentAndPreviousUrls.previousUrl = urlArr[1].previousUrl;
       }
 
       return AppActions.setCurrPrevUrls(currentAndPreviousUrls);

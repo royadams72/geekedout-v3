@@ -34,7 +34,7 @@ export const getPageLoading = createSelector(
 
     export const getCurrPrevUrls = createSelector(
         appState,
-        (state: AppState) => state.uiData.currDestUrls);
+        (state: AppState) => state.uiData.currPrevUrls);
 
 export const getSubState = (subState: string): any => {
    return createSelector(

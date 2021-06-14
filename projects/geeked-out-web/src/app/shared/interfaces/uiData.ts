@@ -3,7 +3,7 @@ export interface uiData {
    selectedItem: any;
    uiLoaded: boolean;
    pageLoading: boolean;
-   currDestUrls: {
+   currPrevUrls: {
       currentUrl: string;
       previousUrl: string;
    }
