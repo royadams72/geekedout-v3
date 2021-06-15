@@ -27,20 +27,16 @@ export const initialAppState: AppState = {
 let moviesImagePath: string;
 export const appReducer = createReducer(
     initialAppState,
-    // on(AppActions.loadComicData, (state) => (state)),
-    // on(AppActions.loadComicDataComplete, (state, { comics }) => ({...state, comics})),
-    // on(AppActions.loadMusicData, (state) => (state)),
-    // on(AppActions.loadMusicDataComplete, (state, { music }) => ({...state, music})),
-    // on(AppActions.loadMoviesData, (state) => (state)),
-    // on(AppActions.loadMoviesDataComplete, (state, { movies }) => ({...state, movies})),
-    // on(AppActions.loadGamesData, (state) => (state)),
-    on(AppActions.loadData, loadData),
+    on(AppActions.loadData, (state) => (state)),
     on(AppActions.getComicDetail, getComicDetail),
     on(AppActions.getGameDetail, getGamecDetail),
     on(AppActions.getMovieDetail, getMovieDetail),
     on(AppActions.getAlbumDetail, getAlbumDetail),
-    on(AppActions.loadDataComplete, loadDataComplete),
+    on(AppActions.loadDataComplete, (state, {games, movies, music, comics}) => ({ ...state, games, movies, music, comics, uiData: {...state.uiData, uiLoaded: true }})),
+    // on(AppActions.loadDataComplete, loadDataComplete),
+    on(AppActions.setPageLoading, (state, { pageLoading }) => ({ ...state, uiData: {...state.uiData, pageLoading }})),
     on(AppActions.setIds, (state, { id }) => ({ ...state, uiData: {...state.uiData, selectedId:id }})),
+    on(AppActions.setCurrPrevUrls, (state, { currentUrl, previousUrl }) => ({ ...state, uiData: {...state.uiData, currPrevUrls: { currentUrl, previousUrl }}})),
     on(AppActions.setSelectedItem, setItem)
     );
 
@@ -134,7 +130,7 @@ const selectedItem: AlbumDetail = {
   release_date,
   tracks
 };
-console.log(selectedItem);
+
   return {...state, uiData: {...state.uiData, selectedItem}};
 }
 
@@ -142,9 +138,9 @@ function setItem(state: AppState, action: any): AppState {
   return { ...state, uiData: {...state.uiData, selectedItem: action.item }};
 }
 
-function loadData(state: any, action: any): any {
-  return state;
-}
+// function loadData(state: any, action: any): any {
+//   return state;
+// }
 
 function loadDataComplete(state: any, action: any): any {
     return { ...state, games: action.games, movies: action.movies, music: action.music, comics: action.comics , uiData: {...state.uiData, uiLoaded: true }};

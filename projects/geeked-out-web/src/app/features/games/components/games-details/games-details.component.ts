@@ -4,7 +4,7 @@ import { CategoryType } from '@web/shared/enums/category-type.enum';
 import { GameDetail } from '@web/shared/interfaces/game';
 import { AppActions } from '@web/store/actions';
 import { State } from '@web/store/reducers';
-import { getDetail, getItem } from '@web/store/selectors';
+import { getItem } from '@web/store/selectors';
 
 @Component({
   selector: 'app-games-details',
