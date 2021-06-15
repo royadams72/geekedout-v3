@@ -20,6 +20,10 @@ const routes: Routes = [
     loadChildren: () => import('./features/games/games.module').then(m => m.GamesModule)
   },
   {
+    path: 'search',
+    loadChildren: () => import('./features/search/search.module').then(m => m.SearchModule)
+  },
+  {
     path: '',
     loadChildren: () => import('./features/home-page/home-page.module').then(m => m.HomePageModule)
   }

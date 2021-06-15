@@ -44,8 +44,55 @@ export const getSubState = (subState: string): any => {
             }
         );
 
-
 };
+
+
+// export const search = (searchString: string): any => {
+//     return createSelector(
+//              appState,
+//              (state: any) => {
+//                  let s = searchString.toUpperCase();
+//                  const keys = [{state: CategoryType.Comics, item: "title", array: 'results'},
+//                                {state: CategoryType.Music, item: "name", array: 'items'},
+//                                {state: CategoryType.Movies, item: "title", array: 'results'},
+//                                {state: CategoryType.Games, item: "title", array: ''}]
+
+//                  return keys.map((key) => {
+//                  let arr = key.array ? state[key.state][key.array] : state[key.state];
+//                  return arr.filter((item: any) => {
+//                      const title = item[key.item].toUpperCase();
+//                      console.log(item);
+//                      return title.includes(s);
+//                  })})
+//              }
+//          );
+
+//  };
+
+export const search = (searchString: string): any => {
+    return createSelector(
+             appState,
+             (state: any) => {
+                 let s = searchString.toUpperCase();
+                 const keys = [{state: CategoryType.Comics, array: 'results'},
+                               {state: CategoryType.Music, array: 'items'},
+                               {state: CategoryType.Movies, array: 'results'},
+                               {state: CategoryType.Games, array: ''}]
+
+                return keys.map((key) => {
+                 let arr = key.array ? state[key.state][key.array] : state[key.state];
+                    return arr.map((item: any) => {
+                        item = previewCategory(key.state, item);
+                        return item;
+                    }).filter((item: any) => {
+                        const title = item.title.toUpperCase();
+                        return title.includes(s);
+                 })});
+             }
+         );
+
+ };
+
 
 // export const getDetail = <T>(subState: string, arrayName?: string): any => {
 //     return createSelector(

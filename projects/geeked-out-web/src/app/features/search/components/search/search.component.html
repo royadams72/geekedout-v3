@@ -1,0 +1,9 @@
+<p>search works!</p>
+<input  [ngModel]="" #serachField>
+
+<div *ngFor="let item of data">
+    <div *ngFor="let cat of item">
+    {{cat.title}}
+</div>
+</div>
+<!-- <input  (keyup)="searchString.next(filter($event.target.value))" [ngModel]="" #serachField> -->

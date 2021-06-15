@@ -17,7 +17,7 @@ export class LoadingComponent implements OnInit {
    this.store.pipe(select(getPageLoading)).subscribe((pageLoading) => {
 
      this.loading = pageLoading ? 'block' : 'none';
-    //  console.log(this.loading)
+     console.log(this.loading)
     })
   }
 
