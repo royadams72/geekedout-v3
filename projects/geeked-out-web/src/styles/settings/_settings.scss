@@ -1,0 +1,41 @@
+/*
+Colour Map
+Colours to be used for app.
+With a few symantic helpers for main app colours.
+*/
+
+$settings-colours: (
+    /* Main background colours */
+    bg-colour-primary:                  #000000,
+    bg-colour-secondary:                #E8F8FB,
+    heading-bg:                         #000000,
+    footer-bg:                          #04459B,
+
+    /* Main border colours*/
+    border-primary-colour:              #A6A8AA,
+    border-secondary-colour:            #DCDCDC,
+
+    /* text */
+    text-primary:                       #251F21,
+    text-white:                         #FFFFFF,
+    dashboard-text-link:                #04459B,
+
+    error:                              #CA0109,
+    valid-state:                        #C5DA46,
+    active-state:                       #04459B,
+    focus:                              #FDBE1F,
+    text-focus:                         #A9A9A9,
+
+    link:                               #04459B,
+    link-hover:                         #04459B,
+
+    /* form */
+    typeahead-ul-bg-colour:             #F7F7F7,
+);
+
+/*
+Gradient colours
+*/
+
+$base-gradient-bg:                      linear-gradient(-135deg, #00B6BA, #0050A8);
+$base-gradient-bg-top-down:             linear-gradient(0, #00B6BA, #0050A8);

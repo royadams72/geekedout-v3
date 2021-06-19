@@ -1,0 +1,19 @@
+/*
+
+Icons
+
+*/
+
+/* ---------- Imports */
+
+// @import '~dlg-angular-components/dist/src/icon/icon.component';
+
+/* ---------- Component */
+
+.dlg-icon {
+
+    .dlg-button & {
+        margin-top: -4px;
+    }
+
+}

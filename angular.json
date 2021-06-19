@@ -28,7 +28,7 @@
               "projects/geeked-out-web/src/assets"
             ],
             "styles": [
-              "projects/geeked-out-web/src/styles.scss"
+              "projects/geeked-out-web/src/styles/styles.scss"
             ],
             "scripts": []
           },

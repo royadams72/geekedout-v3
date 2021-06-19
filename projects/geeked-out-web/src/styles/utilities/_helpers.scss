@@ -1,0 +1,69 @@
+/*
+
+Helper Classes
+
+*/
+
+/*-----------
+PLEASE RESTRICT THE USE OF THIS SECTION.
+HELPER CLASSES  SHOULD ONLY BE USED IF AGREED WITH THE TEAM.
+NOTE USED OF THIS SECTION WITHOUT AN AGREEMENT FROM THE TEAM
+WILL FAIL PEER REVIEW
+-----------*/
+
+/* ---------- Component: Helper Classes */
+
+.util-helper {
+    &__margin-bt-spacing {
+        margin: 30px 0;
+    }
+
+    &__clearfix {
+        &::after {
+            clear: both;
+            content: '';
+            display: block;
+        }
+    }
+
+    &__right-align {
+        text-align: right;
+    }
+
+    &__underline {
+        text-decoration: underline;
+    }
+
+    &__no-underline {
+        text-decoration: none;
+    }
+
+    &__pos-relative {
+        position: relative;
+    }
+
+    &__pos-fixed {
+        position: fixed;
+    }
+
+    &__display-inline-block {
+        display: inline-block;
+    }
+
+    &__hide {
+        display: none;
+    }
+
+
+    &__hide-xs {
+        @include is-small {
+            display: none;
+        }
+    }
+
+    &__show-xs {
+        @include is-small {
+            display: block;
+        }
+    }
+}
