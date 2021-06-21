@@ -1,10 +1,8 @@
-<div>
-  Category Component!!
-  <div *ngIf="items">
-    <div *ngFor="let item of items">
-      <a [routerLink]="link ? [link] : item.id">
-        <img *ngIf="item?.image" src="{{item.image}}">
+
+  <div class="category" *ngIf="items">
+    <div class="category__item" *ngFor="let item of items">
+      <a class="category__anchor" [routerLink]="link ? [link] : item.id">
+        <img class="category__image" *ngIf="item.image" src="{{item.image}}">
       </a>
     </div>
   </div>
-</div>

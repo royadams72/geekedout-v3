@@ -37,6 +37,8 @@ html {
 body {
     background-color: $base-bg-colour;
     color: $base-bg-colour;
+    margin: 0;
+    padding: 0;
     // font-family: $body-font-family;
 
     // @include is-medium {

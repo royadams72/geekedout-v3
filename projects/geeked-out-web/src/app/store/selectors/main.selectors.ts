@@ -96,7 +96,7 @@ function getImageDataIfMovies(state: MoviesStore): string {
 function mapItemForPreview(category: string, item: any): Preview | undefined {
     let data;
     if (category === CategoryType.Comics) {
-         data = { id: item.id, image: `${item.images[0].path}.${item.images[0].extension}`, title: item.title };
+         data = { id: item.id, image: `${item.images[0].path}.jpg`, title: item.title };
     } else if (category === CategoryType.Music) {
         data = { id: item.id, image: `${item.images[1].url}`, title: item.name };
     } else if (category === CategoryType.Movies) {
