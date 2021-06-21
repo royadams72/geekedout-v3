@@ -1,0 +1,195 @@
+/*
+
+Typography
+
+*/
+
+/* ---------- Variables */
+
+// $type-anchor-margin-bottom:          10px !default;
+
+// $type-body-alt-font-family:          $font-odudo !default;
+// $type-body-font-family:              $font-proxinanova !default;
+
+// $type-font-colour:                   #5C1544 !default;
+// $type-font-color-benefits:           #979797 !default;
+// $type-font-size-medium:              16px !default;
+// $type-panel-left-margin:             30px !default;
+// $type-text-font-color:               settings-colour('text-primary') !default;
+// $type-text-focus-colour:             settings-colour('text-focus') !default;
+
+// $type-title-font-size:               28px !default;
+// $type-title-line-height:             1.1 !default;
+// $type-title-alt-line-height:         1.1 !default;
+// $type-title-alt-margin-bottom:       20px !default;
+
+// $type-h1-font-family:                $font-proxinanova-bold !default;
+// $type-h1-font-size-small:            40px !default;
+// $type-h1-font-size-medium:           80px !default;
+// $type-h1-line-height-small:          1.1 !default;
+// $type-h1-line-height-medium:         1.1 !default;
+// $type-h1-margin-bottom:              0 !default;
+// $type-h1-weight:                     normal !default;
+// $type-h1-colour:                     #5C1544 !default;
+
+// $type-h2-font-family:                $font-proxinanova-bold !default;
+// $type-h2-font-size-small:            20px !default;
+// $type-h2-font-size-medium:           30px !default;
+// $type-h2-line-height-small:          1.1 !default;
+// $type-h2-line-height-medium:         1.1 !default;
+// $type-h2-margin-bottom:              0 !default;
+// $type-h2-weight:                     normal !default;
+// $type-h2-colour:                     #5C1544 !default;
+
+// $type-h3-font-family:                $font-proxinanova-bold !default;
+// $type-h3-font-size-small:            20px !default;
+// $type-h3-font-size-medium:           30px !default;
+// $type-h3-line-height-small:          1.1 !default;
+// $type-h3-line-height-medium:         1.1 !default;
+// $type-h3-margin-bottom:              20px !default;
+// $type-h3-margin-bottom-medium:       32px !default;
+// $type-h3-weight:                     normal !default;
+// $type-h3-colour:                     $type-font-colour !default;
+
+// $type-h4-font-family:                $font-proxinanova-bold !default;
+// $type-h4-font-size-small:            18px !default;
+// $type-h4-font-size-medium:           24px !default;
+// $type-h4-line-height-small:          1.1 !default;
+// $type-h4-line-height-medium:         1.1 !default;
+// $type-h4-margin-bottom:              20px !default;
+// $type-h4-weight:                     normal !default;
+// $type-h4-colour:                     inherit !default;
+
+// $type-p-font-family:                 $font-proxinanova !default;
+// $type-p-font-size-small:             14px !default;
+// $type-p-font-size-medium:            18px !default;
+// $type-p-line-height-small:           1.4 !default;
+// $type-p-line-height-medium:          1.4 !default;
+// $type-p-margin-bottom-small:         20px !default;
+// $type-p-margin-bottom-medium:        20px !default;
+// $type-p-weight:                      normal !default;
+// $type-p-colour:                      inherit !default;
+
+// $type-small-copy-font-size:          12px !default;
+// $type-small-copy-line-height:        1.4 !default;
+
+// $type-sub-title-font-size:           18px !default;
+// $type-sub-title-line-height:         1.4 !default;
+// $type-sub-title-font-weight:         bold !default;
+
+// $type-a-decoration:                  underline !default;
+
+// $type-link-font-colour:              settings-colour('link') !default;
+
+/* ----------- Mixins */
+
+// @mixin color-font-margin-bottom($type-font-colour, $type-body-font-family, $font-weight, $margin-bottom) {
+//     color: $type-font-colour;
+//     font-family: $type-body-font-family;
+//     font-weight: $font-weight;
+//     margin-bottom: $margin-bottom;
+// }
+
+// @mixin anchor($type-body-font-size, $cursor, $margin-bottom, $text-decoration, $line-height, $padding-left) {
+//     color: $type-font-color-benefits;
+//     cursor: $cursor;
+//     font-size: $type-body-font-size;
+//     line-height: $line-height;
+//     padding-left: $padding-left;
+//     text-decoration:  $text-decoration;
+// }
+
+
+// h1,
+// %h1 {
+//     @include color-font-margin-bottom($type-h1-colour, $type-h1-font-family, $type-h1-weight, $type-h1-margin-bottom);
+//     @include hg-font-size($type-h1-font-size-small, $type-h1-line-height-small);
+
+//     @include hg-mq('med') {
+//         @include hg-font-size($type-h1-font-size-medium, $type-h1-line-height-medium);
+//     }
+// }
+
+// h2,
+// %h2 {
+//     @include color-font-margin-bottom($type-h2-colour, $type-h2-font-family, $type-h2-weight, $type-h2-margin-bottom);
+//     @include hg-font-size($type-h2-font-size-small, $type-h2-line-height-small);
+
+//     @include hg-mq('med') {
+//         @include hg-font-size($type-h2-font-size-medium, $type-h2-line-height-medium);
+//     }
+// }
+
+// h3,
+// %h3 {
+//     @include color-font-margin-bottom($type-h3-colour, $type-h3-font-family, $type-h3-weight, $type-h3-margin-bottom);
+//     @include hg-font-size($type-h3-font-size-small, $type-h3-line-height-small);
+
+//     @include hg-mq('med') {
+//         @include hg-font-size($type-h3-font-size-medium, $type-h2-line-height-medium);
+//         margin-bottom: $type-h3-margin-bottom-medium;
+//     }
+// }
+
+// h4,
+// %h4 {
+//     @include color-font-margin-bottom($type-h4-colour, $type-h4-font-family, $type-h4-weight, $type-h4-margin-bottom);
+//     @include hg-font-size($type-h4-font-size-small, $type-h4-line-height-small);
+
+//     @include hg-mq('med') {
+//         @include hg-font-size($type-h4-font-size-medium, $type-h4-line-height-medium);
+//     }
+// }
+
+// p,
+// %p {
+//     @include color-font-margin-bottom($type-p-colour, $type-p-font-family, $type-p-weight, $type-p-margin-bottom-small);
+//     @include hg-font-size($type-p-font-size-small, $type-p-line-height-small);
+
+//     &:last-child {
+//         margin-bottom: 0;
+//     }
+
+//     @include hg-mq('med') {
+//         @include hg-font-size($type-p-font-size-medium, $type-p-line-height-medium);
+//         margin-bottom: $type-p-margin-bottom-medium;
+//     }
+// }
+
+// a {
+//     text-decoration: $type-a-decoration;
+// }
+
+// .link {
+//     color: $type-link-font-colour;
+//     cursor: pointer;
+//     padding: 0;
+//     text-decoration: $type-a-decoration;
+
+//     &:focus:not(:hover) {
+//         box-shadow: 0 0 0 2px $type-text-focus-colour;
+//     }
+// }
+
+// %header-copy {
+//     @extend %h1;
+//     @include hg-font-size($type-title-font-size, $type-title-line-height);
+// }
+
+// %header-copy-alt {
+//     @include color-font-margin-bottom($type-font-colour, $type-body-alt-font-family, bold, $type-title-alt-margin-bottom);
+//     @include hg-font-size($type-title-font-size, $type-title-alt-line-height);
+// }
+
+// %small-copy {
+//     @include hg-font-size($type-small-copy-font-size, $type-small-copy-line-height);
+// }
+
+// %sub-title-text {
+//     @include hg-font-size($type-sub-title-font-size, $type-sub-title-line-height);
+//     font-weight: $type-sub-title-font-weight;
+// }
+
+// %text-anchor {
+//     @include anchor($type-font-size-medium, pointer, $type-anchor-margin-bottom, underline, $type-panel-left-margin, $type-panel-left-margin);
+// }

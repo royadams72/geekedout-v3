@@ -1,7 +1,7 @@
 
 .loaderContainer {
     height: 100vh; width: 100%;
-    background-color:rgba(75, 203, 242, 0.5);
+    background-color:rgba(255, 255, 255, 0.5);
     z-index: 99999;
     position: absolute;
     top: 0;
@@ -9,15 +9,12 @@
     position:fixed;
 }
 .loader {
+  @include animation-keyframe(spin, transform, rotate(0deg), rotate(360deg));
+
     border: 12px solid transparent; /* Light grey */
-    border-top: 12px solid #3498db; /* Blue */
+    border-top: 12px solid #ffffff; /* Blue */
     border-radius: 50%;
     width: 90px;
     height: 90px;
     animation: spin 0.7s linear infinite;
-  }
-
-  @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
   }

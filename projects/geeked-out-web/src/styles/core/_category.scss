@@ -1,0 +1,25 @@
+.category {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    // -webkit-justify-content: center;
+    // /* Safari */
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+
+    &__item {
+        width: 50%;
+        height: auto;
+
+        @include is-medium {
+            width: 25%;
+        }
+    }
+    &__image {
+        // flex-basis: calc(25% - 10px);
+        align-self: center;
+        width: 100%;
+        height: auto;
+    }
+}

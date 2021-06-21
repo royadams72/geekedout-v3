@@ -1,0 +1,112 @@
+// /*
+
+// Modal
+
+// */
+
+
+// /* ---------- Overrides */
+
+// $modal-title-color:                         #04A5AE;
+// $modal-font-header:                         $font-omnes-med-italic;
+// $modal-font-header-2:                       $font-omnes-med-italic;
+// $modal-sub-heading-font:                    $font-poppins-semibold;
+// $modal-sub-title-font:                      $font-poppins-semibold;
+// $modal-description-font:                    $font-poppins-semibold;
+// $modal-highlight-font:                      $font-poppins-semibold;
+// $modal-info-font:                           $font-poppins-semibold;
+
+// /* ---------- Imports */
+
+// @import '../../../common/styles/dialog/modal';
+
+// /* ---------- Variables */
+
+// $modal-description-title-colour:            #251F21;
+// $modal-ncd-tabel-cell-bg-color-1:           #04459B;
+
+// /* ---------- Component */
+
+// .modal {
+//     &__container {
+//         margin-top: 15px;
+//         padding: 0 20px;
+//     }
+
+//     &__title-section {
+//         margin-top: 10px;
+//     }
+
+//     &__title {
+//         margin-top: 20px;
+
+//         @include hg-mq('med') {
+//             font-size: 50px;
+//         }
+//     }
+
+//     &__error + &__title-section &__title,
+//     &__error + &__title-section .section__heading-alt {
+//         color: $modal-description-title-colour;
+//     }
+
+//     &__heading--alt {
+//         @include hg-font-size(28px, 1.1);
+//     }
+
+//     &__description {
+//         @include hg-font-size(18px, 1.4);
+
+//         @include hg-mq('med') {
+//             @include hg-font-size(20px, 1.4);
+//         }
+//     }
+
+//     &__description.section__tertiary-color,
+//     &__description--alt {
+//         @include hg-font-size(20px, 1.1);
+//         color: $modal-description-title-colour;
+//         margin: 30px 0 20px;
+//     }
+
+//     &__description-title {
+//         @include hg-mq('med') {
+//             @include hg-font-size(22px, 1.4);
+//         }
+//     }
+
+//     &__sub-heading-1 {
+//         @include hg-font-size(16px, 1.1);
+//         margin-bottom: 7px;
+//     }
+
+//     &__sub-heading-1 + p {
+//         line-height: 1.6;
+//     }
+
+//     &__copy {
+//         @include hg-mq('med') {
+//             margin-top: 40px;
+//         }
+//     }
+
+//     &__list-items {
+//         @include hg-font-size(16px, 1.5);
+//     }
+
+//     &__table {
+//         max-width: 680px;
+//     }
+
+//     &__table-1 .table__header-copy,
+//     &__table-2 .table__header-copy {
+//         background-color: $modal-ncd-tabel-cell-bg-color-1;
+//     }
+
+//     &__button,
+//     &__button-container {
+//         button:not(.dlg-button--primary) {
+//             @extend %dlg-button--tertiary;
+//         }
+//     }
+// }
