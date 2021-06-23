@@ -11,11 +11,12 @@ import { HttpClientModule } from '@angular/common/http';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { RouterEffects } from '@web/store/effects/router.effects';
 import { LoadingComponent } from './shared/components/ui/loading/loading/loading.component';
-
+import { HeaderComponent } from './shared/components/header/header.component';
 @NgModule({
   declarations: [
     AppComponent,
-    LoadingComponent
+    LoadingComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
