@@ -1,5 +1,7 @@
 export interface Preview {
     id?: number | string;
-    image: string;
+    imageLarge?: string;
+    imageMedium?: string;
+    imageSmall?: string;
     title?: string;
 }
