@@ -1,3 +1,3 @@
 import * as AppActions from './main.actions';
-
-export {  AppActions };
+import * as ScreenActions from './screen.actions';
+export {  AppActions, ScreenActions };

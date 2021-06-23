@@ -26,6 +26,7 @@ import { LoadingComponent } from './shared/components/ui/loading/loading/loading
     EffectsModule.forRoot([AppEffects, RouterEffects]),
     StoreRouterConnectingModule.forRoot({serializer: CustomSerializer}),
   ],
+  providers: [ { provide: Window, useValue: window }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

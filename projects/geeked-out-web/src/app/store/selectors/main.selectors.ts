@@ -90,19 +90,19 @@ export const getItems = (category: string, preview: boolean, arrayName?: string)
 
 function getImageDataIfMovies(state: MoviesStore): string {
     if (!state.imageData) { return ''; }
-    return moviesImagePath = `${state.imageData.secure_base_url}w300`;
+    return moviesImagePath = `${state.imageData.secure_base_url}`;
 }
 
 function mapItemForPreview(category: string, item: any): Preview | undefined {
     let data;
     if (category === CategoryType.Comics) {
-         data = { id: item.id, image: `${item.images[0].path}.jpg`, title: item.title };
+         data = { id: item.id, imageLarge: `${item.images[0].path}.jpg` , imageSmall: `${item.images[0].path}/standard_fantastic.jpg`, title: item.title };
     } else if (category === CategoryType.Music) {
-        data = { id: item.id, image: `${item.images[1].url}`, title: item.name };
+        data = { id: item.id, imageLarge: `${item.images[1].url}`, imageSmall: `${item.images[2].url}`, title: item.name };
     } else if (category === CategoryType.Movies) {
-        data = { id: item.id, image: `${moviesImagePath}${item.poster_path}`, title: item.title };
+        data = { id: item.id, imageLarge: `${moviesImagePath}w300${item.poster_path}`, imageSmall: `${moviesImagePath}w92${item.poster_path}`, title: item.title };
     } else if (category === CategoryType.Games) {
-        data = { id: item.id, image: item.image, title: item.title };
+        data = { id: item.id, imageLarge: item.image, title: item.title };
     }
     return data;
 }

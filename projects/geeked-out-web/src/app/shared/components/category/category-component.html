@@ -1,8 +1,11 @@
 
   <div class="category" *ngIf="items">
     <div class="category__item" *ngFor="let item of items">
-      <a class="category__anchor" [routerLink]="link ? [link] : item.id">
-        <img class="category__image" *ngIf="item.image" src="{{item.image}}">
+      <a class="category__anchor" [routerLink]="link ? [link] : item.id" >
+        <img  *ngIf="item.imageSmall && smallScreen"  class="category__image"  src="{{item.imageSmall}}">
+        <img *ngIf="item.imageLarge && largeScreen ||
+         mediumScreen || !item.imageSmall"  class="category__image"  src="{{item.imageLarge}}">
+
       </a>
     </div>
   </div>
