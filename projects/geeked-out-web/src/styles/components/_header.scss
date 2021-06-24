@@ -5,7 +5,6 @@
     margin: 0;
     padding: 0;
     height: 120px;
-    // overflow: auto;
     flex-direction: column;
     flex-basis: auto;
 
@@ -23,13 +22,12 @@
         height: auto;
         align-items: flex-start;
         justify-content: center;
-        // background-color: #cccccc;
+
         @include is-medium {
             justify-content: flex-start;
         }
 
         &-image {
-            // align-self: left;
             max-width: 85%;
 
             @include is-medium {
@@ -39,15 +37,9 @@
     }
 
     &__nav {
-        // display: flex;
+        margin-top: 10px;
         flex-grow: 1;
         flex-basis: 0;
-        // justify-content: flex-end;
-        // background-color: #ffffff;
-        @include is-small {
-            // height: 30px;
-            // flex-basis: auto;
-        }
 
         &-ul {
             padding: 0;
@@ -80,10 +72,6 @@
             height: auto;
         }
 
-        &-link {
-            display: flex;
-
-        }
     }
 
 }

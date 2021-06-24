@@ -6,7 +6,7 @@ export interface ScreenState {
     small: boolean;
     medium: boolean;
     large: boolean;
-  };
+  }
 
 export const initialState: ScreenState = {
   small: false,
