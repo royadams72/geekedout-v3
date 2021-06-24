@@ -24,7 +24,8 @@ export const initialAppState: AppState = {
   uiData: {} as uiData
 };
 
-let moviesImagePath: string;
+const moviesImagePath = '';
+
 export const appReducer = createReducer(
     initialAppState,
     on(AppActions.loadData, (state) => (state)),
@@ -32,10 +33,14 @@ export const appReducer = createReducer(
     on(AppActions.getGameDetail, mapGameDetail),
     on(AppActions.getMovieDetail, mapMovieDetail),
     on(AppActions.getAlbumDetail, mapAlbumDetail),
-    on(AppActions.loadDataComplete, (state, {games, movies, music, comics}) => ({ ...state, games, movies, music, comics, uiData: {...state.uiData, uiLoaded: true }})),
+    on(AppActions.loadDataComplete,
+      (state, {games, movies, music, comics}) =>
+      ({ ...state, games, movies, music, comics, uiData: {...state.uiData, uiLoaded: true }})),
     on(AppActions.setPageLoading, (state, { pageLoading }) => ({ ...state, uiData: {...state.uiData, pageLoading }})),
     on(AppActions.setIds, (state, { id }) => ({ ...state, uiData: {...state.uiData, selectedId:id }})),
-    on(AppActions.setCurrPrevUrls, (state, { currentUrl, previousUrl }) => ({ ...state, uiData: {...state.uiData, currPrevUrls: { currentUrl, previousUrl }}})),
+    on(AppActions.setCurrPrevUrls,
+      (state, { currentUrl, previousUrl }) =>
+      ({ ...state, uiData: {...state.uiData, currPrevUrls: { currentUrl, previousUrl }}})),
     on(AppActions.setSelectedItem, (state, {item}) => ({ ...state, uiData: {...state.uiData, selectedItem: item }}))
     );
 
@@ -72,15 +77,15 @@ function mapGameDetail(state: AppState, action: {routeId: string}): AppState {
   const { description, gamerpower_url, image, instructions, platforms, published_date, title, type, worth }:any = item;
 
   const selectedItem: GameDetail = {
-      description,
-      gamerpower_url,
-      image,
-      instructions,
-      platforms,
-      published_date,
-      title,
-      type,
-      worth
+    description,
+    gamerpower_url,
+    image,
+    instructions,
+    platforms,
+    published_date,
+    title,
+    type,
+    worth
   };
   return {...state, uiData: {...state.uiData, selectedItem}};
 }
@@ -91,7 +96,7 @@ function mapMovieDetail(state: AppState, action: {routeId: string}): AppState {
     return movie.id?.toString() ===  routeId;
   });
 
-  const { title, release_date, poster_path, homepage, imdb_id, genres:g } :any = item;
+  const { title, release_date, poster_path, homepage, imdb_id, genres: g }: any = item;
   const genres = g.map((item: any) => item.name);
   const selectedItem: MovieDetail = {
     imdb_link: `http://www.imdb.com/title/${imdb_id}`,
@@ -112,7 +117,7 @@ function mapAlbumDetail(state: AppState, action: { routeId: string }): AppState 
   });
 
   const { name, artists: artistArray,
-    images: [, { url: image }], external_urls: { spotify: spotifyLink }, release_date, tracks: { items } }: any = item;;
+    images: [, { url: image }], external_urls: { spotify: spotifyLink }, release_date, tracks: { items } }: any = item;
   const tracks = items.map((item: Artists) => item.name);
   const artists = artistArray.map((item: Artists) => ({ name: item.name, spotifyUrl: item.external_urls.spotify }));
 

@@ -5,22 +5,21 @@ import { Store, createFeatureSelector, select, Action, createSelector } from '@n
 import { ROUTER_NAVIGATED, RouterNavigationAction, ROUTER_REQUEST, ROUTER_NAVIGATION } from '@ngrx/router-store';
 import { AppActions } from '../actions';
 import { RouterStateUrl, State } from '../reducers';
-import { combineLatest, forkJoin, of } from 'rxjs';
+import { forkJoin, of } from 'rxjs';
 import { getCurrPrevUrls } from '../selectors';
-// import { AppState } from '../reducers/main.reducers';
 
 export const getRouterState = createFeatureSelector<RouterStateUrl>('router');
 
-
-export const  get = (old: any): any => {
- return createSelector(
+export const get = (old: any): any => {
+  return createSelector(
     getRouterState,
     (state: any) => {
-      if(!state) { return; }
+      if (!state) { return; }
       // console.log({url: state.state.url, prev: old});
-    return {url: state.state.url, prev: old};
-    })
-}
+      return { url: state.state.url, prev: old };
+    });
+};
+
 // const getUrlFromRoute = createSelector(
 //   getRouterState,
 //   (state: any) => {
@@ -33,8 +32,7 @@ export const  get = (old: any): any => {
 })
 
 export class RouterEffects {
-  old: any;
-  new: any;
+
   setRouteId$ = createEffect(() => this.actions$.pipe(
     ofType<RouterNavigationAction>(ROUTER_NAVIGATION),
     switchMap(action => {
@@ -55,10 +53,10 @@ export class RouterEffects {
       return forkJoin([of({ currentUrl, previousUrl }), this.store.pipe(select(getCurrPrevUrls), first())]);
     }),
     map((urlArr) => {
-      let  [{ previousUrl:newPreviousUrl,  currentUrl: newCurrentsUrl }] = urlArr;
-      let currentAndPreviousUrls = { currentUrl: newCurrentsUrl, previousUrl: newPreviousUrl};
+      const [{ previousUrl: newPreviousUrl,  currentUrl: newCurrentsUrl }] = urlArr;
+      const currentAndPreviousUrls = { currentUrl: newCurrentsUrl, previousUrl: newPreviousUrl};
       //  need to rehydrate previousUrl in store on page refresh
-      if(newPreviousUrl === '' && urlArr[1] &&  urlArr[1].previousUrl) {
+      if (newPreviousUrl === '' && urlArr[1] &&  urlArr[1].previousUrl) {
         currentAndPreviousUrls.previousUrl = urlArr[1].previousUrl;
       }
 
@@ -68,10 +66,10 @@ export class RouterEffects {
 
   setPageLoadingTrue$ = createEffect(() => this.actions$.pipe(
     ofType<RouterNavigationAction>(ROUTER_REQUEST),
-    switchMap(action => {
+    switchMap(() => {
       return of(true);
     }),
-    map((state) => {
+    map(() => {
       return AppActions.setPageLoading({ pageLoading: true });
     }),
   ), { dispatch: true });
@@ -79,15 +77,13 @@ export class RouterEffects {
 
   setPageLoadingFalse$ = createEffect(() => this.actions$.pipe(
     ofType<RouterNavigationAction>(ROUTER_NAVIGATED),
-    switchMap(action => {
-      return of(false);
+    switchMap(() => {
+      return of(true);
     }),
     map((pageLoading) => {
-      return AppActions.setPageLoading({ pageLoading});
+      return AppActions.setPageLoading({pageLoading});
     }),
   ), { dispatch: true });
-
-
 
   private getId(routerState: any): string {
     return routerState.params.id;

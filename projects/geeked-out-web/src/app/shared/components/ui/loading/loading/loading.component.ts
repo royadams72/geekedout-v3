@@ -12,13 +12,13 @@ import { Observable } from 'rxjs';
 export class LoadingComponent implements OnInit {
 
   constructor(private store: Store<State>) { }
- loading = 'block';
+  loading = 'flex';
+
   ngOnInit(): void {
    this.store.pipe(select(getPageLoading)).subscribe((pageLoading) => {
-
-     this.loading = pageLoading ? 'block' : 'none';
-     console.log(this.loading)
-    })
+     this.loading = pageLoading ? 'flex' : 'none';
+     console.log(this.loading);
+    });
   }
 
 }
