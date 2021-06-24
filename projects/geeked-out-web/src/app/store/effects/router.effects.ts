@@ -64,24 +64,15 @@ export class RouterEffects {
     }),
   ), { dispatch: true });
 
-  setPageLoadingTrue$ = createEffect(() => this.actions$.pipe(
-    ofType<RouterNavigationAction>(ROUTER_REQUEST),
-    switchMap(() => {
-      return of(true);
+  setPageLoading$ = createEffect(() => this.actions$.pipe(
+    ofType<RouterNavigationAction>(ROUTER_REQUEST, ROUTER_NAVIGATED),
+    switchMap((action: Action) => {
+      // Returns true if request is ROUTER_REQUEST false if ROUTER_NAVIGATED
+      const requestType = action.type.indexOf('request') !== -1;
+      return of(requestType);
     }),
-    map(() => {
-      return AppActions.setPageLoading({ pageLoading: true });
-    }),
-  ), { dispatch: true });
-
-
-  setPageLoadingFalse$ = createEffect(() => this.actions$.pipe(
-    ofType<RouterNavigationAction>(ROUTER_NAVIGATED),
-    switchMap(() => {
-      return of(true);
-    }),
-    map((pageLoading) => {
-      return AppActions.setPageLoading({pageLoading});
+    map((requestType) => {
+      return AppActions.setPageLoading({ pageLoading: requestType });
     }),
   ), { dispatch: true });
 
