@@ -1,13 +1,19 @@
 .category {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    // -webkit-justify-content: center;
-    // /* Safari */
-    justify-content: center;
-    margin: 0;
-    padding: 0;
+    &__header {
+            font-size: 40px;
+            margin-left: 15px;
+            margin-bottom: 8px;
 
+    }
+
+    &__items-container {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+        margin: 0;
+        padding: 0;
+    }
     &__item {
         width: 50%;
         height: auto;
@@ -17,9 +23,13 @@
         }
     }
     &__image {
-        // flex-basis: calc(25% - 10px);
         align-self: center;
         width: 100%;
         height: auto;
+    }
+
+    &__footer {
+        margin-top: 8px;
+        margin-bottom: 8px;
     }
 }

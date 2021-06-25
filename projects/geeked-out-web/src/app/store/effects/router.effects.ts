@@ -59,7 +59,6 @@ export class RouterEffects {
       if (newPreviousUrl === '' && urlArr[1] &&  urlArr[1].previousUrl) {
         currentAndPreviousUrls.previousUrl = urlArr[1].previousUrl;
       }
-
       return AppActions.setCurrPrevUrls(currentAndPreviousUrls);
     }),
   ), { dispatch: true });
@@ -68,11 +67,11 @@ export class RouterEffects {
     ofType<RouterNavigationAction>(ROUTER_REQUEST, ROUTER_NAVIGATED),
     switchMap((action: Action) => {
       // Returns true if request is ROUTER_REQUEST false if ROUTER_NAVIGATED
-      const requestType = action.type.indexOf('request') !== -1;
-      return of(requestType);
+      const loading = action.type.indexOf('request') !== -1;
+      return of(loading);
     }),
-    map((requestType) => {
-      return AppActions.setPageLoading({ pageLoading: requestType });
+    map((loading) => {
+      return AppActions.setPageLoading({ pageLoading: loading });
     }),
   ), { dispatch: true });
 

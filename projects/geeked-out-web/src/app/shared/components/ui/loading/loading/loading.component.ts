@@ -17,7 +17,6 @@ export class LoadingComponent implements OnInit {
   ngOnInit(): void {
    this.store.pipe(select(getPageLoading)).subscribe((pageLoading) => {
      this.loading = pageLoading ? 'flex' : 'none';
-     console.log(this.loading);
     });
   }
 

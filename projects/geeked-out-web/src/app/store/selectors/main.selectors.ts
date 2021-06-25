@@ -32,7 +32,7 @@ export const getPageLoading = createSelector(
     appState,
     (state: AppState) => state.uiData.pageLoading);
 
-    export const getCurrPrevUrls = createSelector(
+export const getCurrPrevUrls = createSelector(
         appState,
         (state: AppState) => state.uiData.currPrevUrls);
 
@@ -51,21 +51,21 @@ export const search = (searchString: string): any => {
     return createSelector(
              appState,
              (state: any) => {
-                 let s = searchString.toUpperCase();
+                 const s = searchString.toUpperCase();
                  const keys = [{state: CategoryType.Comics, array: 'results'},
                                {state: CategoryType.Music, array: 'items'},
                                {state: CategoryType.Movies, array: 'results'},
                                {state: CategoryType.Games, array: ''}]
 
-                return keys.map((key) => {
-                 let arr = key.array ? state[key.state][key.array] : state[key.state];
-                    return arr.map((item: any) => {
+                 return keys.map((key) => {
+                 const arr = key.array ? state[key.state][key.array] : state[key.state];
+                 return arr.map((item: any) => {
                         item = mapItemForPreview(key.state, item);
                         return item;
                     }).filter((item: any) => {
                         const title = item.title.toUpperCase();
                         return title.includes(s);
-                 })});
+                 }); });
              }
          );
 
@@ -95,14 +95,24 @@ function getImageDataIfMovies(state: MoviesStore): string {
 
 function mapItemForPreview(category: string, item: any): Preview | undefined {
     let data;
+    const isImages = item.images !== undefined ? item.images.length > 0 : undefined;
     if (category === CategoryType.Comics) {
-         data = { id: item.id, imageLarge: `${item.images[0].path}.jpg` , imageSmall: `${item.images[0].path}/standard_fantastic.jpg`, title: item.title };
+        data = {
+            id: item.id, imageLarge: isImages ? `${item.images[0].path}.jpg` : undefined,
+            imageSmall: isImages  ? `${item.images[0].path}/standard_fantastic.jpg` : undefined, title: item.title
+        };
     } else if (category === CategoryType.Music) {
-        data = { id: item.id, imageLarge: `${item.images[1].url}`, imageSmall: `${item.images[2].url}`, title: item.name };
+        data = {
+            id: item.id, imageLarge: isImages ? `${item.images[1].url}` : undefined,
+            imageSmall: isImages ? `${item.images[2].url}` : undefined, title: item.name
+        };
     } else if (category === CategoryType.Movies) {
-        data = { id: item.id, imageLarge: `${moviesImagePath}w300${item.poster_path}`, imageSmall: `${moviesImagePath}w92${item.poster_path}`, title: item.title };
+        data = {
+            id: item.id, imageLarge: item.poster_path ? `${moviesImagePath}w300${item.poster_path}` : undefined,
+            imageSmall: item.poster_path ? `${moviesImagePath}w92${item.poster_path}` : undefined, title: item.title
+        };
     } else if (category === CategoryType.Games) {
-        data = { id: item.id, imageLarge: item.image, title: item.title };
+        data = { id: item.id, imageLarge: item.image || undefined, title: item.title };
     }
     return data;
 }

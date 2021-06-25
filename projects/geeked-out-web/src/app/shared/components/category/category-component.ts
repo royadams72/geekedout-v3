@@ -1,7 +1,7 @@
-import { Component, Input, OnChanges, SimpleChanges, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges, OnInit, AfterViewInit} from '@angular/core';
 import { Preview } from '@web/shared/interfaces/preview';
 import { ScreenWidthService } from '@web/shared/services/screen-width.service';
-import { Observable } from 'rxjs';
+import { combineLatest, forkJoin, Observable } from 'rxjs';
 
 @Component({
   selector: 'app-category',
@@ -12,22 +12,30 @@ export class CategoryComponent implements OnInit {
   @Input() items: any;
   @Input() isPreview = true;
   @Input() link = '';
-  smallScreen: boolean = false;
-  mediumScreen: boolean = false;
-  largeScreen: boolean = false;
+  @Input() categoryTitle = '';
+  smallScreen = false;
+  mediumScreen = false;
+  largeScreen = false;
+  displayItems: any;
 
   constructor(private sw: ScreenWidthService) {
-    this.sw.small$.subscribe((isSmall) => {this.smallScreen = isSmall; console.log('isSmall =', isSmall)});
-    this.sw.medium$.subscribe((isMedium) => {this.mediumScreen = isMedium; console.log('isMedium =', isMedium)});
-    this.sw.large$.subscribe((isLarge) => {this.largeScreen = isLarge; console.log('isLarge =', isLarge)});
    }
 
   ngOnInit(): void {
+    combineLatest([this.sw.small$, this.sw.medium$, this.sw.large$])
+    .subscribe((screen) => {
+      [this.smallScreen, this.mediumScreen, this.largeScreen] = screen;
+      this.truncate();
+    });
   }
 
-  imageFunction(item: Preview) {
-    console.log(item.imageLarge,);
-    return true;
+  truncate(): void {
+    const n = this.smallScreen ? 20 : this.mediumScreen  ? 22 : 40;
+    if (!this.items) { return; }
+    this.displayItems = this.items.map((item: any) => {
+        const title = (item.title.length > n) ? `${item.title.substr(0, n - 1)}...` : item.title;
+        return {...item, title };
+      });
   }
 
 }
