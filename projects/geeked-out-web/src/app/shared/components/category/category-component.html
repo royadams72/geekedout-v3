@@ -4,9 +4,9 @@
  <div class="category__items-container" *ngIf="displayItems">
     <div class="category__item" *ngFor="let item of displayItems">
       <a class="category__anchor" [routerLink]="link ? [link] : item.id" >
-        <img  *ngIf="item.imageSmall && smallScreen"  class="category__image"  src="{{item.imageSmall}}">
-        <img *ngIf="item.imageLarge && largeScreen ||
-         mediumScreen || !item.imageSmall"  class="category__image"  src="{{item.imageLarge}}">
+        <img [defaultImage]="defaultImage" [lazyLoad]="item.imageSmall"  *ngIf="item.imageSmall && smallScreen"  class="category__image">
+        <img [defaultImage]="defaultImage" [lazyLoad]="item.imageLarge"  *ngIf="item.imageLarge && largeScreen ||
+         mediumScreen || !item.imageSmall"  class="category__image">
          <p class="category__footer">{{item.title}}</p>
       </a>
     </div>

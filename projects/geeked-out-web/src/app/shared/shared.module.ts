@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { LazyLoadImageModule } from 'ng-lazyload-image';
 import { CategoryComponent } from './components/category/category-component';
 import { RouterModule } from '@angular/router';
 
@@ -9,7 +10,8 @@ import { RouterModule } from '@angular/router';
   declarations: [CategoryComponent],
   imports: [
     CommonModule,
-    RouterModule
+    RouterModule,
+    LazyLoadImageModule
   ],
   exports: [
     CategoryComponent,

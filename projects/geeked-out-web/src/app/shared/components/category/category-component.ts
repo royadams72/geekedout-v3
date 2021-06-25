@@ -17,7 +17,8 @@ export class CategoryComponent implements OnInit {
   mediumScreen = false;
   largeScreen = false;
   displayItems: any;
-
+  defaultImage = '';
+  image = '';
   constructor(private sw: ScreenWidthService) {
    }
 
@@ -27,6 +28,8 @@ export class CategoryComponent implements OnInit {
       [this.smallScreen, this.mediumScreen, this.largeScreen] = screen;
       this.truncate();
     });
+    this.defaultImage = 'assets/images/defaultImage.png';
+    this.image = 'assets/images/image404@2x.png';
   }
 
   truncate(): void {
