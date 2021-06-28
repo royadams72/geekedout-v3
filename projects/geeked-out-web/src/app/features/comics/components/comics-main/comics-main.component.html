@@ -1,2 +1,2 @@
 
-<app-category [categoryTitle]="'Comics'" [items]="(store$ | async)"></app-category>
+<app-category [categoryTitle]="'Comics'" [items]="(store$ | async) || []"></app-category>
