@@ -1,11 +1,26 @@
-
-  <div class="category" *ngIf="items">
-    <div class="category__item" *ngFor="let item of items">
-      <a class="category__anchor" [routerLink]="link ? [link] : item.id" >
-        <img  *ngIf="item.imageSmall && smallScreen"  class="category__image"  src="{{item.imageSmall}}">
-        <img *ngIf="item.imageLarge && largeScreen ||
-         mediumScreen || !item.imageSmall"  class="category__image"  src="{{item.imageLarge}}">
-
-      </a>
-    </div>
+<div class="category">
+    <h1 class="category__header" [style.opacity]="isLoaded ? 1 : 0">{{categoryTitle}}</h1>
+  <div class="category__items-container" *ngIf="displayItems">
+      <div class="category__item" *ngFor="let item of displayItems">
+        <a class="category__anchor" [routerLink]="link ? [link] : item.id" >
+          <img [defaultImage]="defaultImage"  [lazyLoad]="item.imageSmall" *ngIf="item.imageSmall && smallScreen"  class="category__image">
+          <img [defaultImage]="defaultImage"  [lazyLoad]="item.imageLarge" *ngIf="item.imageLarge && largeScreen ||
+                mediumScreen || !item.imageSmall"  class="category__image">
+          <p class="category__footer" [style.opacity]="isLoaded ? 1 : 0">
+            <span *ngIf="smallScreen">
+              <span *ngIf="isStringLongerThan(item.title, 21) else doNotTruncate">{{item.title | slice:0:20 }}...</span>
+              <ng-template #doNotTruncate>{{item.title}}</ng-template>
+            </span>
+            <span *ngIf="mediumScreen">
+              <span *ngIf="isStringLongerThan(item.title, 26) else doNotTruncate">{{item.title | slice:0:25 }}...</span>
+              <ng-template #doNotTruncate>{{item.title}}</ng-template>
+            </span>
+            <span *ngIf="largeScreen">
+              <span *ngIf="isStringLongerThan(item.title, 41) else doNotTruncate">{{item.title | slice:0:40 }}...</span>
+              <ng-template #doNotTruncate>{{item.title}}</ng-template>
+            </span>
+          </p>
+        </a>
+      </div>
   </div>
+</div>

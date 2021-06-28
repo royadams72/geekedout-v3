@@ -1,7 +1,7 @@
-import { Component, Input, OnChanges, SimpleChanges, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges, OnInit, AfterViewInit} from '@angular/core';
 import { Preview } from '@web/shared/interfaces/preview';
 import { ScreenWidthService } from '@web/shared/services/screen-width.service';
-import { Observable } from 'rxjs';
+import { combineLatest, forkJoin, Observable } from 'rxjs';
 
 @Component({
   selector: 'app-category',
@@ -9,25 +9,45 @@ import { Observable } from 'rxjs';
 })
 export class CategoryComponent implements OnInit {
 
-  @Input() items: any;
+  @Input() items: Array<Preview> = [];
   @Input() isPreview = true;
   @Input() link = '';
-  smallScreen: boolean = false;
-  mediumScreen: boolean = false;
-  largeScreen: boolean = false;
-
+  @Input() categoryTitle = '';
+  smallScreen = false;
+  mediumScreen = false;
+  largeScreen = false;
+  displayItems: any;
+  defaultImage = '';
+  isLoaded = false;
   constructor(private sw: ScreenWidthService) {
-    this.sw.small$.subscribe((isSmall) => {this.smallScreen = isSmall; console.log('isSmall =', isSmall)});
-    this.sw.medium$.subscribe((isMedium) => {this.mediumScreen = isMedium; console.log('isMedium =', isMedium)});
-    this.sw.large$.subscribe((isLarge) => {this.largeScreen = isLarge; console.log('isLarge =', isLarge)});
    }
 
   ngOnInit(): void {
+    this.displayItems = this.items;
+    this.defaultImage = 'assets/images/defaultImage.png';
+    this.watchScreenSize();
+    this.fadeInText();
   }
 
-  imageFunction(item: Preview) {
-    console.log(item.imageLarge,);
-    return true;
+  watchScreenSize(): void {
+    combineLatest([this.sw.small$, this.sw.medium$, this.sw.large$])
+    .subscribe((screen) => {
+      [this.smallScreen, this.mediumScreen, this.largeScreen] = screen;
+    });
+  }
+
+  fadeInText(): void {
+    setTimeout(() => {
+      this.isLoaded = true;
+    }, 700);
+  }
+
+  isStringLongerThan(str: string, n: number): boolean {
+    return  str.length >= n;
+  }
+
+  isStringShorterThan(str: string, n: number): boolean {
+    return  str.length < n;
   }
 
 }

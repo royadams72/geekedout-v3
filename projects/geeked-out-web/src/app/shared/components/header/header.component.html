@@ -1,25 +1,25 @@
 <header class="header">
     <div class="header__logo">
 
-        <img class="header__logo-image" src="/assets/images/nav/logo@2x.png" alt="">
+        <img class="header__logo-image" src="{{navImagePath}}/logo@2x.png" alt="">
     </div>
 
     <nav class="header__nav">
         <ul class="header__nav-ul">
             <li class="header__nav-item" routerLinkActive="'header__nav-item--active'">
-              <a [routerLink]="['/movies']" class="header__nav-link"><img class="header__nav-item-img" src="/assets/images/nav/movies@2x.png"  alt="Movies"></a>
+              <a [routerLink]="['/movies']" class="header__nav-link"><img class="header__nav-item-img" src="{{navImagePath}}/movies@2x.png"  alt="Movies"></a>
             </li>
             <li class="header__nav-item" routerLinkActive="'header__nav-item--active'">
-              <a [routerLink]="['/comics']" class="header__nav-link"><img class="header__nav-item-img" src="/assets/images/nav/comics@2x.png"  alt="Comics"></a>
+              <a [routerLink]="['/comics']" class="header__nav-link"><img class="header__nav-item-img" src="{{navImagePath}}/comics@2x.png"  alt="Comics"></a>
             </li>
              <li class="header__nav-item" routerLinkActive="'header__nav-item--active'">
-             <a [routerLink]="['/music']" class="header__nav-link"><img class="header__nav-item-img" src="/assets/images/nav/music@2x.png" alt="Music"></a>
+             <a [routerLink]="['/music']" class="header__nav-link"><img class="header__nav-item-img" src="{{navImagePath}}/music@2x.png" alt="Music"></a>
              </li>
              <li class="header__nav-item" routerLinkActive="'header__nav-item--active'">
-               <a [routerLink]="['/games']" class="header__nav-link"><img class="header__nav-item-img" src="/assets/images/nav/games@2x.png"  alt="Games"></a>
+               <a [routerLink]="['/games']" class="header__nav-link"><img class="header__nav-item-img" src="{{navImagePath}}/games@2x.png"  alt="Games"></a>
              </li>
              <li class="header__nav-item" routerLinkActive="'header__nav-item--active'">
-               <a [routerLink]="['/search']" class="header__nav-link"><img class="header__nav-item-img" src="/assets/images/nav/search@2x.png" alt="Search"></a>
+               <a [routerLink]="['/search']" class="header__nav-link"><img class="header__nav-item-img" src="{{navImagePath}}/search@2x.png" alt="Search"></a>
              </li>
           </ul>
     </nav>

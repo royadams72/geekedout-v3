@@ -1,25 +1,46 @@
-.category {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    // -webkit-justify-content: center;
-    // /* Safari */
-    justify-content: center;
-    margin: 0;
-    padding: 0;
+$opacity-transition: opacity 1s;
 
+.category {
+    &__header {
+            font-size: 40px;
+            margin-left: 15px;
+            margin-bottom: 8px;
+
+    }
+
+    &__items-container {
+        align-items: center;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        margin: 0;
+        padding: 0;
+    }
     &__item {
-        width: 50%;
         height: auto;
+        width: 50%;
 
         @include is-medium {
             width: 25%;
         }
     }
     &__image {
-        // flex-basis: calc(25% - 10px);
         align-self: center;
-        width: 100%;
         height: auto;
+        opacity: 0;
+        width: 100%;
+        transition: $opacity-transition;
+
     }
+
+    &__footer {
+        margin-top: 8px;
+        margin-bottom: 8px;
+        transition: $opacity-transition;
+        opacity: 0;
+    }
+
+    img.ng-lazyloaded {
+        opacity: 1;
+      }
 }

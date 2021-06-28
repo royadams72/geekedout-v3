@@ -9,7 +9,7 @@ Typography
 // $type-anchor-margin-bottom:          10px !default;
 
 // $type-body-alt-font-family:          $font-odudo !default;
-// $type-body-font-family:              $font-proxinanova !default;
+$type-body-font-family:                 $font-main-font !default;
 
 // $type-font-colour:                   #5C1544 !default;
 // $type-font-color-benefits:           #979797 !default;
@@ -60,15 +60,14 @@ Typography
 // $type-h4-weight:                     normal !default;
 // $type-h4-colour:                     inherit !default;
 
-// $type-p-font-family:                 $font-proxinanova !default;
 // $type-p-font-size-small:             14px !default;
 // $type-p-font-size-medium:            18px !default;
 // $type-p-line-height-small:           1.4 !default;
 // $type-p-line-height-medium:          1.4 !default;
-// $type-p-margin-bottom-small:         20px !default;
+$type-p-margin-bottom-small:         20px !default;
 // $type-p-margin-bottom-medium:        20px !default;
 // $type-p-weight:                      normal !default;
-// $type-p-colour:                      inherit !default;
+$type-p-colour:                      inherit !default;
 
 // $type-small-copy-font-size:          12px !default;
 // $type-small-copy-line-height:        1.4 !default;
@@ -83,12 +82,12 @@ Typography
 
 /* ----------- Mixins */
 
-// @mixin color-font-margin-bottom($type-font-colour, $type-body-font-family, $font-weight, $margin-bottom) {
-//     color: $type-font-colour;
-//     font-family: $type-body-font-family;
-//     font-weight: $font-weight;
-//     margin-bottom: $margin-bottom;
-// }
+@mixin color-font-margin-bottom($type-font-colour, $type-body-font-family, $font-weight, $margin-bottom) {
+    color: $type-font-colour;
+    font-family: $type-body-font-family;
+    font-weight: $font-weight;
+    margin-bottom: $margin-bottom;
+}
 
 // @mixin anchor($type-body-font-size, $cursor, $margin-bottom, $text-decoration, $line-height, $padding-left) {
 //     color: $type-font-color-benefits;
@@ -141,20 +140,20 @@ Typography
 //     }
 // }
 
-// p,
-// %p {
-//     @include color-font-margin-bottom($type-p-colour, $type-p-font-family, $type-p-weight, $type-p-margin-bottom-small);
-//     @include hg-font-size($type-p-font-size-small, $type-p-line-height-small);
+p,
+%p {
+    @include color-font-margin-bottom($type-p-colour, $type-body-font-family, normal, $type-p-margin-bottom-small);
+    // @include hg-font-size($type-p-font-size-small, $type-p-line-height-small);
+    padding-left: 10px;
+    // &:last-child {
+    //     margin-bottom: 0;
+    // }
 
-//     &:last-child {
-//         margin-bottom: 0;
-//     }
-
-//     @include hg-mq('med') {
-//         @include hg-font-size($type-p-font-size-medium, $type-p-line-height-medium);
-//         margin-bottom: $type-p-margin-bottom-medium;
-//     }
-// }
+    // @include hg-mq('med') {
+    //     @include hg-font-size($type-p-font-size-medium, $type-p-line-height-medium);
+    //     margin-bottom: $type-p-margin-bottom-medium;
+    // }
+}
 
 // a {
 //     text-decoration: $type-a-decoration;

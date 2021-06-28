@@ -12,6 +12,8 @@ import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { RouterEffects } from '@web/store/effects/router.effects';
 import { LoadingComponent } from './shared/components/ui/loading/loading/loading.component';
 import { HeaderComponent } from './shared/components/header/header.component';
+import { LazyLoadImageModule } from 'ng-lazyload-image';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -22,6 +24,7 @@ import { HeaderComponent } from './shared/components/header/header.component';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    LazyLoadImageModule,
     StoreModule.forRoot(reducers, { metaReducers }),
     StoreDevtoolsModule.instrument({ maxAge: 25 }),
     EffectsModule.forRoot([AppEffects, RouterEffects]),
