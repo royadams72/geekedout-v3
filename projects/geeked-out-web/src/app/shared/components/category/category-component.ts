@@ -9,7 +9,7 @@ import { combineLatest, forkJoin, Observable } from 'rxjs';
 })
 export class CategoryComponent implements OnInit {
 
-  @Input() items: any;
+  @Input() items: Array<Preview> = [];
   @Input() isPreview = true;
   @Input() link = '';
   @Input() categoryTitle = '';
@@ -18,27 +18,36 @@ export class CategoryComponent implements OnInit {
   largeScreen = false;
   displayItems: any;
   defaultImage = '';
-  image = '';
+  isLoaded = false;
   constructor(private sw: ScreenWidthService) {
    }
 
   ngOnInit(): void {
+    this.displayItems = this.items;
+    this.defaultImage = 'assets/images/defaultImage.png';
+    this.watchScreenSize();
+    this.fadeInText();
+  }
+
+  watchScreenSize(): void {
     combineLatest([this.sw.small$, this.sw.medium$, this.sw.large$])
     .subscribe((screen) => {
       [this.smallScreen, this.mediumScreen, this.largeScreen] = screen;
-      this.truncate();
     });
-    this.defaultImage = 'assets/images/defaultImage.png';
-    this.image = 'assets/images/image404@2x.png';
   }
 
-  truncate(): void {
-    const n = this.smallScreen ? 20 : this.mediumScreen  ? 22 : 40;
-    if (!this.items) { return; }
-    this.displayItems = this.items.map((item: any) => {
-        const title = (item.title.length > n) ? `${item.title.substr(0, n - 1)}...` : item.title;
-        return {...item, title };
-      });
+  fadeInText(): void {
+    setTimeout(() => {
+      this.isLoaded = true;
+    }, 700);
+  }
+
+  isStringLongerThan(str: string, n: number): boolean {
+    return  str.length >= n;
+  }
+
+  isStringShorterThan(str: string, n: number): boolean {
+    return  str.length < n;
   }
 
 }

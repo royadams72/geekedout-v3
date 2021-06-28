@@ -1,6 +1,7 @@
 import { createSelector } from '@ngrx/store';
 import { ComicsMainComponent } from '@web/features/comics/components/comics-main/comics-main.component';
 import { CategoryType } from '@web/shared/enums/category-type.enum';
+import { Paths } from '@web/shared/enums/paths.enums';
 import { Comic, ComicDetail, Items, Price } from '@web/shared/interfaces/comic';
 import { Game, GameDetail } from '@web/shared/interfaces/game';
 import { Movie, MovieDetail, MoviesStore } from '@web/shared/interfaces/movies';
@@ -96,23 +97,27 @@ function getImageDataIfMovies(state: MoviesStore): string {
 function mapItemForPreview(category: string, item: any): Preview | undefined {
     let data;
     const isImages = item.images !== undefined ? item.images.length > 0 : undefined;
+    const imageNotFound = `${Paths.Images}/image404@2x.png`;
+    const imageNotFound450x210 = `${Paths.Images}/image404-450x210@2x.png`;
+    const imageNotFound250x250 = `${Paths.Images}/image404-250x250@2x.png`;
     if (category === CategoryType.Comics) {
+
         data = {
-            id: item.id, imageLarge: isImages ? `${item.images[0].path}.jpg` : undefined,
-            imageSmall: isImages  ? `${item.images[0].path}/standard_fantastic.jpg` : undefined, title: item.title
+            id: item.id, imageLarge: isImages ? `${item.images[0].path}.jpg` : imageNotFound,
+            imageSmall: isImages  ? `${item.images[0].path}/standard_fantastic.jpg` : imageNotFound250x250, title: item.title
         };
     } else if (category === CategoryType.Music) {
         data = {
-            id: item.id, imageLarge: isImages ? `${item.images[1].url}` : undefined,
-            imageSmall: isImages ? `${item.images[2].url}` : undefined, title: item.name
+            id: item.id, imageLarge: isImages ? `${item.images[1].url}` : imageNotFound,
+            imageSmall: isImages ? `${item.images[2].url}` : imageNotFound, title: item.name
         };
     } else if (category === CategoryType.Movies) {
         data = {
-            id: item.id, imageLarge: item.poster_path ? `${moviesImagePath}w300${item.poster_path}` : undefined,
-            imageSmall: item.poster_path ? `${moviesImagePath}w92${item.poster_path}` : undefined, title: item.title
+            id: item.id, imageLarge: item.poster_path ? `${moviesImagePath}w300${item.poster_path}` : imageNotFound,
+            imageSmall: item.poster_path ? `${moviesImagePath}w154${item.poster_path}` : imageNotFound, title: item.title
         };
     } else if (category === CategoryType.Games) {
-        data = { id: item.id, imageLarge: item.image || undefined, title: item.title };
+        data = { id: item.id, imageLarge: item.image || imageNotFound450x210, title: item.title };
     }
     return data;
 }

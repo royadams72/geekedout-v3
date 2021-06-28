@@ -49,15 +49,15 @@ function mapComicDetail(state: AppState, action: {routeId: string}): AppState {
   const item: Comic | undefined = [...state.comics.results].find((comic: Comic) => {
     return comic.id?.toString() ===  routeId;
   });
-  const { isbn, description, issueNumber, pageCount, prices, title, urls, images: [{ path, extension }],
+  const { isbn, description, issueNumber, pageCount, prices, title, urls,  images,
   dates: [{ date: onsaleDate }], creators: { items: creators } }: any = item;
   const purchaseUrl = urls.find((c: any) => c.type === 'purchase');
-
+  const image = images.length > 0 ? `${images[0].path}.${images[0].extension}` : '';
   const selectedItem: ComicDetail = {
       onsaleDate,
       creators: creators.map((c: Items) => ({ name: c.name, role: c.role })),
       description,
-      image: `${path}.${extension}`,
+      image,
       isbn,
       issueNumber,
       pageCount,
