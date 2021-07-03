@@ -20,12 +20,10 @@ export class ComicMainResolver implements Resolve<Preview[]> {
     return this.store.pipe(select(isLoaded))
        .pipe(
          filter((loaded: boolean) => {
-           console.log(!!loaded);
            return !!loaded;
          }),
          switchMap(() => this.store.pipe(select(getItems(CategoryType.Comics, false, 'results'))).pipe(
           filter((comics: Preview[]): boolean => {
-              console.log(!!comics);
               return !!comics;
           })
          )), first());

@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { DetailResolver } from '@web/shared/resolvers/detail/detail.resolver';
 import { MusicDetailResolver } from '@web/shared/resolvers/music/music-detail.resolver';
 import { MusicMainResolver } from '@web/shared/resolvers/music/music-main.resolver';
 import { MusicDetailsComponent } from './components/music-details/music-details.component';
@@ -15,7 +16,7 @@ const routes: Routes = [{
 { path: ':id',
   component: MusicDetailsComponent,
   resolve: {
-    detail: MusicDetailResolver
+    detail: DetailResolver
   }
 }];
 

@@ -5,6 +5,7 @@ import { AlbumDetail, MusicStore } from '@web/shared/interfaces/music';
 import { createAction, props } from '@ngrx/store';
 
 // export const loadData = createAction('[loadData] loading...');
+export const getDetail = createAction(`[getDetail] Getting Detail`, props<{ routeId: string, category: string | undefined}>());
 export const getComicDetail = createAction(`[getComicDetail] Getting Comic Detail`, props<{ routeId: string }>());
 export const getGameDetail = createAction(`[getGameDetail] Getting Game Detail`, props<{ routeId: string }>());
 export const getMovieDetail = createAction(`[getMovieDetail] Getting Movie Detail`, props<{ routeId: string }>());

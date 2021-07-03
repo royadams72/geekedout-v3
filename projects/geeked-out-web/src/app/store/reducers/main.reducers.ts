@@ -28,6 +28,7 @@ const moviesImagePath = '';
 
 export const appReducer = createReducer(
     initialAppState,
+    on(AppActions.getDetail, getDetail),
     on(AppActions.getComicDetail, mapComicDetail),
     on(AppActions.getGameDetail, mapGameDetail),
     on(AppActions.getMovieDetail, mapMovieDetail),
@@ -43,8 +44,28 @@ export const appReducer = createReducer(
     on(AppActions.setSelectedItem, (state, {item}) => ({ ...state, uiData: {...state.uiData, selectedItem: item }}))
     );
 
+function getDetail(state: AppState , action: {routeId: string, category: string | undefined}): AppState {
+  console.log(state, action.routeId, action.category);
+  if (action.category === CategoryType.Comics) {
+      console.log(state, action.routeId, action.category);
+      return mapComicDetail(state ,  {routeId: action.routeId});
+  } else if (action.category === CategoryType.Games) {
+    console.log(state, action.routeId, action.category);
+    return mapGameDetail(state ,  {routeId: action.routeId});
+  } else if (action.category === CategoryType.Music) {
+    console.log(state, action.routeId, action.category);
+    return mapAlbumDetail(state ,  {routeId: action.routeId});
+  } else if (action.category === CategoryType.Movies) {
+    console.log(state, action.routeId, action.category);
+    return mapMovieDetail(state ,  {routeId: action.routeId});
+  }
+
+
+  return state;
+}
+
 function mapComicDetail(state: AppState , action: {routeId: string}): AppState {
-  if (state.comics) {
+  if (state && state.comics) {
       const { routeId } = action;
       const item: Comic | undefined = [...state.comics.results].find((comic: Comic) => {
         return comic.id?.toString() ===  routeId;
@@ -80,7 +101,7 @@ function mapGameDetail(state: AppState, action: {routeId: string}): AppState {
   const item: Game | undefined = [...state.games].find((game: Game) => {
     return game.id?.toString() ===  routeId;
   });
-  const { description, gamerpower_url, image, instructions, platforms, published_date, title, type, worth }:any = item;
+  const { description, gamerpower_url, image, instructions, platforms, published_date, title, type, worth }: any = item;
 
   const selectedItem: GameDetail = {
     description,

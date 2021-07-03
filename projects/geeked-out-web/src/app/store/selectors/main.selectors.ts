@@ -33,6 +33,13 @@ export const getCurrPrevUrls = createSelector(
         appState,
         (state: AppState) => state.uiData.currPrevUrls);
 
+export const getCategory = createSelector(
+    appState,
+    (state: AppState): string | undefined => {
+        const category  = state.uiData.currPrevUrls.currentUrl.match('/(.*)/');
+        return category ? category[1] : undefined;
+    });
+
 export const getCategoryState = (category: string): any => {
    return createSelector(
             appState,
@@ -96,7 +103,6 @@ function mapItemForPreview(category: string, item: any): Preview | undefined {
     const imageNotFound450x210 = `${Paths.Images}/image404-450x210@2x.png`;
     const imageNotFound250x250 = `${Paths.Images}/image404-250x250@2x.png`;
     if (category === CategoryType.Comics) {
-
         data = {
             id: item.id, imageLarge: isImages ? `${item.images[0].path}.jpg` : imageNotFound,
             imageSmall: isImages  ? `${item.images[0].path}/standard_fantastic.jpg` : imageNotFound250x250, title: item.title

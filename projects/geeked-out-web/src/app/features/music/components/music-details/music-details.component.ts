@@ -23,9 +23,9 @@ export class MusicDetailsComponent implements OnInit {
     //   this.store.dispatch(AppActions.setSelectedItem({item: data}));
     //   console.log(data);
     // });
-    this.albumDetail$ = this.store.pipe(select(getItem)).subscribe((d) =>{
+    this.albumDetail$ = this.store.pipe(select(getItem)).subscribe((d) => {
       console.log(d);
-    })
+    });
   }
 
 }
