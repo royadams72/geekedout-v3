@@ -30,7 +30,7 @@ import { LazyLoadImageModule } from 'ng-lazyload-image';
     EffectsModule.forRoot([AppEffects, RouterEffects]),
     StoreRouterConnectingModule.forRoot({serializer: CustomSerializer}),
   ],
-  providers: [ { provide: Window, useValue: window }],
+  providers: [{ provide: Window, useValue: window }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

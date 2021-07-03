@@ -1,11 +1,7 @@
 import { createSelector } from '@ngrx/store';
-import { ComicsMainComponent } from '@web/features/comics/components/comics-main/comics-main.component';
 import { CategoryType } from '@web/shared/enums/category-type.enum';
 import { Paths } from '@web/shared/enums/paths.enums';
-import { Comic, ComicDetail, Items, Price } from '@web/shared/interfaces/comic';
-import { Game, GameDetail } from '@web/shared/interfaces/game';
-import { Movie, MovieDetail, MoviesStore } from '@web/shared/interfaces/movies';
-import { AlbumDetail, Album, Artists, Tracks } from '@web/shared/interfaces/music';
+import { MoviesStore } from '@web/shared/interfaces/movies';
 import { Preview } from '@web/shared/interfaces/preview';
 import { State } from '@web/store/reducers';
 import { AppState } from '../reducers/main.reducers';
@@ -44,9 +40,7 @@ export const getCategoryState = (category: string): any => {
                return state[`${category}`];
             }
         );
-
 };
-
 
 export const search = (searchString: string): any => {
     return createSelector(
@@ -56,7 +50,7 @@ export const search = (searchString: string): any => {
                  const keys = [{state: CategoryType.Comics, array: 'results'},
                                {state: CategoryType.Music, array: 'items'},
                                {state: CategoryType.Movies, array: 'results'},
-                               {state: CategoryType.Games, array: ''}]
+                               {state: CategoryType.Games, array: ''}];
 
                  return keys.map((key) => {
                  const arr = key.array ? state[key.state][key.array] : state[key.state];
@@ -69,7 +63,6 @@ export const search = (searchString: string): any => {
                  }); });
              }
          );
-
  };
 
 
@@ -88,6 +81,8 @@ export const getItems = (category: string, preview: boolean, arrayName?: string)
         }
     );
 };
+
+/** Helpers */
 
 function getImageDataIfMovies(state: MoviesStore): string {
     if (!state.imageData) { return ''; }

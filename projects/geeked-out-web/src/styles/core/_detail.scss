@@ -1,0 +1,55 @@
+$comics-colour: settings-colour('comics');
+
+.details {
+    margin: 0 auto;
+    max-width: 740px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+    &__button-comics-hover {
+        &:hover {
+            color: $comics-colour;
+            border-color: $comics-colour;
+        }
+
+    }
+
+    &__title, &__date, &__price {
+        margin-left: 10px;
+    }
+
+    // &__price {
+    //     margin-left: 20px;
+
+    //     @include is-medium {
+    //         margin-left: 0;
+    //     }
+    // }
+
+    &__image {
+        max-width: 50%;
+        margin: 15px auto 0 auto;
+        @include is-medium {
+            max-width: 100%;
+        }
+
+    }
+
+    &__info {
+        padding: 10px;
+        text-align: left;
+    }
+    &__ul {
+        list-style: none;
+        margin: 0;
+        padding: 10px;
+        text-align: left;
+
+
+        &--li-comic-colour {
+            color: $comics-colour;
+        }
+    }
+
+}

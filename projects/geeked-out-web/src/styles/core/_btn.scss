@@ -1,0 +1,21 @@
+$btn-font: $font-main-font !default;
+
+.btn {
+    border: 1px solid #fff;
+    border-radius: 0;
+    display: inline-block;
+    font-family: $btn-font;
+    font-size: 1.1rem;
+    font-weight: 500;
+    margin-left: 20px;
+    padding: 1rem 1rem;
+    text-align: center;
+    transition: none;
+    white-space: nowrap;
+    vertical-align: middle;
+
+    @include is-medium {
+        margin-left: 0;
+    }
+
+}

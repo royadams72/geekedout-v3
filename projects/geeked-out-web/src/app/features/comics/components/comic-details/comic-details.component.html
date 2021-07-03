@@ -1,44 +1,34 @@
-<p>comic-details works!</p>
-
-<!--
 <div class="container details comics-details">
-    <app-loading *ngIf="loading"  [loadingTitle]='catTitle'></app-loading>
-      <div class="row">
-  <div *ngIf="!loading" class="col-md-12">
-      <a *ngIf="searchStr === undefined" class="btn" [routerLink]="['/comics']"><< Back to Comics</a>
-      <a *ngIf="searchStr !== undefined" class="btn" [routerLink]="['/search', searchStr]"><< Back to Search Results</a>
+    <div class="row">
+      <a class="btn details__button-comics-hover" [routerLink]="['/comics']"><< Back to Comics</a>
+      <!-- <a class="btn" [routerLink]="['/search', ]"><< Back to Search Results</a> -->
     </div>
-  </div>
-        <div class="row" [@detailsState]="isActive">
-          <div class="col-md-3 offset-md-1">
-            <div class="img-container">
-              <img *ngIf="url"  src="{{ url }}" class="img-fluid" alt="">
-            </div>
 
-            <h4 [@titleState]="playTitle" *ngIf="item?.prices[0].price" class='price'>Price: {{item?.prices[0].price | currency:'GBP' : 'symbol'}} (Aprox)</h4>
-            <h4 [@titleState]="playTitle" *ngIf="!item?.prices[0].price" class='price'>No Price Available</h4>
+    <div class="row row--stack-on-small">
+        <div class="column">
+          <img *ngIf="item?.image" src="{{item?.image}}" class="details__image" alt="">
         </div>
 
+        <div class="column text-left details__info">
+          <h1 class="details__title">{{item?.title}}</h1>
+          <h4 class="details__date">Published: {{item?.onsaleDate | date: 'dd/MM/yyyy'}}</h4>
+          <h4 class='details__price'>
+            <span *ngIf="item?.printPrice">Price: {{item?.printPrice | currency:'GBP' : 'symbol'}} (Aprox)</span>
+            <span *ngIf="!item?.printPrice">No Price Available</span>
+          </h4>
+          <ul class="details__ul">
+          <li *ngFor="let creator of item?.creators let i = index">
+              <span class="details__ul--li-comic-colour">{{creator?.role}}:</span> {{creator?.name}}
+          </li>
+          </ul>
 
-          <div class="col-md-7 text-left">
-            <h2 class="text-left">{{item?.title }}</h2>
 
-
-                <h4>Published: {{item?.dates[0].date}}</h4>
-                  <ul>
-
-                  <li *ngFor="let creator of item?.creators.items let i = index" class='capitalize listText'>
-                      <span class="listTitle">{{creator.role}}:</span> {{creator.name}}
-                  </li>
-                  </ul>
-
-
-          <p>{{item?.description}}</p>
-          <p *ngIf="item?.urls[1]">
-          <a  href="{{item?.urls[1].url}}" target="_blank" class="btn marginTop30">Buy</a>
-          </p>
-          </div>
+        <p>{{item?.description}}</p>
+        <!-- <p *ngIf="item?.urls[1]">
+        <a  href="{{item?.urls[1].url}}" target="_blank" class="btn marginTop30">Buy</a>
+        </p> -->
+        </div>
       </div>
   </div>
-  <div class="bImage" #bgContainer>
-  </div> -->
+  <div class="back-ground-image" #bgContainer>
+  </div>

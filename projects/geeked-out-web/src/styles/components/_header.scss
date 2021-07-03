@@ -1,8 +1,10 @@
+$bg-colour: $base-bg-colour;
 .header {
+    background-color: $bg-colour;
     display: flex;
     flex-wrap: wrap;
     justify-content: left;
-    margin: 0;
+    margin: 0 0 30px;
     padding: 0;
     height: 120px;
     flex-direction: column;
@@ -11,7 +13,7 @@
      @include is-medium {
         flex-wrap: nowrap;
         flex-direction: row;
-        height: 60px;
+        height: 70px;
     }
 
 
