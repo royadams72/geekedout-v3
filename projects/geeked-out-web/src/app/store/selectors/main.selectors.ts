@@ -36,12 +36,10 @@ export const getCurrPrevUrls = createSelector(
 export const getCategory = createSelector(
     appState,
     (state: AppState): string | undefined => {
-        // console.log(state.uiData.currPrevUrls.currentUrl, `${state.uiData.currPrevUrls.currentUrl.match('/(.*)/')}`);
         const str = state.uiData.currPrevUrls.currentUrl;
         const begin =  str.indexOf('/') + 1;
         const end = str.lastIndexOf('/');
         const  category = end > 0 ? str.substring(begin, end) : str.substring(begin);
-        console.log(category);
         return category || undefined;
     });
 
@@ -80,6 +78,7 @@ export const search = (searchString: string): any => {
 
 
 export const getItems = (category: string, preview: boolean, arrayName?: string) => {
+
     return createSelector(
         getCategoryState(category),
         (state: any): Preview[] => {
@@ -87,6 +86,7 @@ export const getItems = (category: string, preview: boolean, arrayName?: string)
             let arr = !arrayName ? state : state[`${arrayName}`];
             if (preview) { arr = arr.slice(0, 4); }
             getImageDataIfMovies(state);
+
             return arr.map((el: Array<{}>) => {
                 return mapItemForPreview(category, el);
             });
@@ -107,6 +107,7 @@ function mapItemForPreview(category: string, item: any): Preview | undefined {
     const imageNotFound = `${Paths.Images}/image404@2x.png`;
     const imageNotFound450x210 = `${Paths.Images}/image404-450x210@2x.png`;
     const imageNotFound250x250 = `${Paths.Images}/image404-250x250@2x.png`;
+
     if (category === CategoryType.Comics) {
         data = {
             id: item.id, imageLarge: isImages ? `${item.images[0].path}.jpg` : imageNotFound,

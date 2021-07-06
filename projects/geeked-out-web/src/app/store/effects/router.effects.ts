@@ -47,7 +47,6 @@ export class RouterEffects {
     switchMap(action => {
       const previousUrl = action.payload.routerState.url;
       const currentUrl = action.payload.event.url;
-      this.store.pipe(select(isLoaded)).subscribe(d => console.log(d));
       return forkJoin([of({ currentUrl, previousUrl }), this.store.pipe(select(getCurrPrevUrls), first())]);
     }),
     map((urlArr) => {

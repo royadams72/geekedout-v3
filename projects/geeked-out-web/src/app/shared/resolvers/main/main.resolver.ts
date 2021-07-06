@@ -3,16 +3,17 @@ import { Resolve, Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { State } from '@web/store/reducers';
 import { getCategory, getItems, isLoaded } from '@web/store/selectors';
-import { combineLatest, Observable, of, Subject } from 'rxjs';
-import { debounce, filter, first, map, switchMap, takeUntil, takeWhile } from 'rxjs/operators';
-import { CategoryType } from '@web/shared/enums/category-type.enum';
+import { Observable} from 'rxjs';
+import { filter, first, switchMap } from 'rxjs/operators';
 import { Preview } from '@web/shared/interfaces/preview';
+import { CategoryType } from '@web/shared/enums/category-type.enum';
+import { CategoryArrayNames } from '@web/shared/enums/arrays.enums';
 
 @Injectable({
   providedIn: 'root'
 })
 
-export class ComicMainResolver implements Resolve<Preview[]> {
+export class MainResolver implements Resolve<Preview[]> {
   constructor(private store: Store<State>, private router: Router) { }
 
   resolve(): Observable<Preview[]> {
@@ -28,11 +29,13 @@ export class ComicMainResolver implements Resolve<Preview[]> {
           })
         )),
         switchMap((category: string) => {
-          return this.store.pipe(select(getItems(category, false, 'results'))).pipe(
-            filter((comics: Preview[]): boolean => {
-              return !!comics;
+          const arrayNames: any = {comics: 'results', movies: 'results', music: 'items', games: ''};
+          const array = arrayNames[`${category}`];
+          return this.store.pipe(select(getItems(category, false, array))).pipe(
+            filter((item: Preview[]): boolean => {
+              return !!item;
             })
-          )
+          );
         }), first());
 
   }
