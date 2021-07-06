@@ -36,8 +36,13 @@ export const getCurrPrevUrls = createSelector(
 export const getCategory = createSelector(
     appState,
     (state: AppState): string | undefined => {
-        const category  = state.uiData.currPrevUrls.currentUrl.match('/(.*)/');
-        return category ? category[1] : undefined;
+        // console.log(state.uiData.currPrevUrls.currentUrl, `${state.uiData.currPrevUrls.currentUrl.match('/(.*)/')}`);
+        const str = state.uiData.currPrevUrls.currentUrl;
+        const begin =  str.indexOf('/') + 1;
+        const end = str.lastIndexOf('/');
+        const  category = end > 0 ? str.substring(begin, end) : str.substring(begin);
+        console.log(category);
+        return category || undefined;
     });
 
 export const getCategoryState = (category: string): any => {

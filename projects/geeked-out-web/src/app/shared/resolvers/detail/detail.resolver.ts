@@ -22,26 +22,21 @@ export class DetailResolver implements Resolve<any> {
     return this.store.pipe(select(isLoaded))
     .pipe(
       filter((loaded: boolean) => {
-        console.log(!!loaded);
+        // console.log(!!loaded);
         return !!loaded;
       }),
       switchMap(() => combineLatest([this.store.pipe(select(getRouteID)), this.store.pipe(select(getCategory))]).pipe(
         filter(([routeId, category]) => {
-          console.log('BOTH= ', !!routeId && !!category, 'routeId = ', routeId, 'category= ', category);
+          // console.log('BOTH= ', !!routeId && !!category, 'routeId = ', routeId, 'category= ', category);
           return !!routeId && !!category;
         }),
        switchMap(([routeId, category]) => {
-        console.log(category);
+        // console.log(category);
         return of(this.store.dispatch(AppActions.getDetail({ routeId, category: category ? category : undefined })));
         }),
-       switchMap(() => this.store.pipe(select(getItem)).pipe(
-        // filter((item: any ) => {
-        //   console.log(item, !!item);
-        //   return !!item;
-        // })
-       )),
+       switchMap(() => this.store.pipe(select(getItem))),
       )), filter((item: any ) => {
-             console.log(item, !!item);
+            //  console.log(item, !!item);
              return !!item;
            })
       , first());

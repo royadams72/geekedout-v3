@@ -24,7 +24,7 @@ export class AppEffects {
     }),
     switchMap(() => {
       return forkJoin([this.gamesService.getGames(), this.moviesService.getMovies(),
-              this.musicService.getMusic(40), this.comicsService.getComics(40)])
+              this.musicService.getMusic(40), this.comicsService.getComics(60)])
               .pipe(
                 map((data) => {
                 const [games, movies, music, comics] = data;
