@@ -6,8 +6,7 @@ import { getCategory, getItems, isLoaded } from '@web/store/selectors';
 import { Observable} from 'rxjs';
 import { filter, first, switchMap } from 'rxjs/operators';
 import { Preview } from '@web/shared/interfaces/preview';
-import { CategoryType } from '@web/shared/enums/category-type.enum';
-import { CategoryArrayNames } from '@web/shared/enums/arrays.enums';
+import { CategoryArrays } from '@web/shared/enums/arrays.enums';
 
 @Injectable({
   providedIn: 'root'
@@ -29,7 +28,8 @@ export class MainResolver implements Resolve<Preview[]> {
           })
         )),
         switchMap((category: string) => {
-          const arrayNames: any = {comics: 'results', movies: 'results', music: 'items', games: ''};
+          const arrayNames: any =
+          {comics: CategoryArrays.MoviesComics, movies: CategoryArrays.MoviesComics, music: CategoryArrays.Music, games: ''};
           const array = arrayNames[`${category}`];
           return this.store.pipe(select(getItems(category, false, array))).pipe(
             filter((item: Preview[]): boolean => {

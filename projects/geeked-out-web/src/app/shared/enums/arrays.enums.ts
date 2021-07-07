@@ -1,4 +1,4 @@
-export enum CategoryArrayNames {
+export enum CategoryArrays {
 MoviesComics  = 'results',
 Music = 'items'
 }
