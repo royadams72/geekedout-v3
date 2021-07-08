@@ -147,7 +147,7 @@ function mapAlbumDetail(state: AppState, action: { routeId: string }): AppState 
     images: [, { url: image }], external_urls: { spotify: spotifyLink }, release_date, tracks: { items } }: any = item;
   const tracks = items.map((item: Artists) => item.name);
   const artists = artistArray.map((item: Artists) => ({ name: item.name, spotifyUrl: item.external_urls.spotify }));
-
+  console.log(artists);
   const selectedItem: AlbumDetail = {
     name,
     artists,

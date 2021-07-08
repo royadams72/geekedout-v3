@@ -1,5 +1,5 @@
 <div class="container details comics-details">
-    <div class="row">
+    <div class="row details__button-top">
       <a class="btn details__button-comics-hover" [routerLink]="['/comics']"><< Back to Comics</a>
       <!-- <a class="btn" [routerLink]="['/search', ]"><< Back to Search Results</a> -->
     </div>
@@ -11,14 +11,14 @@
 
         <div class="column text-left details__info">
           <h1 class="details__title">{{item?.title}}</h1>
-          <h4 class="details__date">Published: {{item?.onsaleDate | date: 'dd/MM/yyyy'}}</h4>
-          <h4 class='details__price'>
+          <h4 class="details__sub-heading">Published: {{item?.onsaleDate | date: 'dd/MM/yyyy'}}</h4>
+          <h4 class='details__sub-heading'>
             <span *ngIf="item?.printPrice">Price: {{item?.printPrice | currency:'GBP' : 'symbol'}} (Aprox)</span>
             <span *ngIf="!item?.printPrice">No Price Available</span>
           </h4>
-          <ul class="details__ul">
+          <ul class="details__ul details__ul--comics">
           <li *ngFor="let creator of item?.creators let i = index">
-              <span class="details__ul--li-comic-colour">{{creator?.role}}:</span> {{creator?.name}}
+              <span class="details--comic-colour">{{creator?.role}}:</span> {{creator?.name}}
           </li>
           </ul>
 

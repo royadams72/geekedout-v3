@@ -1,55 +1,108 @@
-$comics-colour: settings-colour('comics');
+$comics-colour:     settings-colour('comics');
+$music-colour:      settings-colour('music');
+$white:             settings-colour('text-white');
 
 .details {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin: 0 auto;
+  max-width: 740px;
+
+  &__button-comics-hover {
+
+    &:hover {
+      border-color: $comics-colour;
+      color: $comics-colour;
+    }
+  }
+
+  &__button-music-hover {
+
+    &:hover {
+      border-color: $music-colour;
+      color: $music-colour;
+    }
+  }
+
+  &__button-top {
     margin: 0 auto;
-    max-width: 740px;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
+    max-width: 300px;
+    padding-left: 28px;
 
-    &__button-comics-hover {
-        &:hover {
-            color: $comics-colour;
-            border-color: $comics-colour;
-        }
-
+    @include is-medium {
+      margin: 0 auto;
+      max-width: 740px;
+      padding-left: 0;
     }
 
-    &__title, &__date, &__price {
-        margin-left: 10px;
+  }
+
+  &__sub-heading--music {
+    color: $music-colour;
+
+    &:hover {
+      color: $white;
+    }
+  }
+
+  &__image {
+    height: fit-content;
+    margin: 15px auto;
+    width: 270px;
+
+    @include is-medium {
+      margin-top: 15px;
+      width: 100%;
+    }
+  }
+
+  &__info {
+    margin: 0 auto;
+    padding: 10px;
+    text-align: left;
+    width: 270px;
+
+    @include is-medium {
+      margin-left: 10px;
+      width: 100%;
+    }
+  }
+
+  &__ul,
+  &__ol {
+    list-style: none;
+    margin: 0;
+    padding: 10px;
+    text-align: left;
+  }
+
+  &__ul--comics {
+    padding-left: 0;
+  }
+
+  &__ol--music {
+    list-style: decimal;
+    padding-left: 18px;
+
+    &-li {
+      color: $music-colour;
     }
 
-    // &__price {
-    //     margin-left: 20px;
-
-    //     @include is-medium {
-    //         margin-left: 0;
-    //     }
-    // }
-
-    &__image {
-        max-width: 50%;
-        margin: 15px auto 0 auto;
-        @include is-medium {
-            max-width: 100%;
-        }
-
+    &-li-alt-colour {
+      color: $white;
     }
+  }
 
-    &__info {
-        padding: 10px;
-        text-align: left;
-    }
-    &__ul {
-        list-style: none;
-        margin: 0;
-        padding: 10px;
-        text-align: left;
+  &__list-heading {
+    font-size: 17px;
+  }
 
+  &--comic-colour {
+    color: $comics-colour;
+  }
 
-        &--li-comic-colour {
-            color: $comics-colour;
-        }
-    }
-
+  &--music-colour {
+    color: $music-colour;
+  }
 }
