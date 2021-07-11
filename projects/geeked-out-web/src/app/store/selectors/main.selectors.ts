@@ -1,11 +1,7 @@
 import { createSelector } from '@ngrx/store';
-import { ComicsMainComponent } from '@web/features/comics/components/comics-main/comics-main.component';
 import { CategoryType } from '@web/shared/enums/category-type.enum';
 import { Paths } from '@web/shared/enums/paths.enums';
-import { Comic, ComicDetail, Items, Price } from '@web/shared/interfaces/comic';
-import { Game, GameDetail } from '@web/shared/interfaces/game';
-import { Movie, MovieDetail, MoviesStore } from '@web/shared/interfaces/movies';
-import { AlbumDetail, Album, Artists, Tracks } from '@web/shared/interfaces/music';
+import { MoviesStore } from '@web/shared/interfaces/movies';
 import { Preview } from '@web/shared/interfaces/preview';
 import { State } from '@web/store/reducers';
 import { AppState } from '../reducers/main.reducers';
@@ -37,6 +33,16 @@ export const getCurrPrevUrls = createSelector(
         appState,
         (state: AppState) => state.uiData.currPrevUrls);
 
+export const getCategory = createSelector(
+    appState,
+    (state: AppState): string | undefined => {
+        const str = state.uiData.currPrevUrls.currentUrl;
+        const begin =  str.indexOf('/') + 1;
+        const end = str.lastIndexOf('/');
+        const  category = end > 0 ? str.substring(begin, end) : str.substring(begin);
+        return category || undefined;
+    });
+
 export const getCategoryState = (category: string): any => {
    return createSelector(
             appState,
@@ -44,9 +50,7 @@ export const getCategoryState = (category: string): any => {
                return state[`${category}`];
             }
         );
-
 };
-
 
 export const search = (searchString: string): any => {
     return createSelector(
@@ -56,7 +60,7 @@ export const search = (searchString: string): any => {
                  const keys = [{state: CategoryType.Comics, array: 'results'},
                                {state: CategoryType.Music, array: 'items'},
                                {state: CategoryType.Movies, array: 'results'},
-                               {state: CategoryType.Games, array: ''}]
+                               {state: CategoryType.Games, array: ''}];
 
                  return keys.map((key) => {
                  const arr = key.array ? state[key.state][key.array] : state[key.state];
@@ -69,12 +73,12 @@ export const search = (searchString: string): any => {
                  }); });
              }
          );
-
  };
 
 
 
 export const getItems = (category: string, preview: boolean, arrayName?: string) => {
+
     return createSelector(
         getCategoryState(category),
         (state: any): Preview[] => {
@@ -82,12 +86,16 @@ export const getItems = (category: string, preview: boolean, arrayName?: string)
             let arr = !arrayName ? state : state[`${arrayName}`];
             if (preview) { arr = arr.slice(0, 4); }
             getImageDataIfMovies(state);
+
             return arr.map((el: Array<{}>) => {
                 return mapItemForPreview(category, el);
             });
         }
     );
 };
+
+/** Helpers */
+/** TODO: get rid of image data */
 
 function getImageDataIfMovies(state: MoviesStore): string {
     if (!state.imageData) { return ''; }
@@ -100,8 +108,8 @@ function mapItemForPreview(category: string, item: any): Preview | undefined {
     const imageNotFound = `${Paths.Images}/image404@2x.png`;
     const imageNotFound450x210 = `${Paths.Images}/image404-450x210@2x.png`;
     const imageNotFound250x250 = `${Paths.Images}/image404-250x250@2x.png`;
-    if (category === CategoryType.Comics) {
 
+    if (category === CategoryType.Comics) {
         data = {
             id: item.id, imageLarge: isImages ? `${item.images[0].path}.jpg` : imageNotFound,
             imageSmall: isImages  ? `${item.images[0].path}/standard_fantastic.jpg` : imageNotFound250x250, title: item.title

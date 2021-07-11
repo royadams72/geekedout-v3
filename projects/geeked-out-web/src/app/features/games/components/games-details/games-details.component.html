@@ -1,1 +1,35 @@
-<p>games-details works!</p>
+<div class="details details--games" >
+
+  <div class="row details__btn--top">
+    <a class="btn" [routerLink]="['/games']"><< Back to Games</a>
+    <!-- <a class="btn" [routerLink]="['/search', searchStr]"><< Back to Search Results</a> -->
+  </div>
+  <div class="row row--stack-on-small">
+      <div class="column">
+        <img *ngIf="item?.image" src="{{item?.image}}"   class="details__image" alt="">
+      </div>
+      <div class="column text-left details__info">
+        <h1 class="text-left">{{item?.title}}</h1>
+        <h4 class="details__sub-heading"><span class="details--alt-colour">Price:</span> {{item.worth}}</h4>
+        <h4 class="details__sub-heading"><span class="details--alt-colour">Published Date:</span> {{item?.published_date | date}}</h4>
+        <h4 class="details__sub-heading"><span class="details--alt-colour">Game Type:</span> {{item?.type}}</h4>
+        <p *ngIf="item?.platforms" class="details__copy">
+          <span class="details--alt-colour">Platforms:</span> <br/>
+          {{item?.platforms}}
+        </p>
+        <p *ngIf="item?.description" class="details__copy">
+          <span class="details--alt-colour">Description:</span><br/>
+          {{item?.description}}</p>
+        <p *ngIf="item?.instructions" class="details__copy details__copy--last">
+          <span class="details--alt-colour">Instructions:</span>
+          {{item?.instructions}}</p>
+        <div *ngIf="item?.gamerpower_url">
+          <a href="{{item?.gamerpower_url}}" target="_blank" class="btn">View on Game Power</a>
+        </div>
+      </div>
+  </div>
+
+</div>
+<div class="back-ground-image" #bgContainer>
+</div>
+

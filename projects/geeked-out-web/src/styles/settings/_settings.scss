@@ -1,12 +1,12 @@
 /*
 Colour Map
 Colours to be used for app.
-With a few symantic helpers for main app colours.
+With a few symantic helpers for main app colours. #232323
 */
 
 $settings-colours: (
     /* Main background colours */
-    bg-colour-primary:                  #000000,
+    bg-colour-primary:                  #232323,
     bg-colour-secondary:                #E8F8FB,
     heading-bg:                         #000000,
     footer-bg:                          #04459B,
@@ -16,7 +16,7 @@ $settings-colours: (
     border-secondary-colour:            #DCDCDC,
 
     /* text */
-    text-primary:                       #251F21,
+    text-primary:                       #cccccc,
     text-white:                         #FFFFFF,
     dashboard-text-link:                #04459B,
 
@@ -31,12 +31,14 @@ $settings-colours: (
 
     /* form */
     typeahead-ul-bg-colour:             #F7F7F7,
+
+    /*Category colours*/
+    comics:                             #F5E653,
+    music:                              #F969D0,
+    games:                              #EB5055,
+    movies:                             #68C39F
 );
 
-/*
-Gradient colours
-*/
+// Gradient colours
 
-$base-gradient-bg:                      linear-gradient(-135deg, #00B6BA, #0050A8);
-$base-gradient-bg-top-down:             linear-gradient(0, #00B6BA, #0050A8);
-$font-main-font:                        Tahoma, Helvetica, sans-serif;
+$font-main-font:                        'Helvetica Neue', Helvetica, Arial, sans-serif;

@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { GamesDetailResolver } from './games-detail.resolver';
+import { MainResolver } from './main.resolver';
 
-describe('GamesDetailResolver', () => {
-  let resolver: GamesDetailResolver;
+describe('MainResolver', () => {
+  let resolver: MainResolver;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    resolver = TestBed.inject(GamesDetailResolver);
+    resolver = TestBed.inject(MainResolver);
   });
 
   it('should be created', () => {

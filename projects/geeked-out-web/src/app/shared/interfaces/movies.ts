@@ -41,6 +41,7 @@ export interface MovieDetail {
     homepage: string;
     image: string;
     imdb_link: string;
+    overview: string;
     release_date: string;
     title: string;
 }

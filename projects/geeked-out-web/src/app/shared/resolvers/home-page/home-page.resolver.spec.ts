@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { MusicMainResolver } from './music-main.resolver';
+import { HomePageResolver } from './home-page.resolver';
 
-describe('MusicMainResolver', () => {
-  let resolver: MusicMainResolver;
+describe('HomePageResolver', () => {
+  let resolver: HomePageResolver;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    resolver = TestBed.inject(MusicMainResolver);
+    resolver = TestBed.inject(HomePageResolver);
   });
 
   it('should be created', () => {

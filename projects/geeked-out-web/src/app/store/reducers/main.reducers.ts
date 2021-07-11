@@ -4,31 +4,31 @@ import { Movie, MovieDetail, MoviesStore } from '@web/shared/interfaces/movies';
 import { AlbumDetail, Album, Artists, MusicStore } from '@web/shared/interfaces/music';
 import { createReducer, on, Action } from '@ngrx/store';
 import { AppActions } from '../actions';
-import { uiData } from '@web/shared/interfaces/uiData'
+import { UiData } from '@web/shared/interfaces/uiData'
 import { CategoryType } from '@web/shared/enums/category-type.enum';
 export interface AppState {
-  comics: ComicStore;
-  music: MusicStore;
-  movies: MoviesStore;
-  games: Game[];
-  selectedItem: MovieDetail | AlbumDetail | undefined;
-  uiData: uiData;
+  comics: ComicStore | undefined;
+  music: MusicStore | undefined | any;
+  movies: MoviesStore | undefined | any;
+  games: Game[] | undefined | any;
+  selectedItem?: MovieDetail | AlbumDetail | ComicDetail | GameDetail | undefined;
+  uiData: UiData;
 }
 
 export const initialAppState: AppState = {
-  comics: {} as ComicStore,
-  music: {} as MusicStore,
-  movies: {} as MoviesStore,
-  games: [] as Game[],
+  comics:  undefined,
+  music: undefined,
+  movies: undefined,
+  games: undefined,
   selectedItem: undefined,
-  uiData: {} as uiData
+  uiData: {} as UiData
 };
 
 const moviesImagePath = '';
 
 export const appReducer = createReducer(
     initialAppState,
-    on(AppActions.loadData, (state) => (state)),
+    on(AppActions.getDetail, getDetail),
     on(AppActions.getComicDetail, mapComicDetail),
     on(AppActions.getGameDetail, mapGameDetail),
     on(AppActions.getMovieDetail, mapMovieDetail),
@@ -37,36 +37,55 @@ export const appReducer = createReducer(
       (state, {games, movies, music, comics}) =>
       ({ ...state, games, movies, music, comics, uiData: {...state.uiData, uiLoaded: true }})),
     on(AppActions.setPageLoading, (state, { pageLoading }) => ({ ...state, uiData: {...state.uiData, pageLoading }})),
-    on(AppActions.setIds, (state, { id }) => ({ ...state, uiData: {...state.uiData, selectedId:id }})),
+    on(AppActions.setIds, (state, { id }) => ({ ...state, uiData: {...state.uiData, selectedId: id }})),
     on(AppActions.setCurrPrevUrls,
       (state, { currentUrl, previousUrl }) =>
       ({ ...state, uiData: {...state.uiData, currPrevUrls: { currentUrl, previousUrl }}})),
     on(AppActions.setSelectedItem, (state, {item}) => ({ ...state, uiData: {...state.uiData, selectedItem: item }}))
     );
 
-function mapComicDetail(state: AppState, action: {routeId: string}): AppState {
-  const { routeId } = action;
-  const item: Comic | undefined = [...state.comics.results].find((comic: Comic) => {
-    return comic.id?.toString() ===  routeId;
-  });
-  const { isbn, description, issueNumber, pageCount, prices, title, urls,  images,
-  dates: [{ date: onsaleDate }], creators: { items: creators } }: any = item;
-  const purchaseUrl = urls.find((c: any) => c.type === 'purchase');
-  const image = images.length > 0 ? `${images[0].path}.${images[0].extension}` : '';
-  const selectedItem: ComicDetail = {
-      onsaleDate,
-      creators: creators.map((c: Items) => ({ name: c.name, role: c.role })),
-      description,
-      image,
-      isbn,
-      issueNumber,
-      pageCount,
-      printPrice: prices.find((c: Price) => c.type === 'printPrice').price,
-      purchaseUrl: purchaseUrl || undefined,
-      title
-  };
+function getDetail(state: AppState , action: {routeId: string, category: string | undefined}): AppState {
+  if (action.category === CategoryType.Comics) {
+      return mapComicDetail(state ,  {routeId: action.routeId});
+  } else if (action.category === CategoryType.Games) {
+    return mapGameDetail(state ,  {routeId: action.routeId});
+  } else if (action.category === CategoryType.Music) {
+    return mapAlbumDetail(state ,  {routeId: action.routeId});
+  } else if (action.category === CategoryType.Movies) {
+    return mapMovieDetail(state ,  {routeId: action.routeId});
+  }
 
-  return {...state, uiData: {...state.uiData, selectedItem}};
+
+  return state;
+}
+
+function mapComicDetail(state: AppState , action: {routeId: string}): AppState {
+  if (state && state.comics) {
+      const { routeId } = action;
+      const item: Comic | undefined = [...state.comics.results].find((comic: Comic) => {
+        return comic.id?.toString() ===  routeId;
+      });
+      const { isbn, description, issueNumber, pageCount, prices, title, urls: [{url: clickThrough}], images: [{ path, extension }],
+      dates: [{ date: onsaleDate }], creators: { items: creators } }: any = item;
+
+      const selectedItem: ComicDetail = {
+          onsaleDate,
+          creators: creators.map((c: Items) => ({ name: c.name, role: c.role })),
+          description,
+          image: `${path}.${extension}`,
+          pageCount,
+          printPrice: prices.find((c: Price) => c.type === 'printPrice').price,
+          clickThrough,
+          title
+      };
+
+      return {...state, uiData: {...state.uiData, selectedItem}};
+
+  } else {
+
+    return state;
+
+  }
 }
 
 function mapGameDetail(state: AppState, action: {routeId: string}): AppState {
@@ -74,7 +93,7 @@ function mapGameDetail(state: AppState, action: {routeId: string}): AppState {
   const item: Game | undefined = [...state.games].find((game: Game) => {
     return game.id?.toString() ===  routeId;
   });
-  const { description, gamerpower_url, image, instructions, platforms, published_date, title, type, worth }:any = item;
+  const { description, gamerpower_url, image, instructions, platforms, published_date, title, type, worth }: any = item;
 
   const selectedItem: GameDetail = {
     description,
@@ -92,16 +111,17 @@ function mapGameDetail(state: AppState, action: {routeId: string}): AppState {
 
 function mapMovieDetail(state: AppState, action: {routeId: string}): AppState {
   const { routeId } = action;
-  const item: Movie | undefined = [...state.movies.results].find((movie: Movie) => {
+  const item: Movie | undefined = [...state?.movies.results].find((movie: Movie) => {
     return movie.id?.toString() ===  routeId;
   });
 
-  const { title, release_date, poster_path, homepage, imdb_id, genres: g }: any = item;
-  const genres = g.map((item: any) => item.name);
+  const { title, release_date, poster_path, homepage, imdb_id, genres: g, overview}: any = item;
+  const genres = g.map((arrayItem: any) => arrayItem.name);
   const selectedItem: MovieDetail = {
     imdb_link: `http://www.imdb.com/title/${imdb_id}`,
-    image: `${moviesImagePath}${poster_path}`,
+    image: `https://image.tmdb.org/t/p/w300${poster_path}`,
     release_date,
+    overview,
     genres,
     homepage,
     title
@@ -118,9 +138,9 @@ function mapAlbumDetail(state: AppState, action: { routeId: string }): AppState 
 
   const { name, artists: artistArray,
     images: [, { url: image }], external_urls: { spotify: spotifyLink }, release_date, tracks: { items } }: any = item;
-  const tracks = items.map((item: Artists) => item.name);
-  const artists = artistArray.map((item: Artists) => ({ name: item.name, spotifyUrl: item.external_urls.spotify }));
-
+  const tracks = items.map((arrayItem: Artists) => arrayItem.name);
+  const artists = artistArray.map((arrayItem: Artists) => ({ name: arrayItem.name, spotifyUrl: arrayItem.external_urls.spotify }));
+  console.log(artists);
   const selectedItem: AlbumDetail = {
     name,
     artists,

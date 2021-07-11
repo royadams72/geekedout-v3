@@ -22,7 +22,8 @@ export interface RouterStateUrl {
   url: string;
   params: Params;
   queryParams: Params;
-};
+}
+
 // Custom serializer to get router snapshot
 export class CustomSerializer implements RouterStateSerializer<RouterStateUrl> {
   serialize(routerState: RouterStateSnapshot): RouterStateUrl {
@@ -40,8 +41,8 @@ export class CustomSerializer implements RouterStateSerializer<RouterStateUrl> {
   }
 }
 
-export function clearState(reducer: any) {
-  return function (state: State | undefined, action: Action) {
+export function clearState(reducer: any): any {
+  return  (state: State | undefined, action: Action): any => {
     if (action.type === AppActions.clearStore.type) {
       sessionStorage.clear();
       state = {} as State;

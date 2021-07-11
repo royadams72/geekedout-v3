@@ -14,60 +14,45 @@ WILL FAIL PEER REVIEW
 /* ---------- Component: Helper Classes */
 
 .util-helper {
-    &__margin-bt-spacing {
-        margin: 30px 0;
-    }
+  &__margin-bt-spacing {
+    margin: 30px 0;
+  }
 
-    &__clearfix {
-        &::after {
-            clear: both;
-            content: '';
-            display: block;
-        }
+  &__clearfix {
+    &::after {
+      clear: both;
+      content: '';
+      display: block;
     }
-
-    &__right-align {
-        text-align: right;
-    }
-
-    &__underline {
-        text-decoration: underline;
-    }
-
-    &__no-underline {
-        text-decoration: none;
-    }
-
-    &__pos-relative {
-        position: relative;
-    }
-
-    &__pos-fixed {
-        position: fixed;
-    }
-
-    &__display-inline-block {
-        display: inline-block;
-    }
-
-    &__hide {
-        display: none;
-    }
+  }
 
 
-    &__hide-xs {
-        @include is-small {
-            display: none;
-        }
-    }
 
-    &__show-xs {
-        @include is-small {
-            display: block;
-        }
-    }
 
-    &__display-flex {
-        display: flex;
-    }
+  &__margin-top-s {
+    margin-top: 5px;
+  }
+
+  &__margin-top-m {
+    margin-top: 10px;
+  }
+
+  &__margin-top-l {
+    margin-top: 15px;
+  }
+
+  &__margin-top-xl {
+    margin-top: 20px;
+  }
+
+  &__display-flex {
+    display: flex;
+  }
+
+  &__top-bottom-0 {
+    margin-bottom: 0;
+    margin-top: 0;
+  }
+
+
 }

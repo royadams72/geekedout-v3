@@ -1,31 +1,29 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { select, Store } from '@ngrx/store';
-import { AlbumDetail, Artists } from '@web/shared/interfaces/music';
+import { Album, AlbumDetail, Artists } from '@web/shared/interfaces/music';
 import { State } from '@web/store/reducers';
 import { getItem } from '@web/store/selectors';
 import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-music-details',
-  templateUrl: './music-details.component.html',
-  styleUrls: ['./music-details.component.scss']
+  templateUrl: './music-details.component.html'
 })
 export class MusicDetailsComponent implements OnInit {
   // $albumDetail = new Observable<Artists>();
-  albumDetail$: any;
-  constructor(private store: Store<State>) {
+  item: AlbumDetail = {} as AlbumDetail;
+  @ViewChild ('bgContainer') bgContainer: ElementRef<HTMLInputElement> = {} as ElementRef ;
+  constructor(private store: Store<State>, private renderer: Renderer2) {
 
    }
 
   ngOnInit(): void {
-    // TODO: this action should be despatched in router effects service to update state in reducer function and then get the select detail
-    // this.albumDetail$ = this.store.pipe(select(getDetail<AlbumDetail>(CategoryType.Music, 'items'))).subscribe(data => {
-    //   this.store.dispatch(AppActions.setSelectedItem({item: data}));
-    //   console.log(data);
-    // });
-    this.albumDetail$ = this.store.pipe(select(getItem)).subscribe((d) =>{
-      console.log(d);
-    })
+    this.store.pipe(select(getItem)).subscribe((item) => this.item = item);
+    setTimeout(() => {
+      if (!this.item) { return; }
+      this.renderer.setStyle(this.bgContainer.nativeElement, 'background-image', `url(${this.item.image})`);
+    }, 400);
   }
+
 
 }
