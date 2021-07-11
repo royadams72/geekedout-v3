@@ -35,12 +35,10 @@ export interface ComicDetail {
     description?: string;
     id?: number;
     image: string;
-    isbn: string;
-    issueNumber?: number;
     pageCount?: number;
     printPrice?: string;
     title?: string;
-    purchaseUrl?: string;
+    clickThrough?: string;
 }
 
 export interface ComicDate {

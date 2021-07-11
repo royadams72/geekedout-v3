@@ -45,18 +45,13 @@ export const appReducer = createReducer(
     );
 
 function getDetail(state: AppState , action: {routeId: string, category: string | undefined}): AppState {
-  console.log(state, action.routeId, action.category);
   if (action.category === CategoryType.Comics) {
-      console.log(state, action.routeId, action.category);
       return mapComicDetail(state ,  {routeId: action.routeId});
   } else if (action.category === CategoryType.Games) {
-    console.log(state, action.routeId, action.category);
     return mapGameDetail(state ,  {routeId: action.routeId});
   } else if (action.category === CategoryType.Music) {
-    console.log(state, action.routeId, action.category);
     return mapAlbumDetail(state ,  {routeId: action.routeId});
   } else if (action.category === CategoryType.Movies) {
-    console.log(state, action.routeId, action.category);
     return mapMovieDetail(state ,  {routeId: action.routeId});
   }
 
@@ -70,20 +65,17 @@ function mapComicDetail(state: AppState , action: {routeId: string}): AppState {
       const item: Comic | undefined = [...state.comics.results].find((comic: Comic) => {
         return comic.id?.toString() ===  routeId;
       });
-      const { isbn, description, issueNumber, pageCount, prices, title, urls, images: [{ path, extension }],
+      const { isbn, description, issueNumber, pageCount, prices, title, urls: [{url: clickThrough}], images: [{ path, extension }],
       dates: [{ date: onsaleDate }], creators: { items: creators } }: any = item;
-      const purchaseUrl = urls.find((c: any) => c.type === 'purchase');
 
       const selectedItem: ComicDetail = {
           onsaleDate,
           creators: creators.map((c: Items) => ({ name: c.name, role: c.role })),
           description,
           image: `${path}.${extension}`,
-          isbn,
-          issueNumber,
           pageCount,
           printPrice: prices.find((c: Price) => c.type === 'printPrice').price,
-          purchaseUrl: purchaseUrl || undefined,
+          clickThrough,
           title
       };
 
@@ -123,12 +115,13 @@ function mapMovieDetail(state: AppState, action: {routeId: string}): AppState {
     return movie.id?.toString() ===  routeId;
   });
 
-  const { title, release_date, poster_path, homepage, imdb_id, genres: g }: any = item;
-  const genres = g.map((item: any) => item.name);
+  const { title, release_date, poster_path, homepage, imdb_id, genres: g, overview}: any = item;
+  const genres = g.map((arrayItem: any) => arrayItem.name);
   const selectedItem: MovieDetail = {
     imdb_link: `http://www.imdb.com/title/${imdb_id}`,
-    image: `${moviesImagePath}${poster_path}`,
+    image: `https://image.tmdb.org/t/p/w300${poster_path}`,
     release_date,
+    overview,
     genres,
     homepage,
     title
@@ -145,8 +138,8 @@ function mapAlbumDetail(state: AppState, action: { routeId: string }): AppState 
 
   const { name, artists: artistArray,
     images: [, { url: image }], external_urls: { spotify: spotifyLink }, release_date, tracks: { items } }: any = item;
-  const tracks = items.map((item: Artists) => item.name);
-  const artists = artistArray.map((item: Artists) => ({ name: item.name, spotifyUrl: item.external_urls.spotify }));
+  const tracks = items.map((arrayItem: Artists) => arrayItem.name);
+  const artists = artistArray.map((arrayItem: Artists) => ({ name: arrayItem.name, spotifyUrl: arrayItem.external_urls.spotify }));
   console.log(artists);
   const selectedItem: AlbumDetail = {
     name,

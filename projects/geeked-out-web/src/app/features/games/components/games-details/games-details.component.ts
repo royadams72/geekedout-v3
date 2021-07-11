@@ -1,28 +1,26 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { select, Store } from '@ngrx/store';
-import { CategoryType } from '@web/shared/enums/category-type.enum';
 import { GameDetail } from '@web/shared/interfaces/game';
-import { AppActions } from '@web/store/actions';
 import { State } from '@web/store/reducers';
 import { getItem } from '@web/store/selectors';
 
 @Component({
   selector: 'app-games-details',
-  templateUrl: './games-details.component.html',
-  styleUrls: ['./games-details.component.scss']
+  templateUrl: './games-details.component.html'
 })
 export class GamesDetailsComponent implements OnInit {
- gameDetail$: any;
-  constructor(private store: Store<State>) { }
+  item: GameDetail = {} as GameDetail;
+  @ViewChild ('bgContainer') bgContainer: ElementRef<HTMLInputElement> = {} as ElementRef;
+
+  constructor(private store: Store<State>, private renderer: Renderer2) { }
 
 
   ngOnInit(): void {
-    // TODO: this action should be despatched in router effects service to update state in reducer function and then get the select detail
-  //   this.gameDetail$ = this.store.pipe(select(getDetail<GameDetail>(CategoryType.Games))).subscribe(data => {
-  //     this.store.dispatch(AppActions.setSelectedItem({item: data}));
-  //     console.log(data);
-  //   });
-  // }
-  this.gameDetail$ = this.store.pipe(select(getItem)).subscribe((d) => console.log(d));
+    this.store.pipe(select(getItem)).subscribe((item) => this.item = item);
+    setTimeout(() => {
+      if (!this.item) { return; }
+      this.renderer.setStyle(this.bgContainer.nativeElement, 'background-image', `url(${this.item.image})`);
+    }, 400);
+  // this.gameDetail$ = this.store.pipe(select(getItem)).subscribe((d) => console.log(d));
   }
 }

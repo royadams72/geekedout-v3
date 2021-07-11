@@ -1,6 +1,9 @@
-$comics-colour:     settings-colour('comics');
-$music-colour:      settings-colour('music');
-$white:             settings-colour('text-white');
+$comics-colour:              settings-colour('comics');
+$music-colour:               settings-colour('music');
+$games-colour:               settings-colour('games');
+$movies-colour:              settings-colour('movies');
+$text-primary-colour:        settings-colour('text-primary');
+$white:                      settings-colour('text-white');
 
 .details {
   display: flex;
@@ -9,23 +12,84 @@ $white:             settings-colour('text-white');
   margin: 0 auto;
   max-width: 740px;
 
-  &__button-comics-hover {
+  &--music,
+  &--movies,
+  &--comics,
+  &--games {
+    .details__link {
+      text-decoration: underline;
 
-    &:hover {
-      border-color: $comics-colour;
+
+      &:hover {
+        color: $text-primary-colour;
+      }
+    }
+  }
+
+  &--movies {
+    .details--alt-colour {
+      color: $movies-colour;
+    }
+
+    .btn {
+      &:hover {
+        border-color: $movies-colour;
+        color: $movies-colour;
+      }
+    }
+  }
+
+  &--comics {
+    .details--alt-colour {
       color: $comics-colour;
     }
-  }
 
-  &__button-music-hover {
-
-    &:hover {
-      border-color: $music-colour;
-      color: $music-colour;
+    .btn {
+      &:hover {
+        border-color: $comics-colour;
+        color: $comics-colour;
+      }
     }
   }
 
-  &__button-top {
+  &--games {
+    .details--alt-colour {
+      color: $games-colour;
+    }
+
+    .btn {
+      &:hover {
+        border-color: $games-colour;
+        color: $games-colour;
+      }
+    }
+  }
+
+  &--music {
+    .details--alt-colour {
+      color: $music-colour;
+    }
+
+    .details__link {
+      color: $music-colour;
+    }
+
+    .btn {
+      &:hover {
+        border-color: $music-colour;
+        color: $music-colour;
+      }
+    }
+
+  }
+
+  &__btn--movies-info {
+    margin-bottom: 10px;
+    margin-top: 10px;
+  }
+
+
+  &__btn--top {
     margin: 0 auto;
     max-width: 300px;
     padding-left: 28px;
@@ -89,13 +153,25 @@ $white:             settings-colour('text-white');
       color: $music-colour;
     }
 
-    &-li-alt-colour {
-      color: $white;
+    &-li-alt {
+      color: $text-primary-colour;
     }
   }
 
   &__list-heading {
     font-size: 17px;
+  }
+
+  &__copy {
+    margin: 10px 0 0;
+
+    &--top-0 {
+      margin-top: 0;
+    }
+
+    &--last {
+      margin-bottom: 15px;
+    }
   }
 
   &--comic-colour {
@@ -104,5 +180,13 @@ $white:             settings-colour('text-white');
 
   &--music-colour {
     color: $music-colour;
+  }
+
+  &--games-colour {
+    color: $games-colour;
+  }
+
+  &--movies-colour {
+    color: $movies-colour;
   }
 }

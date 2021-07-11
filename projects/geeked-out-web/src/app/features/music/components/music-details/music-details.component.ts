@@ -7,8 +7,7 @@ import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-music-details',
-  templateUrl: './music-details.component.html',
-  styleUrls: ['./music-details.component.scss']
+  templateUrl: './music-details.component.html'
 })
 export class MusicDetailsComponent implements OnInit {
   // $albumDetail = new Observable<Artists>();

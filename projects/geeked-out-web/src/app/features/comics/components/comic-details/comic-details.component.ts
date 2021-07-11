@@ -10,8 +10,7 @@ import { Observable, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-comic-details',
-  templateUrl: './comic-details.component.html',
-  styleUrls: ['./comic-details.component.scss']
+  templateUrl: './comic-details.component.html'
 })
 export class ComicDetailsComponent implements OnInit {
   // comicDetail$ = new Observable<ComicDetail>();

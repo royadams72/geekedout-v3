@@ -1,6 +1,6 @@
-<div class="container details comics-details">
-    <div class="row details__button-top">
-      <a class="btn details__button-comics-hover" [routerLink]="['/comics']"><< Back to Comics</a>
+<div class="details details--comics">
+    <div class="row details__btn--top">
+      <a class="btn" [routerLink]="['/comics']"><< Back to Comics</a>
       <!-- <a class="btn" [routerLink]="['/search', ]"><< Back to Search Results</a> -->
     </div>
 
@@ -11,22 +11,23 @@
 
         <div class="column text-left details__info">
           <h1 class="details__title">{{item?.title}}</h1>
-          <h4 class="details__sub-heading">Published: {{item?.onsaleDate | date: 'dd/MM/yyyy'}}</h4>
-          <h4 class='details__sub-heading'>
-            <span *ngIf="item?.printPrice">Price: {{item?.printPrice | currency:'GBP' : 'symbol'}} (Aprox)</span>
-            <span *ngIf="!item?.printPrice">No Price Available</span>
+          <h4 *ngIf="item?.onsaleDate" class="details__sub-heading"><span class="details--alt-colour">Published:</span> {{item?.onsaleDate | date: 'dd/MM/yyyy'}}</h4>
+          <h4 *ngIf="item?.printPrice" class='details__sub-heading'>
+            <span *ngIf="item?.printPrice"><span class="details--alt-colour">Price:</span> {{item?.printPrice | currency:'GBP' : 'symbol'}} (Aprox)</span>
+            <span class="details--alt-colour" *ngIf="!item?.printPrice">No Price Available</span>
           </h4>
+          <h4 *ngIf="item?.pageCount" class='details__sub-heading'><span class="details--alt-colour">Page Count:</span> {{item?.pageCount}}</h4>
           <ul class="details__ul details__ul--comics">
           <li *ngFor="let creator of item?.creators let i = index">
-              <span class="details--comic-colour">{{creator?.role}}:</span> {{creator?.name}}
+              <span class="details--alt-colour">{{creator?.role}}:</span> {{creator?.name}}
           </li>
           </ul>
 
 
-        <p>{{item?.description}}</p>
-        <!-- <p *ngIf="item?.urls[1]">
-        <a  href="{{item?.urls[1].url}}" target="_blank" class="btn marginTop30">Buy</a>
-        </p> -->
+        <p *ngIf="item?.description">{{item?.description}}</p>
+      <div *ngIf="item?.clickThrough">
+        <a href="{{item?.clickThrough}}" target="_blank" class="btn">Go to Mavel Website</a>
+      </div>
         </div>
       </div>
   </div>

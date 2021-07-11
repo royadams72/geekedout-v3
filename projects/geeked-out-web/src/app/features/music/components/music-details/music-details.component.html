@@ -1,7 +1,7 @@
 
-<div class="container details music-details">
-    <div class="row details__button-top">
-        <a class="btn details__button-music-hover" [routerLink]="['/music']"><< Back to Music</a>
+<div class="container details details--music">
+    <div class="row details__btn--top">
+        <a class="btn" [routerLink]="['/music']"><< Back to Music</a>
         <!-- <a class="btn" [routerLink]="['/search', searchStr]"><< Back to Search Results</a> -->
       </div>
 
@@ -13,18 +13,18 @@
         <div class="column text-left details__info">
           <h1 class="details__title">{{item?.name}}</h1>
           <h4 *ngFor="let artist of item?.artists">
-            <a href="{{artist?.spotifyUrl}}" class="details__sub-heading details__sub-heading--music util-helper__underline" target="_blank">{{artist.name}}</a></h4>
+            <a href="{{artist?.spotifyUrl}}" class="details__sub-heading details__link" target="_blank">{{artist.name}}</a></h4>
           <h4 class="details__sub-heading">Realease Date: {{item?.release_date | date}}</h4>
             <h4 class="details__list-heading">TrackList</h4>
 
             <ol class="details__ol details__ol--music">
               <li *ngFor="let track of item?.tracks" class="details__ol--music-li">
-                <span class="details__ol--music-li-alt-colour">{{track}}</span>
+                <span class="details__ol--music-li-alt">{{track}}</span>
               </li>
             </ol>
 
           <div *ngIf="item?.spotify_link">
-              <a  href="{{item?.spotify_link}}" target="_blank" class="btn details__button-music-hover">Spotify Page</a>
+              <a  href="{{item?.spotify_link}}" target="_blank" class="btn">Spotify Page</a>
           </div>
 
         </div>

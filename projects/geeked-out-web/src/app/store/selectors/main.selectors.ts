@@ -95,6 +95,7 @@ export const getItems = (category: string, preview: boolean, arrayName?: string)
 };
 
 /** Helpers */
+/** TODO: get rid of image data */
 
 function getImageDataIfMovies(state: MoviesStore): string {
     if (!state.imageData) { return ''; }
