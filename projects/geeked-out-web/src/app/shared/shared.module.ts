@@ -15,7 +15,8 @@ import { RouterModule } from '@angular/router';
   ],
   exports: [
     CategoryComponent,
-    CommonModule
+    CommonModule,
+    LazyLoadImageModule
   ]
 })
 export class SharedModule { }
