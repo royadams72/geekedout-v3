@@ -1,3 +1,5 @@
+import { Preview } from './preview';
+
 export interface UiData {
    selectedId: string;
    selectedItem: any;
@@ -6,6 +8,9 @@ export interface UiData {
    currPrevUrls: {
       currentUrl: string;
       previousUrl: string;
-   }
-
+   };
+   searchData: {
+    searchTerm: string;
+    items: Array<Preview>
+   };
 }

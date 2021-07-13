@@ -41,7 +41,9 @@ export const appReducer = createReducer(
     on(AppActions.setCurrPrevUrls,
       (state, { currentUrl, previousUrl }) =>
       ({ ...state, uiData: {...state.uiData, currPrevUrls: { currentUrl, previousUrl }}})),
-    on(AppActions.setSelectedItem, (state, {item}) => ({ ...state, uiData: {...state.uiData, selectedItem: item }}))
+    on(AppActions.setSelectedItem, (state, {item}) => ({ ...state, uiData: {...state.uiData, selectedItem: item }})),
+    on(AppActions.setSearchStatus, (state, {items, searchTerm}) =>
+      ({ ...state, uiData: {...state.uiData, searchData: {items, searchTerm} }}))
     );
 
 function getDetail(state: AppState , action: {routeId: string, category: string | undefined}): AppState {

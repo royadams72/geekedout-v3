@@ -51,6 +51,16 @@ export const getCategoryState = (category: string): any => {
         );
 };
 
+
+export const getSearchState = createSelector(
+           appState,
+           (state: any) => {
+            console.log(state);
+            return state.uiData.searchData;
+           }
+       );
+
+
 export const search = (searchString: string): any => {
     return createSelector(
              appState,
