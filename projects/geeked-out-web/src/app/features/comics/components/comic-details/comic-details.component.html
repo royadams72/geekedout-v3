@@ -1,7 +1,7 @@
 <div class="details details--comics">
     <div class="row details__btn--top">
-      <a class="btn" [routerLink]="['/comics']"><< Back to Comics</a>
-      <!-- <a class="btn" [routerLink]="['/search', ]"><< Back to Search Results</a> -->
+      <a *ngIf="!isSearch" class="btn" [routerLink]="['/comics']"><< Back to Comics</a>
+      <a *ngIf="isSearch" class="btn" [routerLink]="['/search', ]"><< Back to Search Results</a>
     </div>
 
     <div class="row row--stack-on-small">

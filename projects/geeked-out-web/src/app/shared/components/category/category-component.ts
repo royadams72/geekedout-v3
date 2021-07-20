@@ -19,16 +19,26 @@ export class CategoryComponent implements OnInit {
   displayItems: any;
   defaultImage = '';
   isLoaded = false;
+  categoryClass = '';
   constructor(private sw: ScreenWidthService) {
    }
 
   ngOnInit(): void {
+    this.categoryClass = `category__item--${this.categoryTitle.toLowerCase()}`;
     this.displayItems = this.items;
     this.defaultImage = 'assets/images/defaultImage.png';
     this.watchScreenSize();
     this.fadeInText();
   }
 
+
+
+  getClass(category: string): any {
+    return {
+      [`category__item--${category.toLowerCase()}`] : this.isLoaded
+    };
+
+  }
   watchScreenSize(): void {
     combineLatest([this.sw.small$, this.sw.medium$, this.sw.large$])
     .subscribe((screen) => {

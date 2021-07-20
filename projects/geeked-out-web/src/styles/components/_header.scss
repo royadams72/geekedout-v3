@@ -1,79 +1,90 @@
 $bg-colour: $base-bg-colour;
+
 .header {
-    background-color: $bg-colour;
+  background-color: $bg-colour;
+  display: flex;
+  flex-basis: auto;
+  flex-direction: column;
+  flex-wrap: wrap;
+  height: 120px;
+  justify-content: left;
+  margin: 0 0 30px;
+  padding: 0;
+
+  @include is-medium {
+    flex-direction: row;
+    flex-wrap: nowrap;
+    height: 70px;
+}
+
+
+  &__logo {
+    align-items: flex-start;
     display: flex;
-    flex-wrap: wrap;
-    justify-content: left;
-    margin: 0 0 30px;
-    padding: 0;
-    height: 120px;
-    flex-direction: column;
-    flex-basis: auto;
+    flex-basis: 0;
+    flex-grow: 1;
+    height: auto;
+    justify-content: center;
 
-     @include is-medium {
-        flex-wrap: nowrap;
-        flex-direction: row;
-        height: 70px;
+    @include is-medium {
+      justify-content: flex-start;
     }
 
+    &-image {
+      max-width: 85%;
 
-    &__logo {
-        display: flex;
-        flex-grow: 1;
-        flex-basis: 0;
-        align-items: flex-start;
-        justify-content: center;
-        height: auto;
+      @include is-medium {
+        margin-left: 15px;
+        margin-top: 6px;
+        max-width: 70%;
+      }
 
-        @include is-medium {
-            justify-content: flex-start;
-        }
+      @include is-large {
+        margin-top: 6px;
+        max-width: 55%;
 
-        &-image {
-            max-width: 85%;
+      }
+    }
+  }
 
-            @include is-medium {
-                margin-left: 15px;
-            }
-        }
+  &__nav {
+    flex-basis: 0;
+    flex-grow: 1;
+    margin-top: 10px;
+
+    &-ul {
+      align-items: center;
+      display: flex;
+      justify-content: center;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      width: 100%;
+
+      @include is-medium {
+        align-items: center;
+        justify-content: flex-end;
+
+      }
+
     }
 
-    &__nav {
-        margin-top: 10px;
-        flex-grow: 1;
-        flex-basis: 0;
+    &-item {
+      display: flex;
+      justify-content: center;
+      margin: 0 .4rem;
+      width: 20%;
 
-        &-ul {
-            padding: 0;
-            margin: 0;
-            width: 100%;
-            display: flex;
-            list-style: none;
-            justify-content: center;
-            align-items: center;
-
-            @include is-medium {
-                justify-content: flex-end;
-                align-items: center;
-            }
-
-        }
-
-        &-item {
-            width: 20%;
-            margin: 0 .4rem;
-            display: flex;
-            justify-content: center;
-            @include is-large {
-                width: 10%;
-            }
-        }
-
-        &-item-img {
-            width: 50px;
-            height: auto;
-        }
-
+      @include is-large {
+        width: 10%;
+      }
     }
+
+    &-item-img {
+      height: auto;
+      width: 40px;
+    }
+
+  }
 
 }

@@ -30,27 +30,12 @@ router.get('/preview/:limit/:offset', function (req, res, next) {
          error: err
        })
      }
-          // console.log(JSON.parse(body));
+
           res.json(JSON.parse(body).data);
-        //  next();
     })
 
 });
-function findAndReplace(object, value, replacevalue) {
-  //console.log(replacevalue)
-  for (var x in object) {
-    if (object.hasOwnProperty(x)) {
-      if (typeof object[x] == 'object') {
-        findAndReplace(object[x], value, replacevalue);
-      }
-      if (object[x] == value) {
-        object["name"] = replacevalue;
-         break; // uncomment to stop after first replacement
 
-      }
-    }
-  }
-}
 router.get('/details/:id', function (req, res, next) {
   let id = req.params.id;
   var options = {
@@ -75,7 +60,6 @@ router.get('/search/:query', function (req, res, next) {
 	let str = q.slice(0, 5)
 	let query = encodeURIComponent(str)
 
-  // console.log("comics "+query)
   var options = {
     url: url+'comics?titleStartsWith='+query+'&ts='+ts+'&apikey='+process.env.COMICS_PUBLIC_APIKEY+'&hash='+hash.hex()
   }
@@ -88,7 +72,7 @@ router.get('/search/:query', function (req, res, next) {
          error: err
        })
      }
-		 // console.log(body)
+
 		   res.json({data: JSON.parse(body)});
 
     })

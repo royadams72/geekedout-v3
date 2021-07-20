@@ -1,7 +1,6 @@
 import { createSelector } from '@ngrx/store';
 import { CategoryType } from '@web/shared/enums/category-type.enum';
 import { Paths } from '@web/shared/enums/paths.enums';
-import { MoviesStore } from '@web/shared/interfaces/movies';
 import { Preview } from '@web/shared/interfaces/preview';
 import { State } from '@web/store/reducers';
 import { AppState } from '../reducers/main.reducers';
@@ -42,6 +41,10 @@ export const getCategory = createSelector(
         return category || undefined;
     });
 
+export const isSearch = createSelector(
+      appState,
+      (state: AppState) => !!(state.uiData.currPrevUrls.previousUrl === '/search' && state.uiData.searchData.searchTerm));
+
 export const getCategoryState = (category: string): any => {
    return createSelector(
             appState,
@@ -54,10 +57,7 @@ export const getCategoryState = (category: string): any => {
 
 export const getSearchState = createSelector(
            appState,
-           (state: any) => {
-            console.log(state);
-            return state.uiData.searchData;
-           }
+           (state: any) => state.uiData.searchData
        );
 
 
@@ -79,7 +79,6 @@ export const search = (searchString: string): any => {
                         return item;
                     }).filter((item: any) => {
                         const title = item.title.toUpperCase().replace(/\s+/g, '');
-                        console.log(s);
                         return title.includes(s);
                  }); });
              }

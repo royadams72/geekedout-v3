@@ -14,7 +14,6 @@ export class ResourceService<T> {
 
 
   read(limit?: number, offset: string = ''): any {
-    console.log(this.endPointUrl);
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.httpClient.get<T>(`${environment.apiUrl}${this.endPointUrl.preview}${limit}/${offset}`, this.httpOptions);
   }
