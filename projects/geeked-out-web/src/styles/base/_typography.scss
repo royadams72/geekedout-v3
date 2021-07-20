@@ -63,7 +63,6 @@ $type-li-colour:                      $type-font-colour !default;
 
 $type-a-decoration:                  none !default;
 
-// $type-link-font-colour:              settings-colour('link') !default;
 
 //Mixins /
 
@@ -73,16 +72,6 @@ $type-a-decoration:                  none !default;
   font-weight: $font-weight;
   margin-bottom: $margin-bottom;
 }
-
-// @mixin anchor($type-body-font-size, $cursor, $margin-bottom, $text-decoration, $line-height, $padding-left) {
-//     color: $type-font-color-benefits;
-//     cursor: $cursor;
-//     font-size: $type-body-font-size;
-//     line-height: $line-height;
-//     padding-left: $padding-left;
-//     text-decoration:  $text-decoration;
-// }
-
 
 h1,
 %h1 {
@@ -145,9 +134,9 @@ p,
     line-height: $type-p-line-height-medium;
   }
 
-  &:last-child {
-    margin-bottom: 0;
-  }
+  // &:last-child {
+  //   margin-bottom: 0;
+  // }
 
 
 }
@@ -172,36 +161,3 @@ a {
   text-decoration: $type-a-decoration;
 }
 
-// .link {
-//     color: $type-link-font-colour;
-//     cursor: pointer;
-//     padding: 0;
-//     text-decoration: $type-a-decoration;
-
-//     &:focus:not(:hover) {
-//         box-shadow: 0 0 0 2px $type-text-focus-colour;
-//     }
-// }
-
-// %header-copy {
-//     @extend %h1;
-//     @include hg-font-size($type-title-font-size, $type-title-line-height);
-// }
-
-// %header-copy-alt {
-//     @include color-font-margin-bottom($type-font-colour, $type-body-alt-font-family, bold, $type-title-alt-margin-bottom);
-//     @include hg-font-size($type-title-font-size, $type-title-alt-line-height);
-// }
-
-// %small-copy {
-//     @include hg-font-size($type-small-copy-font-size, $type-small-copy-line-height);
-// }
-
-// %sub-title-text {
-//     @include hg-font-size($type-sub-title-font-size, $type-sub-title-line-height);
-//     font-weight: $type-sub-title-font-weight;
-// }
-
-// %text-anchor {
-//     @include anchor($type-font-size-medium, pointer, $type-anchor-margin-bottom, underline, $type-panel-left-margin, $type-panel-left-margin);
-// }

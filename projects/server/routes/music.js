@@ -31,7 +31,6 @@ router.use(function (req, res, next) {
          })
        }
        token = JSON.parse(body).access_token;
-      //  console.log("token ="+token)
     next();
 
     })
@@ -39,7 +38,6 @@ router.use(function (req, res, next) {
 })
 router.get('/preview/:limit', function (req, res) {
   let limit = req.params.limit;
-  console.log('music');
      var options = {
        url:'https://api.spotify.com/v1/browse/new-releases?limit='+limit+'&country=GB',
 
@@ -55,7 +53,7 @@ router.get('/preview/:limit', function (req, res) {
             error: err
           })
         }
-        // console.log(JSON.parse(body).albums);
+
            res.json(JSON.parse(body).albums);
        })
 
@@ -83,7 +81,6 @@ router.get('/preview/:limit', function (req, res) {
       });
 
   router.get('/search/:query', function (req, res) {
-     //console.log(token)
     let q = req.params.query;
     let query = encodeURIComponent(q)
        var options = {

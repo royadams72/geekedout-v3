@@ -11,7 +11,7 @@ NOTE USED OF THIS SECTION WITHOUT AN AGREEMENT FROM THE TEAM
 WILL FAIL PEER REVIEW
 -----------*/
 
-/* ---------- Component: Helper Classes */
+// Component: Helper Classes
 
 .util-helper {
   &__margin-bt-spacing {
@@ -26,8 +26,10 @@ WILL FAIL PEER REVIEW
     }
   }
 
-
-
+  &__center {
+    margin-left: auto;
+    margin-right: auto;
+  }
 
   &__margin-top-s {
     margin-top: 5px;

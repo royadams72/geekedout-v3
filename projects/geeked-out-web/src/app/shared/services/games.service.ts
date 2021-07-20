@@ -10,7 +10,7 @@ import { Game } from '@web/shared/interfaces/game';
   providedIn: 'root'
 })
 export class GamesService {
-  // `https://www.gamerpower.com/api/giveaways`
+
   constructor(private http: HttpClient) { }
   getGames(): Observable<Game[]> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json'});

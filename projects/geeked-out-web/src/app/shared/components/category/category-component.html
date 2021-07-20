@@ -1,10 +1,10 @@
 <div class="category">
     <h1 class="category__header" [style.opacity]="isLoaded ? 1 : 0">{{categoryTitle}}</h1>
   <div class="category__items-container" *ngIf="displayItems">
-      <div class="category__item" *ngFor="let item of displayItems">
-        <a class="category__anchor" [routerLink]="link ? [link] : item.id" >
-          <img [defaultImage]="defaultImage"  [lazyLoad]="item.imageSmall" *ngIf="item.imageSmall && smallScreen"  class="category__image">
-          <img [defaultImage]="defaultImage"  [lazyLoad]="item.imageLarge" *ngIf="item.imageLarge && largeScreen ||
+      <div class="category__item"  *ngFor="let item of displayItems; let i = index">
+        <a class="category__anchor" [routerLink]="link ? [link] : item.id">
+          <img [defaultImage]="defaultImage" [lazyLoad]="item.imageSmall" *ngIf="item.imageSmall && smallScreen" class="category__image">
+          <img [defaultImage]="defaultImage" [lazyLoad]="item.imageLarge" *ngIf="item.imageLarge && largeScreen ||
                 mediumScreen || !item.imageSmall"  class="category__image">
           <p class="category__footer" [style.opacity]="isLoaded ? 1 : 0">
             <span *ngIf="smallScreen">

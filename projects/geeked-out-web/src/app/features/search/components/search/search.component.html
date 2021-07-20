@@ -1,9 +1,16 @@
-<p>search works!</p>
-<input  [ngModel]="" #serachField>
 
-<div *ngFor="let item of data">
-    <div *ngFor="let cat of item">
-    {{cat.title}}
+<div class="row">
+<input class="util-helper__center search__input" placeholder="Type to get started" (keyup)="searchTerm$.next($any($event.target).value)" #searchField>
+
 </div>
+<div class="row" *ngIf="noResults"><p class="util-helper__center">No results found</p></div>
+<div class="category__items-container" *ngIf="data">
+  <div class="category__item category__item--{{item.category}}" *ngFor="let item of data">
+    <a class="category__anchor" [routerLink]="['../' ,item.category, item.id]" >
+      <img src="{{item.imageLarge}}"  class="category__image" [style.opacity]="isLoaded ? 1 : 0">
+      <p class="category__footer" [style.opacity]="isLoaded ? 1 : 0">
+          <span>{{item.title | slice: 0:16}}...</span>
+      </p>
+    </a>
+  </div>
 </div>
-<!-- <input  (keyup)="searchString.next(filter($event.target.value))" [ngModel]="" #serachField> -->

@@ -1,34 +1,69 @@
-import { AfterViewInit, asNativeElements, Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { select, Store } from '@ngrx/store';
+import { Preview } from '@web/shared/interfaces/preview';
 import { AppActions } from '@web/store/actions';
 import { State } from '@web/store/reducers';
-import { search } from '@web/store/selectors';
+import { getSearchState, search } from '@web/store/selectors';
+import { BehaviorSubject, Subscription } from 'rxjs';
 
-import { distinctUntilChanged, filter, take, tap } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, filter, switchMap, take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-search',
-  templateUrl: './search.component.html',
-  styleUrls: ['./search.component.scss']
+  templateUrl: './search.component.html'
 })
-export class SearchComponent implements OnInit, AfterViewInit {
-  @ViewChild('serachField', { static: false }) serachField: ElementRef<HTMLInputElement> = {} as ElementRef;
-  constructor(private store: Store<State>, private renderer: Renderer2) { }
-data: any;
-  ngOnInit(): void {}
+export class SearchComponent implements OnInit, AfterViewInit, OnDestroy {
+  @ViewChild('searchField', { static: false }) searchField: ElementRef<HTMLInputElement> = {} as ElementRef;
 
+  constructor(private store: Store<State>, private changeDetectorRef: ChangeDetectorRef) { }
+  data: any = [];
+  defaultImage = '';
+  isLoaded = true;;
+  store$ = new Subscription();
+  searchTerm$ = new BehaviorSubject<string>('');
+  noResults = false;
+  ngOnInit(): void {
+    this.defaultImage = 'assets/images/defaultImage.png';
+
+  }
+
+  ngOnDestroy(): void {
+    this.store$.unsubscribe();
+    this.searchTerm$.unsubscribe();
+  }
   ngAfterViewInit(): void {
-    this.renderer.listen(this.serachField.nativeElement, 'keyup', (event) => {
-      this.store.pipe(select(search(this.serachField.nativeElement.value)),
-      filter(() => this.serachField.nativeElement.value.length >= 3 ),
+
+    this.store$ = this.store.pipe(select(getSearchState)).subscribe((data) => {
+      if (!data || !data.items) { return; }
+      this.searchField.nativeElement.value = data.searchTerm;
+      this.searchTerm$.next(data.searchTerm);
+      this.changeDetectorRef.detectChanges();
+    });
+
+    this.searchTerm$.pipe(
+      debounceTime(300),
       distinctUntilChanged(),
-      tap(() => this.store.dispatch(AppActions.setPageLoading({ pageLoading: true }))),
-      take(1))
-      .subscribe(data => {
-          this.data = data;
-          this.store.dispatch(AppActions.setPageLoading({ pageLoading: false }));
-          console.log(data);
-        });
+      filter((str: string) => {
+       str = str.replace(/\s+/g, '').trim();
+       if (!str) {
+        this.data = [];
+        this.store.dispatch(AppActions.setSearchStatus({items: this.data, searchTerm: this.searchTerm$.getValue()}));
+        }
+       return str.length >= 3 && str !== '';
+      }),
+      switchMap((str: string) => this.store.pipe(select(search(str)), take(1))))
+      .subscribe((data: Array<Preview[]>) => {
+        this.data = [...data[0], ...data[1], ...data[2], ...data[3]];
+        this.setNoResults(this.data);
+        if (this.data.length > 0) {
+          this.store.dispatch(AppActions.setSearchStatus({items: this.data, searchTerm: this.searchTerm$.getValue()}));
+        }
     });
   }
+
+  setNoResults(data: []): void {
+    const searchField = this.searchTerm$.getValue().trim().length;
+    this.noResults = (searchField >= 3 && data.length === 0) ? true : false;
+  }
+
 }
