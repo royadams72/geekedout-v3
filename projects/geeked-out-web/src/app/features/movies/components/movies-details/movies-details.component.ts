@@ -1,12 +1,9 @@
 import { Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { select, Store } from '@ngrx/store';
-import { CategoryType } from '@web/shared/enums/category-type.enum';
+import { Paths } from '@web/shared/enums/paths.enums';
 import { MovieDetail } from '@web/shared/interfaces/movies';
-
-import { MoviesService } from '@web/shared/services/movies.service';
-import { AppActions } from '@web/store/actions';
 import { State } from '@web/store/reducers';
-import { getItem, getSearchState, isSearch } from '@web/store/selectors';
+import { getItem, isSearch } from '@web/store/selectors';
 
 @Component({
   selector: 'app-movies-details',
@@ -16,8 +13,9 @@ export class MoviesDetailsComponent implements OnInit {
 
   item: MovieDetail = {} as MovieDetail;
   isSearch = false;
+  backGroundImage = '';
 
-  @ViewChild ('bgContainer') bgContainer: ElementRef<HTMLInputElement> = {} as ElementRef;
+  @ViewChild ('image') image: ElementRef<HTMLInputElement> = {} as ElementRef;
 
   constructor(private store: Store<State>, private renderer: Renderer2) {
    }
@@ -27,8 +25,13 @@ export class MoviesDetailsComponent implements OnInit {
     this.store.pipe(select(getItem)).subscribe((item) => this.item = item);
     setTimeout(() => {
       if (!this.item) { return; }
-      this.renderer.setStyle(this.bgContainer.nativeElement, 'background-image', `url(${this.item.image})`);
+      this.backGroundImage = `url(${this.item.image})`;
     }, 400);
+  }
+
+  onImageError(): void  {
+    this.renderer.setAttribute(this.image.nativeElement, 'src', `${Paths.Images}/image404@2x.png`);
+    this.backGroundImage = `url(${Paths.Images}/image404@2x.png)`;
   }
 
 }

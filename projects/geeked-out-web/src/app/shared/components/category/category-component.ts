@@ -1,7 +1,9 @@
-import { Component, Input, OnChanges, SimpleChanges, OnInit, AfterViewInit} from '@angular/core';
+import { Component, Input, OnInit} from '@angular/core';
+import { CategoryType } from '@web/shared/enums/category-type.enum';
+import { Paths } from '@web/shared/enums/paths.enums';
 import { Preview } from '@web/shared/interfaces/preview';
 import { ScreenWidthService } from '@web/shared/services/screen-width.service';
-import { combineLatest, forkJoin, Observable } from 'rxjs';
+import { combineLatest } from 'rxjs';
 
 @Component({
   selector: 'app-category',
@@ -18,8 +20,10 @@ export class CategoryComponent implements OnInit {
   largeScreen = false;
   displayItems: any;
   defaultImage = '';
+  errorImage = `${Paths.Images}/image404@2x.png`;
   isLoaded = false;
   categoryClass = '';
+  image = '';
   constructor(private sw: ScreenWidthService) {
    }
 
@@ -58,6 +62,12 @@ export class CategoryComponent implements OnInit {
 
   isStringShorterThan(str: string, n: number): boolean {
     return  str.length < n;
+  }
+
+  setErrorImage(): string {
+    // console.log('setErrorPic');
+    return  this.categoryTitle === 'Games' ? `${Paths.Images}/image404-450x250@2x.png` :
+    `${Paths.Images}/image404@2x.png`;
   }
 
 }

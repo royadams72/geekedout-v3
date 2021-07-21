@@ -49,14 +49,14 @@
 
 *~
 
-*.log
-*.tmp
-*.tmp.*
-log.txt
-.env
-.gitignore
-npm-debug.log*
+# *.log
+# *.tmp
+# *.tmp.*
+# log.txt
+# .env
+# .gitignore
+# npm-debug.log*
 node_modules
-$RECYCLE.BIN/
+# $RECYCLE.BIN/
 .DS_Store
 Thumbs.db

@@ -3,8 +3,8 @@
   <div class="category__items-container" *ngIf="displayItems">
       <div class="category__item"  *ngFor="let item of displayItems; let i = index">
         <a class="category__anchor" [routerLink]="link ? [link] : item.id">
-          <img [defaultImage]="defaultImage" [lazyLoad]="item.imageSmall" *ngIf="item.imageSmall && smallScreen" class="category__image">
-          <img [defaultImage]="defaultImage" [lazyLoad]="item.imageLarge" *ngIf="item.imageLarge && largeScreen ||
+          <img [defaultImage]="defaultImage" [lazyLoad]="item.imageSmall" [src]="image" [errorImage]="setErrorImage()" *ngIf="item.imageSmall && smallScreen" class="category__image">
+          <img [defaultImage]="defaultImage" [lazyLoad]="item.imageLarge" [src]="image" [errorImage]="setErrorImage()" *ngIf="item.imageLarge && largeScreen ||
                 mediumScreen || !item.imageSmall"  class="category__image">
           <p class="category__footer" [style.opacity]="isLoaded ? 1 : 0">
             <span *ngIf="smallScreen">

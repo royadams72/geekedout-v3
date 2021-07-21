@@ -25,9 +25,11 @@ $bg-colour: $base-bg-colour;
     flex-grow: 1;
     height: auto;
     justify-content: center;
+    text-align: center;
 
     @include is-medium {
       justify-content: flex-start;
+      text-align: start;
     }
 
     &-image {
@@ -40,9 +42,7 @@ $bg-colour: $base-bg-colour;
       }
 
       @include is-large {
-        margin-top: 6px;
-        max-width: 55%;
-
+        margin-top: 8px;
       }
     }
   }

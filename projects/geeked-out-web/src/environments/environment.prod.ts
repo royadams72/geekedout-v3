@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://geeked-out.herokuapp.com'
+  apiUrl: 'https://pacific-spire-52259.herokuapp.com/'
 };

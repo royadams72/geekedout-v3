@@ -7,7 +7,7 @@
 
       <div class="row row--stack-on-small">
         <div class="column">
-          <img *ngIf="item?.image" src="{{item?.image}}" class="details__image" alt="">
+          <img *ngIf="item?.image" (error)="onImageError()" src="{{item?.image}}" class="details__image" alt="{{item?.name}} image" #image>
         </div>
 
         <div class="column text-left details__info">
@@ -31,5 +31,5 @@
         </div>
   </div>
 
-  <div class="back-ground-image" #bgContainer></div>
+  <div [style.background-image]="backGroundImage" class="back-ground-image"></div>
 

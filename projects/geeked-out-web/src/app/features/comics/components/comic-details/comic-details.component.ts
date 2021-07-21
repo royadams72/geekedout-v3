@@ -1,5 +1,6 @@
 import { Component, OnInit, Renderer2, ElementRef, ViewChild } from '@angular/core';
 import { select, Store } from '@ngrx/store';
+import { Paths } from '@web/shared/enums/paths.enums';
 import { ComicDetail } from '@web/shared/interfaces/comic';
 import { State } from '@web/store/reducers';
 import { getCurrPrevUrls, getItem, getSearchState, isSearch } from '@web/store/selectors';
@@ -13,7 +14,8 @@ export class ComicDetailsComponent implements OnInit {
   // comicDetail$ = new Observable<ComicDetail>();
   item: ComicDetail = {} as ComicDetail;
   isSearch = false;
-  @ViewChild ('bgContainer') bgContainer: ElementRef<HTMLInputElement> = {} as ElementRef ;
+  backGroundImage = '';
+  @ViewChild ('image') image: ElementRef<HTMLInputElement> = {} as ElementRef;
   constructor(private store: Store<State>, private renderer: Renderer2) {
    }
 
@@ -22,10 +24,13 @@ export class ComicDetailsComponent implements OnInit {
     this.store.pipe(select(getItem)).subscribe((item) => this.item = item);
     setTimeout(() => {
       if (!this.item) { return; }
-      this.renderer.setStyle(this.bgContainer.nativeElement, 'background-image', `url(${this.item.image})`);
+      this.backGroundImage = `url(${this.item.image})`;
     }, 400);
-
   }
 
+  onImageError(): void  {
+    this.renderer.setAttribute(this.image.nativeElement, 'src', `${Paths.Images}/image404@2x.png`);
+    this.backGroundImage = `url(${Paths.Images}/image404@2x.png)`;
+  }
 }
 

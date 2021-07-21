@@ -7,24 +7,22 @@ import { AppActions } from '../actions';
 import { UiData } from '@web/shared/interfaces/uiData'
 import { CategoryType } from '@web/shared/enums/category-type.enum';
 export interface AppState {
+  movies: MoviesStore | undefined | any;
   comics: ComicStore | undefined;
   music: MusicStore | undefined | any;
-  movies: MoviesStore | undefined | any;
   games: Game[] | undefined | any;
   selectedItem?: MovieDetail | AlbumDetail | ComicDetail | GameDetail | undefined;
   uiData: UiData;
 }
 
 export const initialAppState: AppState = {
-  comics:  undefined,
-  music: undefined,
   movies: undefined,
+  comics: undefined,
+  music: undefined,
   games: undefined,
   selectedItem: undefined,
   uiData: {} as UiData
 };
-
-const moviesImagePath = '';
 
 export const appReducer = createReducer(
     initialAppState,
@@ -33,9 +31,10 @@ export const appReducer = createReducer(
     on(AppActions.getGameDetail, mapGameDetail),
     on(AppActions.getMovieDetail, mapMovieDetail),
     on(AppActions.getAlbumDetail, mapAlbumDetail),
-    on(AppActions.loadDataComplete,
-      (state, {games, movies, music, comics}) =>
-      ({ ...state, games, movies, music, comics, uiData: {...state.uiData, uiLoaded: true }})),
+    on(AppActions.loadDataComplete, loadDataComplete),
+    // on(AppActions.loadDataComplete,
+    //   (state, {games, movies, music, comics}) =>
+    //   ({ ...state, games, movies, music, comics, uiData: {...state.uiData, uiLoaded: true }})),
     on(AppActions.setPageLoading, (state, { pageLoading }) => ({ ...state, uiData: {...state.uiData, pageLoading }})),
     on(AppActions.setIds, (state, { id }) => ({ ...state, uiData: {...state.uiData, selectedId: id }})),
     on(AppActions.setCurrPrevUrls,
@@ -46,6 +45,14 @@ export const appReducer = createReducer(
       ({ ...state, uiData: {...state.uiData, searchData: {items, searchTerm} }}))
     );
 
+
+
+function loadDataComplete(state: any, action: {games: Game[], movies: MoviesStore, music: MusicStore, comics: ComicStore}): any {
+  console.log(action);
+ // tslint:disable-next-line: max-line-length
+  return { ...state, music: action.music, games: action.games, movies: action.movies, comics: action.comics , uiData: {...state.uiData, uiLoaded: true }};
+
+}
 function getDetail(state: AppState , action: {routeId: string, category: string | undefined}): AppState {
   if (action.category === CategoryType.Comics) {
       return mapComicDetail(state ,  {routeId: action.routeId});
@@ -56,7 +63,6 @@ function getDetail(state: AppState , action: {routeId: string, category: string 
   } else if (action.category === CategoryType.Movies) {
     return mapMovieDetail(state ,  {routeId: action.routeId});
   }
-
 
   return state;
 }

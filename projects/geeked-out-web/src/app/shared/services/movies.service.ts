@@ -36,6 +36,7 @@ export class MoviesService extends ResourceService<MoviesStore>{
       const [imageData, ...rest] = arr;
       moviesStore.imageData = imageData;
       moviesStore.results = rest;
+      console.log(moviesStore);
       return moviesStore;
     })
 

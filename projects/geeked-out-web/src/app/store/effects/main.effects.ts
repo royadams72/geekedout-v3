@@ -28,6 +28,7 @@ export class AppEffects {
               .pipe(
                 map((data) => {
                 const [games, movies, music, comics] = data;
+                console.log(data);
                 return AppActions.loadDataComplete({ games, movies, music, comics });
               })
             );

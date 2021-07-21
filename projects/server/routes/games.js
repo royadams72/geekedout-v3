@@ -3,11 +3,11 @@ var router = express.Router();
 var request = require('request');
 var base64 = require('base-64');
 require('dotenv').config();
-var clientID = process.env.SPOTIFY_CLIENT_ID;
-var clientSecret = process.env.SPOTIFY_CLIENT_SECRET;
-var h = clientID +':'+ clientSecret;
-var credentials = base64.encode(h);
-var token;
+// var clientID = process.env.SPOTIFY_CLIENT_ID;
+// var clientSecret = process.env.SPOTIFY_CLIENT_SECRET;
+// var h = clientID +':'+ clientSecret;
+// var credentials = base64.encode(h);
+// var token;
 
 router.get('/getgames/', function (req, res) {
 

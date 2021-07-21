@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'http://localhost:3000'
+  apiUrl: 'https://pacific-spire-52259.herokuapp.com'
 };
 
 /*
