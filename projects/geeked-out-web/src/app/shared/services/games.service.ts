@@ -14,7 +14,7 @@ export class GamesService {
   constructor(private http: HttpClient) { }
   getGames(): Observable<Game[]> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json'});
-    return this.http.get<Game[]>(`${environment.apiUrl}/games/getgames/`, { headers })
+    return this.http.get<Game[]>(`${environment.apiUrl}games/getgames/`, { headers })
       .pipe(
       catchError(err => {
         console.log('caught mapping error and rethrowing', err);

@@ -12,14 +12,14 @@ export class MoviesService extends ResourceService<MoviesStore>{
 
   constructor(httpClient: HttpClient) {
     super(httpClient);
-    this.endPointUrl = {  preview: '/music/preview/', info: '/movies/info', details: '/movies/details/' };
+    this.endPointUrl = {  preview: 'music/preview/', info: 'movies/info', details: 'movies/details/' };
    }
 
   getMovies(): Observable<MoviesStore> {
     const httpArray: Array<Observable<any>> = [];
     let moviesStore = {} as MoviesStore;
 
-    return this.httpClient.get<MoviesStore>(`${environment.apiUrl}/movies/preview`, this.httpOptions)
+    return this.httpClient.get<MoviesStore>(`${environment.apiUrl}movies/preview`, this.httpOptions)
     .pipe(
       map((data) => {
         moviesStore = data;

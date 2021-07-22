@@ -50,7 +50,6 @@ export const getCategoryState = (category: string): any => {
    return createSelector(
             appState,
             (state: any) => {
-              console.log(state);
               return state[`${category}`];
             }
         );
@@ -94,7 +93,6 @@ export const getItems = (category: string, preview: boolean, arrayName?: string)
     return createSelector(
         getCategoryState(category),
         (state: any): Preview[] => {
-            console.log(state);
             if (Object.entries(state).length === 0) { return [] as Preview[]; }
             let arr = !arrayName ? state : state[`${arrayName}`];
             if (preview) { arr = arr.slice(0, 4); }

@@ -13,7 +13,7 @@ export class MusicService extends ResourceService<MusicStore>{
 
   constructor(httpClient: HttpClient) {
     super(httpClient);
-    this.endPointUrl = {preview: '/music/preview/', details: '/music/getAlbum/'};
+    this.endPointUrl = {preview: 'music/preview/', details: 'music/getAlbum/'};
   }
 
   getMusic(limit?: number): Observable<MusicStore> {
