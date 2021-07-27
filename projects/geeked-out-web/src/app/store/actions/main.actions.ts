@@ -14,6 +14,13 @@ export const getAlbumDetail = createAction(`[getAlbumDetail] Getting Album Detai
 export const setPageLoading = createAction(`[setPageLoading] Page Is Loading`, props<{ pageLoading: boolean }>());
 export const loadDataComplete = createAction('[loadDataComplete] Data Loaded',
                                 props<{games: Game[], movies: MoviesStore, music: MusicStore, comics: ComicStore}>());
+
+export const loadMovieDetails = createAction('[loadMovieDetails] Loading Movie Details');
+export const loadMovieDetailsComplete = createAction('[loadMovieDetails] Loading Movie Details Complete', props<{movies: MoviesStore}>());
+
+export const loadMusicDetails = createAction('[loadMusicDetails] Loading Music Details');
+export const loadMusicDetailsComplete = createAction('[loadMusicDetails] Loading Music Details Complete', props<{music: MusicStore}>());
+
 export const setIds = createAction('[Id] Load Ids', props<{ id: string }>());
 export const clearStore = createAction('[clearStore] Clear Store');
 export const setCurrPrevUrls = createAction('[setCurrPrevUrls] Setting Current and Destination URLs',

@@ -18,7 +18,7 @@ export class MainResolver implements Resolve<Preview[]> {
   resolve(): Observable<Preview[]> {
     return this.store.pipe(select(isLoaded))
       .pipe(
-        filter((loaded: boolean) => {
+        filter((loaded: boolean | undefined) => {
           return !!loaded;
         }),
         //  switchMap get category

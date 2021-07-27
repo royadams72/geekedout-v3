@@ -17,7 +17,7 @@ export class DetailResolver implements Resolve<any> {
   resolve(): Observable<any> {
     return this.store.pipe(select(isLoaded))
     .pipe(
-      filter((loaded: boolean) => {
+      filter((loaded: boolean | undefined) => {
         return !!loaded;
       }),
       switchMap(() => combineLatest([this.store.pipe(select(getRouteID)), this.store.pipe(select(getCategory))]).pipe(

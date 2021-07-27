@@ -1,17 +1,17 @@
 import { Injectable } from '@angular/core';
-import { createEffect, ofType, Actions, ROOT_EFFECTS_INIT } from '@ngrx/effects';
+import { createEffect, ofType, Actions } from '@ngrx/effects';
 import { AppActions } from '../actions/';
-import { switchMap, map, takeUntil, withLatestFrom, filter, mergeMap } from 'rxjs/operators';
+import { switchMap, map, withLatestFrom, filter } from 'rxjs/operators';
 import { ComicsService } from '@web/shared/services//comics.service';
 import { MusicService } from '@web/shared/services//music.service';
 import { MoviesService } from '@web/shared/services//movies.service';
 import { GamesService } from '@web/shared/services//games.service';
-import { isLoaded } from '@web/store/selectors';
+import { isLoaded, isMovieDetailsLoaded, isMusicDetailsLoaded } from '@web/store/selectors';
 import { forkJoin, of } from 'rxjs';
-import { INIT, select, Store } from '@ngrx/store';
+import { Action, select, Store } from '@ngrx/store';
 import { State } from '../reducers';
-import { RouterNavigationAction, ROUTER_NAVIGATED, ROUTER_NAVIGATION, ROUTER_REQUEST } from '@ngrx/router-store';
-import { ROUTER_INITIALIZER } from '@angular/router';
+import { RouterNavigationAction, ROUTER_REQUEST } from '@ngrx/router-store';
+import { loadMovieDetails, loadMusicDetails } from '../actions/main.actions';
 
 @Injectable()
 export class AppEffects {
@@ -35,6 +35,39 @@ export class AppEffects {
     })
   ));
 
+  loadMoviesDetails$ = createEffect(() => this.actions$.pipe(
+    ofType<Action>(loadMovieDetails),
+    withLatestFrom(this.store.pipe(select(isMovieDetailsLoaded))),
+    filter(([action, loaded]) => {
+      return !loaded;
+    }),
+    switchMap(() => {
+      return this.moviesService.getDetailsForMovies()
+              .pipe(
+                map((movies) => {
+                console.log('movies');
+                return AppActions.loadMovieDetailsComplete({movies});
+                })
+              );
+    })
+  ));
+
+  loadMusicDetails$ = createEffect(() => this.actions$.pipe(
+    ofType<Action>(loadMusicDetails),
+    withLatestFrom(this.store.pipe(select(isMusicDetailsLoaded))),
+    filter(([action, loaded]) => {
+      return !loaded;
+    }),
+    switchMap(() => {
+      return this.musicService.getMusicDetails(40)
+        .pipe(
+          map((music) => {
+            console.log('music');
+            return AppActions.loadMusicDetailsComplete({music});
+          })
+        );
+    })
+  ));
   constructor(
     private actions$: Actions,
     private comicsService: ComicsService,
