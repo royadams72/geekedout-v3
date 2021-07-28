@@ -116,7 +116,6 @@ export const search = (searchString: string): any => {
 
 
 export const getItems = (category: string, preview: boolean, arrayName?: string) => {
-
     return createSelector(
         getCategoryState(category),
         (state: any): Preview[] => {

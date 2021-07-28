@@ -18,7 +18,7 @@ export class MusicService extends ResourceService<MusicStore>{
 
   getMusic(limit?: number): Observable<MusicStore> {
     const httpArray: Array<Observable<any>> = [];
-    // let musicStore = {} as MusicStore;
+    console.log(`${environment.apiUrl}${this.endPointUrl.preview}${limit}`);
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.httpClient.get<MusicStore>(`${environment.apiUrl}${this.endPointUrl.preview}${limit}`, this.httpOptions);
   }
