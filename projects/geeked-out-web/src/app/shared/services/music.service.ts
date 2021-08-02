@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { forkJoin, Observable, of } from 'rxjs';
 import { environment } from '@web-env/environment';
-import { catchError, map, mergeMap } from 'rxjs/operators';
+import { catchError, map, mergeMap, switchMap } from 'rxjs/operators';
 import { Album, MusicStore } from '@web/shared/interfaces/music';
 import { ResourceService } from './resource.service';
 
@@ -18,6 +18,12 @@ export class MusicService extends ResourceService<MusicStore>{
 
   getMusic(limit?: number): Observable<MusicStore> {
     const httpArray: Array<Observable<any>> = [];
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.httpClient.get<MusicStore>(`${environment.apiUrl}${this.endPointUrl.preview}${limit}`, this.httpOptions);
+  }
+
+  getMusicDetails(limit?: number): Observable<MusicStore> {
+    const httpArray: Array<Observable<any>> = [];
     let musicStore = {} as MusicStore;
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.httpClient.get<MusicStore>(`${environment.apiUrl}${this.endPointUrl.preview}${limit}`, this.httpOptions)
@@ -28,7 +34,7 @@ export class MusicService extends ResourceService<MusicStore>{
             httpArray.push(this.httpClient.get<any>(`${environment.apiUrl}${this.endPointUrl.details}${item.id}`, this.httpOptions));
           });
         }),
-        mergeMap(() => {
+        switchMap(() => {
           return forkJoin(httpArray);
         }),
         map((albumsArray: Album[]) => {
@@ -39,6 +45,7 @@ export class MusicService extends ResourceService<MusicStore>{
       );
 
   }
+
   /**
    * Handle Http operation that failed.
    * Let the app continue.

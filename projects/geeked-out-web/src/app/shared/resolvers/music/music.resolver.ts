@@ -2,28 +2,31 @@ import { Injectable } from '@angular/core';
 import { Resolve, Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { State } from '@web/store/reducers';
-import { getCategory, getItems, isLoaded } from '@web/store/selectors';
-import { Observable} from 'rxjs';
-import { filter, first, switchMap } from 'rxjs/operators';
+import { getCategory, getItems, isLoaded, isMusicDetailsLoaded } from '@web/store/selectors';
+import { Observable, of} from 'rxjs';
+import { filter, first, sequenceEqual, switchMap } from 'rxjs/operators';
 import { Preview } from '@web/shared/interfaces/preview';
 import { CategoryArrays } from '@web/shared/enums/arrays.enums';
+import { AppActions } from '@web/store/actions';
 
 @Injectable({
   providedIn: 'root'
 })
 
-export class MainResolver implements Resolve<Preview[]> {
+export class MusicResolver implements Resolve<boolean | undefined> {
   constructor(private store: Store<State>, private router: Router) { }
 
-  resolve(): Observable<Preview[]> {
+  resolve(): Observable<boolean | undefined> {
+    let cat = '';
     return this.store.pipe(select(isLoaded))
       .pipe(
-        filter((loaded: boolean | undefined) => {
+        filter((loaded: boolean | undefined): boolean => {
           return !!loaded;
         }),
         //  switchMap get category
         switchMap(() => this.store.pipe(select(getCategory)).pipe(
           filter((category: any): boolean => {
+            cat = category;
             return !!category;
           })
         )),
@@ -36,7 +39,16 @@ export class MainResolver implements Resolve<Preview[]> {
               return !!items;
             })
           );
-        }), first());
+        }),
+        switchMap(() => of(this.store.dispatch(AppActions.loadMusicDetails()))),
+        switchMap(() => this.store.pipe(select(isMusicDetailsLoaded)).pipe(
+          filter((isMusicLoaded: any)  => {
+            return isMusicLoaded;
+          })
+        )
+        ), first());
 
   }
+
+
 }

@@ -32,9 +32,12 @@ export const appReducer = createReducer(
     on(AppActions.getMovieDetail, mapMovieDetail),
     on(AppActions.getAlbumDetail, mapAlbumDetail),
     on(AppActions.loadDataComplete, loadDataComplete),
-    // on(AppActions.loadDataComplete,
-    //   (state, {games, movies, music, comics}) =>
-    //   ({ ...state, games, movies, music, comics, uiData: {...state.uiData, uiLoaded: true }})),
+    on(AppActions.loadMovieDetails, (state) => (state)),
+    on(AppActions.loadMovieDetailsComplete, (state, {movies}) =>
+        ({ ...state, movies, uiData: {...state.uiData, loadedItems: {...state.uiData.loadedItems, movieDetails: true}}})),
+    on(AppActions.loadMusicDetails, (state) => (state)),
+    on(AppActions.loadMusicDetailsComplete, (state, {music}) =>
+       ({ ...state, music, uiData: {...state.uiData, loadedItems: {...state.uiData.loadedItems, musicDetails: true}} })),
     on(AppActions.setPageLoading, (state, { pageLoading }) => ({ ...state, uiData: {...state.uiData, pageLoading }})),
     on(AppActions.setIds, (state, { id }) => ({ ...state, uiData: {...state.uiData, selectedId: id }})),
     on(AppActions.setCurrPrevUrls,
@@ -50,7 +53,7 @@ export const appReducer = createReducer(
 function loadDataComplete(state: any, action: {games: Game[], movies: MoviesStore, music: MusicStore, comics: ComicStore}): any {
   console.log(action);
  // tslint:disable-next-line: max-line-length
-  return { ...state, music: action.music, games: action.games, movies: action.movies, comics: action.comics , uiData: {...state.uiData, uiLoaded: true }};
+  return { ...state, music: action.music, games: action.games, movies: action.movies, comics: action.comics , uiData: {...state.uiData, loadedItems: {...state.loadedItems, mainData: true} }};
 
 }
 function getDetail(state: AppState , action: {routeId: string, category: string | undefined}): AppState {

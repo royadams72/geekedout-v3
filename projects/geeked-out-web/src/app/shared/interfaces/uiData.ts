@@ -3,8 +3,12 @@ import { Preview } from './preview';
 export interface UiData {
    selectedId: string;
    selectedItem: any;
-   uiLoaded: boolean;
    pageLoading: boolean;
+   loadedItems: {
+      mainData: boolean;
+      musicDetails: boolean;
+      movieDetails: boolean;
+   };
    currPrevUrls: {
       currentUrl: string;
       previousUrl: string;

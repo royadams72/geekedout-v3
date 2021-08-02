@@ -15,7 +15,7 @@ export class HomePageResolver implements Resolve<boolean> {
   resolve(): Observable<boolean> {
    return this.store.pipe(select(isLoaded))
       .pipe(
-        filter((loaded: boolean) => {
+        filter((loaded: any)  => {
           return !!loaded;
         }), first());
   }

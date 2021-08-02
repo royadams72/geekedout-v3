@@ -10,7 +10,34 @@ const appState = (state: State) => state.state;
 
 export const isLoaded = createSelector(
     appState,
-    (state: AppState): boolean => state.uiData.uiLoaded);
+    (state: AppState): boolean | undefined => {
+    let data;
+    if (state.uiData.loadedItems) {
+      data = state.uiData.loadedItems.mainData;
+    }
+    return data;
+});
+
+export const isMovieDetailsLoaded = createSelector(
+      appState,
+      (state: AppState): boolean | undefined => {
+        let data;
+        if (state.uiData.loadedItems) {
+          data = state.uiData.loadedItems.movieDetails;
+        }
+        return data;
+  });
+
+
+export const isMusicDetailsLoaded = createSelector(
+    appState,
+    (state: AppState): boolean | undefined => {
+      let data;
+      if (state.uiData.loadedItems) {
+        data = state.uiData.loadedItems.musicDetails;
+      }
+      return data;
+});
 
 export const getRouteID = createSelector(
     appState,
@@ -89,7 +116,6 @@ export const search = (searchString: string): any => {
 
 
 export const getItems = (category: string, preview: boolean, arrayName?: string) => {
-
     return createSelector(
         getCategoryState(category),
         (state: any): Preview[] => {
