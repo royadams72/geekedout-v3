@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Resolve, Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { State } from '@web/store/reducers';
-import { getCategory, getItems, isLoaded, isMusicDetailsLoaded } from '@web/store/selectors';
+import { getCategory, getItems, isLoaded, isMovieDetailsLoaded, isMusicDetailsLoaded } from '@web/store/selectors';
 import { Observable, of} from 'rxjs';
 import { filter, first, sequenceEqual, switchMap } from 'rxjs/operators';
 import { Preview } from '@web/shared/interfaces/preview';
@@ -13,7 +13,7 @@ import { AppActions } from '@web/store/actions';
   providedIn: 'root'
 })
 
-export class MusicResolver implements Resolve<boolean | undefined> {
+export class MoviesResolver implements Resolve<boolean | undefined> {
   constructor(private store: Store<State>, private router: Router) { }
 
   resolve(): Observable<boolean | undefined> {
@@ -40,10 +40,10 @@ export class MusicResolver implements Resolve<boolean | undefined> {
             })
           );
         }),
-        switchMap(() => of(this.store.dispatch(AppActions.loadMusicDetails()))),
-        switchMap(() => this.store.pipe(select(isMusicDetailsLoaded)).pipe(
-          filter((isMusicLoaded: any)  => {
-            return isMusicLoaded;
+        switchMap(() => of(this.store.dispatch(AppActions.loadMovieDetails()))),
+        switchMap(() => this.store.pipe(select(isMovieDetailsLoaded)).pipe(
+          filter((isMoviesLoaded: any)  => {
+            return isMoviesLoaded;
           })
         )
         ), first());

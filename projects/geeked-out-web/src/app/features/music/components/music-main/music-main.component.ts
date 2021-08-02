@@ -17,8 +17,6 @@ export class MusicMainComponent implements OnInit {
   constructor(private store: Store<State>) { }
 
   ngOnInit(): void {
-    // TODO: This action needs to be called and checked in resolver
-    // this.store.dispatch(AppActions.loadMusicDetails());
     this.store$ = this.store.pipe(select(getItems(CategoryType.Music, false, 'items')));
   }
 

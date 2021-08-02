@@ -79,6 +79,7 @@ h1,
   font-size: $type-h1-font-size-small;
   line-height: $type-h1-line-height-small;
   margin-top: 0;
+  padding-left: 20px;
 
   @include is-medium {
     font-size: $type-h1-font-size-medium;

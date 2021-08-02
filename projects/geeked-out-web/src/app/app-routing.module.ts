@@ -26,6 +26,10 @@ const routes: Routes = [
   {
     path: '',
     loadChildren: () => import('./features/home-page/home-page.module').then(m => m.HomePageModule)
+  },
+  {
+    path: '**',
+    loadChildren: () => import('./shared/shared.module').then(m => m.SharedModule)
   }
 ];
 

@@ -13,12 +13,11 @@ export class MusicService extends ResourceService<MusicStore>{
 
   constructor(httpClient: HttpClient) {
     super(httpClient);
-    this.endPointUrl = {preview: '/music/preview/', details: '/music/getAlbum/'};
+    this.endPointUrl = {preview: 'music/preview/', details: 'music/getAlbum/'};
   }
 
   getMusic(limit?: number): Observable<MusicStore> {
     const httpArray: Array<Observable<any>> = [];
-    console.log(`${environment.apiUrl}${this.endPointUrl.preview}${limit}`);
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.httpClient.get<MusicStore>(`${environment.apiUrl}${this.endPointUrl.preview}${limit}`, this.httpOptions);
   }
@@ -31,7 +30,6 @@ export class MusicService extends ResourceService<MusicStore>{
       .pipe(
         map((data) => {
           musicStore = data;
-          console.log(musicStore);
           data.items.map((item: Album) => {
             httpArray.push(this.httpClient.get<any>(`${environment.apiUrl}${this.endPointUrl.details}${item.id}`, this.httpOptions));
           });
@@ -40,9 +38,7 @@ export class MusicService extends ResourceService<MusicStore>{
           return forkJoin(httpArray);
         }),
         map((albumsArray: Album[]) => {
-
           musicStore.items = albumsArray;
-          console.log(musicStore.items);
           return musicStore;
         })
 

@@ -12,72 +12,18 @@ export class MoviesService extends ResourceService<MoviesStore>{
 
   constructor(httpClient: HttpClient) {
     super(httpClient);
-    this.endPointUrl = {  preview: '/movies/preview/', info: '/movies/info', details: '/movies/details/' };
+    this.endPointUrl = {  preview: 'movies/preview/', info: 'movies/info', details: 'movies/details/' };
    }
-
-  // getMovies(): Observable<MoviesStore> {
-  //   const httpArray: Array<Observable<any>> = [];
-  //   let moviesStore = {} as MoviesStore;
-
-  //   return this.httpClient.get<MoviesStore>(`${environment.apiUrl}/movies/preview`, this.httpOptions)
-  //   .pipe(
-  //     map((data) => {
-  //       moviesStore = data;
-  //       data.results.map((item: Movie) => {
-  //         httpArray.push(this.httpClient.get<any>(`${environment.apiUrl}${this.endPointUrl.details}${item.id}`, this.httpOptions));
-
-  //       });
-  //   }),
-  //   mergeMap(() => {
-  //     // tslint:disable-next-line: max-line-length
-  //     return forkJoin([this.httpClient.get<MoviesImageData>(`${environment.apiUrl}${this.endPointUrl.info}`, this.httpOptions), ...httpArray]);
-  //   }),
-  //   map((arr: any) => {
-  //     const [imageData, ...rest] = arr;
-  //     moviesStore.imageData = imageData;
-  //     moviesStore.results = rest;
-  //     console.log(moviesStore);
-  //     return moviesStore;
-  //   })
-
-  //   );
-  // }
-
 
   getMovies(): Observable<MoviesStore> {
 
-    // let moviesStore = {} as MoviesStore;
-
-    return this.httpClient.get<MoviesStore>(`${environment.apiUrl}/movies/preview`, this.httpOptions)
-    // .pipe(
-    //   map((data) => {
-    //     moviesStore = data;
-    //     data.results.map((item: Movie) => {
-    //       httpArray.push(this.httpClient.get<any>(`${environment.apiUrl}${this.endPointUrl.details}${item.id}`, this.httpOptions));
-
-    //     });
-    // }),
-    // mergeMap(() => {
-    //   // tslint:disable-next-line: max-line-length
-    //   return forkJoin([this.httpClient.get<MoviesImageData>(`${environment.apiUrl}${this.endPointUrl.info}`, this.httpOptions), ...httpArray]);
-    // }),
-    // map((arr: any) => {
-    //   const [imageData, ...rest] = arr;
-    //   moviesStore.imageData = imageData;
-    //   moviesStore.results = rest;
-    //   console.log(moviesStore);
-    //   return moviesStore;
-    // })
-
-    // );
+    return this.httpClient.get<MoviesStore>(`${environment.apiUrl}movies/preview`, this.httpOptions);
   }
 
   getDetailsForMovies(): Observable<any> {
     const httpArray: Array<Observable<any>> = [];
-
     let moviesStore = {} as MoviesStore;
-
-    return this.httpClient.get<MoviesStore>(`${environment.apiUrl}/movies/preview`, this.httpOptions)
+    return this.httpClient.get<MoviesStore>(`${environment.apiUrl}movies/preview`, this.httpOptions)
      .pipe(
        map((data) => {
          moviesStore = data;
@@ -87,7 +33,6 @@ export class MoviesService extends ResourceService<MoviesStore>{
          });
      }),
      switchMap(() => {
-       // tslint:disable-next-line: max-line-length
        return forkJoin([...httpArray]);
      }),
      map((items: any) => {
@@ -95,7 +40,5 @@ export class MoviesService extends ResourceService<MoviesStore>{
        console.log(moviesStore);
        return moviesStore;
      }));
-
-     // );
   }
 }
