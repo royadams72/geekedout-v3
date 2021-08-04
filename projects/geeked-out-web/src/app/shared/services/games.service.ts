@@ -10,11 +10,11 @@ import { Game } from '@web/shared/interfaces/game';
   providedIn: 'root'
 })
 export class GamesService {
-
+  slash = environment.production ? '' : '/';
   constructor(private http: HttpClient) { }
   getGames(): Observable<Game[]> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json'});
-    return this.http.get<Game[]>(`${environment.apiUrl}games/getgames/`, { headers })
+    return this.http.get<Game[]>(`${environment.apiUrl}${this.slash}games/getgames/`, { headers })
       .pipe(
       catchError(err => {
         console.log('caught mapping error and rethrowing', err);

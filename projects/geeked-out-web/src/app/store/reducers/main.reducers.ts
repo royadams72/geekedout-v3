@@ -26,11 +26,21 @@ export const initialAppState: AppState = {
 
 export const appReducer = createReducer(
     initialAppState,
+    on(AppActions.initAppComplete, (state) => ({...state, uiData: {...state.uiData, loadedItems: {...state.uiData.loadedItems, appInit: true}}})),
     on(AppActions.getDetail, getDetail),
-    on(AppActions.getComicDetail, mapComicDetail),
-    on(AppActions.getGameDetail, mapGameDetail),
-    on(AppActions.getMovieDetail, mapMovieDetail),
-    on(AppActions.getAlbumDetail, mapAlbumDetail),
+    on(AppActions.loadComics, (state) => (state)),
+    on(AppActions.loadComicsComplete, (state, {comics}) => ({...state, comics, uiData: {...state.uiData, loadedItems: {...state.uiData.loadedItems, comicsLoaded: true}}})),
+    on(AppActions.loadMovies, (state) => (state)),
+    on(AppActions.loadMoviesComplete, (state, {movies}) => ({...state, movies, uiData: {...state.uiData, loadedItems: {...state.uiData.loadedItems, moviesLoaded: true}}})),
+    on(AppActions.loadGames, (state) => (state)),
+    on(AppActions.loadGamesComplete, (state, {games}) => ({...state, games, uiData: {...state.uiData, loadedItems: {...state.uiData.loadedItems, gamesLoaded: true}}})),
+    on(AppActions.loadMusic, (state) => (state)),
+    on(AppActions.loadMusicComplete, (state, {music}) => ({...state, music, uiData: {...state.uiData, loadedItems: {...state.uiData.loadedItems, musicLoaded: true}}})),
+// initAppComplete
+    // on(AppActions.getComicDetail, mapComicDetail),
+    // on(AppActions.getGameDetail, mapGameDetail),
+    // on(AppActions.getMovieDetail, mapMovieDetail),
+    // on(AppActions.getAlbumDetail, mapAlbumDetail),
     on(AppActions.loadDataComplete, loadDataComplete),
     on(AppActions.loadMovieDetails, (state) => (state)),
     on(AppActions.loadMovieDetailsComplete, (state, {movies}) =>

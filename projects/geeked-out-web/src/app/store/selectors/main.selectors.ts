@@ -1,7 +1,9 @@
+import { state } from '@angular/animations';
 import { createSelector } from '@ngrx/store';
 import { CategoryType } from '@web/shared/enums/category-type.enum';
 import { Paths } from '@web/shared/enums/paths.enums';
 import { Preview } from '@web/shared/interfaces/preview';
+import { LoadedItems, UiData } from '@web/shared/interfaces/uiData';
 import { State } from '@web/store/reducers';
 import { AppState } from '../reducers/main.reducers';
 
@@ -10,13 +12,15 @@ const appState = (state: State) => state.state;
 
 export const isLoaded = createSelector(
     appState,
-    (state: AppState): boolean | undefined => {
+    (state: AppState): LoadedItems | undefined => {
     let data;
     if (state.uiData.loadedItems) {
-      data = state.uiData.loadedItems.mainData;
+      data = state.uiData.loadedItems;
     }
     return data;
 });
+
+
 
 export const isMovieDetailsLoaded = createSelector(
       appState,
@@ -116,9 +120,13 @@ export const search = (searchString: string): any => {
 
 
 export const getItems = (category: string, preview: boolean, arrayName?: string) => {
+
     return createSelector(
         getCategoryState(category),
         (state: any): Preview[] => {
+          if(state) {
+
+
             if (Object.entries(state).length === 0) { return [] as Preview[]; }
             let arr = !arrayName ? state : state[`${arrayName}`];
             if (preview) { arr = arr.slice(0, 4); }
@@ -127,7 +135,10 @@ export const getItems = (category: string, preview: boolean, arrayName?: string)
             return arr.map((el: Array<{}>) => {
                 return mapItemForPreview(category, el);
             });
+          }
+          return state;
         }
+
     );
 };
 

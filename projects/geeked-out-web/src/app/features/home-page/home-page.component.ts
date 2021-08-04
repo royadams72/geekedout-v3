@@ -23,7 +23,10 @@ export class HomePageComponent implements OnInit,  OnDestroy{
   moviesPreview$ = new Observable<Array<Preview>>();
 
   constructor(private store: Store<State>, private musicService: MusicService,  private subService: SubscriptionService) {
-    // this.store.dispatch(AppActions.loadData());
+    // this.store.dispatch(AppActions.loadComics());
+    // this.store.dispatch(AppActions.loadMovies());
+    // this.store.dispatch(AppActions.loadMusic());
+    // this.store.dispatch(AppActions.loadGames());
     this.comicPreview$ = this.store.pipe(select(getItems(CategoryType.Comics, true, 'results')));
     this.moviesPreview$ = this.store.pipe(select(getItems(CategoryType.Movies, true, 'results')));
     this.musicPreview$ = this.store.pipe(select(getItems(CategoryType.Music, true, 'items' )));

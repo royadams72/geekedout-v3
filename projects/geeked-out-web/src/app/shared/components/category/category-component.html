@@ -1,4 +1,4 @@
-<div class="category">
+<div class="category" *ngIf="items">
     <h1 class="category__header" [style.opacity]="isLoaded ? 1 : 0">{{categoryTitle}}</h1>
   <div class="category__items-container" *ngIf="displayItems">
       <div class="category__item"  *ngFor="let item of displayItems; let i = index">

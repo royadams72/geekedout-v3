@@ -10,10 +10,10 @@ import { ResourceService } from './resource.service';
   providedIn: 'root'
 })
 export class MusicService extends ResourceService<MusicStore>{
-
+  slash = environment.production ? '' : '/';
   constructor(httpClient: HttpClient) {
     super(httpClient);
-    this.endPointUrl = {preview: 'music/preview/', details: 'music/getAlbum/'};
+    this.endPointUrl = {preview: `${this.slash}music/preview/`, details: `${this.slash}music/getAlbum/`};
   }
 
   getMusic(limit?: number): Observable<MusicStore> {
