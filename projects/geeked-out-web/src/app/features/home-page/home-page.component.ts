@@ -13,8 +13,7 @@ import { getItems } from '@web/store/selectors';
 import { Observable } from 'rxjs';
 @Component({
   selector: 'app-home-page',
-  templateUrl: './home-page.component.html',
-  styleUrls: ['./home-page.component.scss']
+  templateUrl: './home-page.component.html'
 })
 export class HomePageComponent implements OnInit,  OnDestroy{
   comicPreview$ = new Observable<Array<Preview>>();
@@ -23,16 +22,13 @@ export class HomePageComponent implements OnInit,  OnDestroy{
   moviesPreview$ = new Observable<Array<Preview>>();
 
   constructor(private store: Store<State>, private musicService: MusicService,  private subService: SubscriptionService) {
-    // this.store.dispatch(AppActions.loadData());
     this.comicPreview$ = this.store.pipe(select(getItems(CategoryType.Comics, true, 'results')));
     this.moviesPreview$ = this.store.pipe(select(getItems(CategoryType.Movies, true, 'results')));
     this.musicPreview$ = this.store.pipe(select(getItems(CategoryType.Music, true, 'items' )));
     this.gamesPreview$ = this.store.pipe(select(getItems(CategoryType.Games, true)));
 
   }
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void {}
 
    ngOnDestroy(): void {
     this.subService.unsubscribeComponent$.next();

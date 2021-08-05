@@ -18,48 +18,29 @@ Animation
     }
 }
 
-/* ---------- Utilities */
+//Utilities */
 
 .anim-fade-in,
 %a-fade-in {
-    @include animation-keyframe(fadeIn, opacity, 0, 1);
-    animation: fadeIn 0.3s;
+  @include animation-keyframe(fadeIn, opacity, 0, 1);
+  animation: fadeIn .3s;
 }
 
-.button-transparent-hover {
-    overflow: hidden;
-    position: relative;
-    z-index: 10;
+.pulsate {
+  // @include animation-keyframe(pulse, opacity, 1, .2);
+  animation: pulse 1.5s ease-in-out infinite;
+}
 
-    span {
-        position: relative;
-        z-index: 11;
-    }
+@keyframes pulse {
+  0% {
+    opacity: .2;
+  }
 
-    &::after {
-        background: #000000;
-        bottom: 0;
-        content: '';
-        left: 0;
-        opacity: 0;
-        position: absolute;
-        right: 0;
-        top: 0;
-        transition: 0.3s;
-        z-index: 9;
-    }
+  50% {
+    opacity: 1;
+  }
 
-    &:hover {
-        &::after {
-            background: #000000;
-            bottom: 0;
-            content: '';
-            left: 0;
-            opacity: 0.3;
-            position: absolute;
-            right: 0;
-            top: 0;
-            transition: 0.3s;
-        }
-    }
+  100% {
+    opacity: .2;
+  }
 }

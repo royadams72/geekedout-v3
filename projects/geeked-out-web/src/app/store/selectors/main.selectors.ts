@@ -1,7 +1,9 @@
+import { state } from '@angular/animations';
 import { createSelector } from '@ngrx/store';
 import { CategoryType } from '@web/shared/enums/category-type.enum';
 import { Paths } from '@web/shared/enums/paths.enums';
 import { Preview } from '@web/shared/interfaces/preview';
+import { LoadedItems, UiData } from '@web/shared/interfaces/uiData';
 import { State } from '@web/store/reducers';
 import { AppState } from '../reducers/main.reducers';
 
@@ -10,13 +12,15 @@ const appState = (state: State) => state.state;
 
 export const isLoaded = createSelector(
     appState,
-    (state: AppState): boolean | undefined => {
+    (state: AppState): LoadedItems | undefined => {
     let data;
     if (state.uiData.loadedItems) {
-      data = state.uiData.loadedItems.mainData;
+      data = state.uiData.loadedItems;
     }
     return data;
 });
+
+
 
 export const isMovieDetailsLoaded = createSelector(
       appState,
@@ -116,18 +120,21 @@ export const search = (searchString: string): any => {
 
 
 export const getItems = (category: string, preview: boolean, arrayName?: string) => {
+
     return createSelector(
         getCategoryState(category),
         (state: any): Preview[] => {
+          if(state) {
             if (Object.entries(state).length === 0) { return [] as Preview[]; }
             let arr = !arrayName ? state : state[`${arrayName}`];
             if (preview) { arr = arr.slice(0, 4); }
-            // getImageDataIfMovies(state);
-
             return arr.map((el: Array<{}>) => {
                 return mapItemForPreview(category, el);
             });
+          }
+          return state;
         }
+
     );
 };
 
@@ -154,14 +161,14 @@ function mapItemForPreview(category: string, item: any): Preview | undefined {
         };
     } else if (category === CategoryType.Music) {
         data = {
-            category: CategoryType.Music, id: item.id, imageLarge: isImages ? `${item.images[1].url}` : imageNotFound,
-            imageSmall: isImages ? `${item.images[2].url}` : imageNotFound, title: item.name
+            category: CategoryType.Music, id: item.id, imageLarge: isImages ? `${item.images[0].url}` : imageNotFound,
+            imageSmall: isImages ? `${item.images[1].url}` : imageNotFound, title: item.name
         };
     } else if (category === CategoryType.Movies) {
         data = {
           category: CategoryType.Movies, id: item.id,
-          imageLarge: item.poster_path ? `${Paths.MoviesCdnImages}w300${item.poster_path}` : imageNotFound,
-          imageSmall: item.poster_path ? `${Paths.MoviesCdnImages}w154${item.poster_path}` : imageNotFound, title: item.title
+          imageLarge: item.poster_path ? `${Paths.MoviesCdnImages}w400${item.poster_path}` : imageNotFound,
+          imageSmall: item.poster_path ? `${Paths.MoviesCdnImages}w300${item.poster_path}` : imageNotFound, title: item.title
         };
     } else if (category === CategoryType.Games) {
         data = { category: CategoryType.Games, id: item.id, imageLarge: item.image || imageNotFound450x210, title: item.title };

@@ -1,11 +1,31 @@
 $opacity-transition: opacity 1s;
+$music-header-colour: #a34d8b;
+$movies-header-colour: #4c836d;
+$comics-header-colour: #a19840;
+$games-header-colour: #9b3e41;
 
 .category {
 
   &__header {
     font-size: 40px;
     margin-bottom: 8px;
-    margin-left: 15px;
+
+    &-comics-colour {
+      color: $comics-header-colour;
+    }
+
+    &-music-colour {
+      color: $music-header-colour;
+    }
+
+    &-games-colour {
+      color: $games-header-colour;
+    }
+
+    &-movies-colour {
+      color: $movies-header-colour;
+    }
+
   }
 
   &__items-container {
@@ -26,28 +46,13 @@ $opacity-transition: opacity 1s;
       width: 25%;
     }
 
-    &--comics {
-      background-color: rgba(settings-colour('comics'), $alpha: .2);
-    }
 
-    &--music {
-      background-color: rgba(settings-colour('music'), $alpha: .2);
-    }
-
-    &--games {
-      background-color: rgba(settings-colour('games'), $alpha: .2);
-    }
-
-    &--movies {
-      background-color: rgba(settings-colour('movies'), $alpha: .2);
-    }
 
   }
 
   &__image {
     align-self: center;
     height: auto;
-    // margin-bottom: 20px;
     opacity: 0;
     transition: $opacity-transition;
     width: 100%;
@@ -55,12 +60,10 @@ $opacity-transition: opacity 1s;
   }
 
   &__footer {
-    // bottom: 0;
-    // display: block;
     margin-bottom: 8px;
     margin-top: 8px;
     opacity: 0;
-    // position: absolute;
+    padding-left: 10px;
     transition: $opacity-transition;
   }
 
@@ -68,19 +71,19 @@ $opacity-transition: opacity 1s;
     opacity: 1;
   }
 
-  &-comics-colour {
+  &__comics-colour {
     color: settings-colour('comics');
   }
 
-  &-music-colour {
+  &__music-colour {
     color: settings-colour('music');
   }
 
-  &-games-colour {
+  &__games-colour {
     color: settings-colour('games');
   }
 
-  &-movies-colour {
+  &__movies-colour {
     color: settings-colour('movies');
   }
 }

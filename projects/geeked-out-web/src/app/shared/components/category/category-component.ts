@@ -1,4 +1,4 @@
-import { Component, Input, OnInit} from '@angular/core';
+import { Component, Input, OnInit, AfterViewInit} from '@angular/core';
 import { CategoryType } from '@web/shared/enums/category-type.enum';
 import { Paths } from '@web/shared/enums/paths.enums';
 import { Preview } from '@web/shared/interfaces/preview';
@@ -9,10 +9,9 @@ import { combineLatest } from 'rxjs';
   selector: 'app-category',
   templateUrl: './category-component.html'
 })
-export class CategoryComponent implements OnInit {
+export class CategoryComponent implements OnInit{
 
   @Input() items: Array<Preview> = [];
-  @Input() isPreview = true;
   @Input() link = '';
   @Input() categoryTitle = '';
   smallScreen = false;
@@ -23,13 +22,16 @@ export class CategoryComponent implements OnInit {
   errorImage = `${Paths.Images}/image404@2x.png`;
   isLoaded = false;
   categoryClass = '';
+  categoryTitleColour = '';
   image = '';
   constructor(private sw: ScreenWidthService) {
    }
 
   ngOnInit(): void {
     this.categoryClass = `category__item--${this.categoryTitle.toLowerCase()}`;
+    this.categoryTitleColour = `category__header-${this.categoryTitle.toLowerCase()}-colour`;
     this.displayItems = this.items;
+    console.log(this.items);
     this.defaultImage = 'assets/images/defaultImage.png';
     this.watchScreenSize();
     this.fadeInText();

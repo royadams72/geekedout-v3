@@ -11,27 +11,88 @@ import { forkJoin, of } from 'rxjs';
 import { Action, select, Store } from '@ngrx/store';
 import { State } from '../reducers';
 import { RouterNavigationAction, ROUTER_REQUEST } from '@ngrx/router-store';
-import { loadMovieDetails, loadMusicDetails } from '../actions/main.actions';
+import { loadComics, loadGames, loadMovieDetails, loadMovies, loadMusic, loadMusicDetails } from '../actions/main.actions';
 
 @Injectable()
 export class AppEffects {
 
-  loadData$ = createEffect(() => this.actions$.pipe(
+  initApp$ = createEffect(() => this.actions$.pipe(
     ofType<RouterNavigationAction>(ROUTER_REQUEST),
     withLatestFrom(this.store.pipe(select(isLoaded))),
-    filter(([action, loaded]) => {
-      return !loaded;
+    filter(([action, loadedItems]) => {
+      // const isLoadedItems = loaded ?  Object.values(loaded).filter(item => item === true).length : undefined;
+     return !loadedItems?.appInit;
     }),
     switchMap(() => {
-      return forkJoin([this.gamesService.getGames(), this.moviesService.getMovies(),
-              this.musicService.getMusic(40), this.comicsService.getComics(50)])
-              .pipe(
-                map((data) => {
-                const [games, movies, music, comics] = data;
-                console.log(data);
-                return AppActions.loadDataComplete({ games, movies, music, comics });
-              })
-            );
+      return forkJoin([of(this.store.dispatch(AppActions.loadComics())), of(this.store.dispatch(AppActions.loadMovies())),
+                      of(this.store.dispatch(AppActions.loadMusic())), of(this.store.dispatch(AppActions.loadGames()))])
+                      .pipe(map(() => AppActions.initAppComplete()))
+    })
+  ), );
+
+  loadComics$ = createEffect(() => this.actions$.pipe(
+    ofType<Action>(loadComics),
+    withLatestFrom(this.store.pipe(select(isLoaded))),
+    filter(([action, loadedItems]) => {
+    ;
+      return !loadedItems?.comicsLoaded;
+    }),
+    switchMap(() => {
+      return this.comicsService.getComics(50)
+          .pipe(
+            map((comics) => {
+            return AppActions.loadComicsComplete({comics});
+            })
+          );
+    })
+  ));
+
+  loadGames$ = createEffect(() => this.actions$.pipe(
+    ofType<Action>(loadGames),
+    withLatestFrom(this.store.pipe(select(isLoaded))),
+    filter(([action, loadedItems]) => {
+
+      return !loadedItems?.gamesLoaded;
+    }),
+    switchMap(() => {
+      return this.gamesService.getGames()
+          .pipe(
+            map((games) => {
+            return AppActions.loadGamesComplete({games});
+            })
+          );
+    })
+  ));
+
+  loadMovies$ = createEffect(() => this.actions$.pipe(
+    ofType<Action>(loadMovies),
+    withLatestFrom(this.store.pipe(select(isLoaded))),
+    filter(([action, loadedItems]) => {;
+      return !loadedItems?.moviesLoaded;
+    }),
+    switchMap(() => {
+      return this.moviesService.getMovies()
+          .pipe(
+            map((movies) => {
+            return AppActions.loadMoviesComplete({movies});
+            })
+          );
+    })
+  ));
+
+  loadMusic$ = createEffect(() => this.actions$.pipe(
+    ofType<Action>(loadMusic),
+    withLatestFrom(this.store.pipe(select(isLoaded))),
+    filter(([action, loadedItems]) => {
+      return !loadedItems?.musicLoaded;
+    }),
+    switchMap(() => {
+      return this.musicService.getMusic(40)
+          .pipe(
+            map((music) => {
+            return AppActions.loadMusicComplete({music});
+            })
+          );
     })
   ));
 
@@ -45,7 +106,6 @@ export class AppEffects {
       return this.moviesService.getDetailsForMovies()
               .pipe(
                 map((movies) => {
-                console.log('movies');
                 return AppActions.loadMovieDetailsComplete({movies});
                 })
               );
@@ -62,12 +122,12 @@ export class AppEffects {
       return this.musicService.getMusicDetails(40)
         .pipe(
           map((music) => {
-            console.log('music');
             return AppActions.loadMusicDetailsComplete({music});
           })
         );
     })
   ));
+
   constructor(
     private actions$: Actions,
     private comicsService: ComicsService,

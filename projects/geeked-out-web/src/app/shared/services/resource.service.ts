@@ -10,8 +10,8 @@ export class ResourceService<T> {
   protected httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
-  constructor(protected httpClient: HttpClient) {}
 
+  constructor(protected httpClient: HttpClient) {}
 
   read(limit?: number, offset: string = ''): any {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });

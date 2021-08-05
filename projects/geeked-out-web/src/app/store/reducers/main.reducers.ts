@@ -26,12 +26,16 @@ export const initialAppState: AppState = {
 
 export const appReducer = createReducer(
     initialAppState,
+    on(AppActions.initAppComplete, (state) => ({...state, uiData: {...state.uiData, loadedItems: {...state.uiData.loadedItems, appInit: true}}})),
     on(AppActions.getDetail, getDetail),
-    on(AppActions.getComicDetail, mapComicDetail),
-    on(AppActions.getGameDetail, mapGameDetail),
-    on(AppActions.getMovieDetail, mapMovieDetail),
-    on(AppActions.getAlbumDetail, mapAlbumDetail),
-    on(AppActions.loadDataComplete, loadDataComplete),
+    on(AppActions.loadComics, (state) => (state)),
+    on(AppActions.loadComicsComplete, (state, {comics}) => ({...state, comics, uiData: {...state.uiData, loadedItems: {...state.uiData.loadedItems, comicsLoaded: true}}})),
+    on(AppActions.loadMovies, (state) => (state)),
+    on(AppActions.loadMoviesComplete, (state, {movies}) => ({...state, movies, uiData: {...state.uiData, loadedItems: {...state.uiData.loadedItems, moviesLoaded: true}}})),
+    on(AppActions.loadGames, (state) => (state)),
+    on(AppActions.loadGamesComplete, (state, {games}) => ({...state, games, uiData: {...state.uiData, loadedItems: {...state.uiData.loadedItems, gamesLoaded: true}}})),
+    on(AppActions.loadMusic, (state) => (state)),
+    on(AppActions.loadMusicComplete, (state, {music}) => ({...state, music, uiData: {...state.uiData, loadedItems: {...state.uiData.loadedItems, musicLoaded: true}}})),
     on(AppActions.loadMovieDetails, (state) => (state)),
     on(AppActions.loadMovieDetailsComplete, (state, {movies}) =>
         ({ ...state, movies, uiData: {...state.uiData, loadedItems: {...state.uiData.loadedItems, movieDetails: true}}})),
@@ -49,13 +53,6 @@ export const appReducer = createReducer(
     );
 
 
-
-function loadDataComplete(state: any, action: {games: Game[], movies: MoviesStore, music: MusicStore, comics: ComicStore}): any {
-  console.log(action);
- // tslint:disable-next-line: max-line-length
-  return { ...state, music: action.music, games: action.games, movies: action.movies, comics: action.comics , uiData: {...state.uiData, loadedItems: {...state.loadedItems, mainData: true} }};
-
-}
 function getDetail(state: AppState , action: {routeId: string, category: string | undefined}): AppState {
   if (action.category === CategoryType.Comics) {
       return mapComicDetail(state ,  {routeId: action.routeId});

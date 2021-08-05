@@ -9,9 +9,10 @@ import { ResourceService } from './resource.service';
   providedIn: 'root'
 })
 export class ComicsService extends ResourceService<ComicStore> {
+  slash = environment.production ? '' : '/';
   constructor(httpClient: HttpClient) {
     super(httpClient);
-    this.endPointUrl = {preview: 'comics/preview/'};
+    this.endPointUrl = {preview: `${this.slash}comics/preview/`};
    }
 
   getComics(limit?: number, offset = '0'): Observable<ComicStore> {
