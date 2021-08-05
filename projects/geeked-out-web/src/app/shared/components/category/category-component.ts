@@ -9,7 +9,7 @@ import { combineLatest } from 'rxjs';
   selector: 'app-category',
   templateUrl: './category-component.html'
 })
-export class CategoryComponent implements OnInit{
+export class CategoryComponent implements OnInit {
 
   @Input() items: Array<Preview> = [];
   @Input() link = '';
@@ -24,27 +24,24 @@ export class CategoryComponent implements OnInit{
   categoryClass = '';
   categoryTitleColour = '';
   image = '';
-  constructor(private sw: ScreenWidthService) {
-   }
+
+  constructor(private sw: ScreenWidthService) {}
 
   ngOnInit(): void {
     this.categoryClass = `category__item--${this.categoryTitle.toLowerCase()}`;
     this.categoryTitleColour = `category__header-${this.categoryTitle.toLowerCase()}-colour`;
     this.displayItems = this.items;
-    console.log(this.items);
     this.defaultImage = 'assets/images/defaultImage.png';
     this.watchScreenSize();
     this.fadeInText();
   }
 
-
-
   getClass(category: string): any {
     return {
       [`category__item--${category.toLowerCase()}`] : this.isLoaded
     };
-
   }
+
   watchScreenSize(): void {
     combineLatest([this.sw.small$, this.sw.medium$, this.sw.large$])
     .subscribe((screen) => {
@@ -67,7 +64,6 @@ export class CategoryComponent implements OnInit{
   }
 
   setErrorImage(): string {
-    // console.log('setErrorPic');
     return  this.categoryTitle === 'Games' ? `${Paths.Images}/image404-450x250@2x.png` :
     `${Paths.Images}/image404@2x.png`;
   }

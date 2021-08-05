@@ -3,47 +3,46 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { forkJoin, Observable, of } from 'rxjs';
 import { environment } from '@web-env/environment';
 import { catchError, map, mergeMap, switchMap } from 'rxjs/operators';
-import { Album, MusicStore } from '@web/shared/interfaces/music';
+import { Album, AlbumDetail, MusicStore } from '@web/shared/interfaces/music';
 import { ResourceService } from './resource.service';
+import { select, Store } from '@ngrx/store';
+import { State } from '@web/store/reducers';
+import { getItems } from '@web/store/selectors';
+import { CategoryType } from '../enums/category-type.enum';
+import { Preview } from '../interfaces/preview';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MusicService extends ResourceService<MusicStore>{
   slash = environment.production ? '' : '/';
-  constructor(httpClient: HttpClient) {
+  constructor(httpClient: HttpClient, private store: Store<State>) {
     super(httpClient);
     this.endPointUrl = {preview: `${this.slash}music/preview/`, details: `${this.slash}music/getAlbum/`};
   }
 
   getMusic(limit?: number): Observable<MusicStore> {
-    const httpArray: Array<Observable<any>> = [];
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.httpClient.get<MusicStore>(`${environment.apiUrl}${this.endPointUrl.preview}${limit}`, this.httpOptions);
   }
 
-  getMusicDetails(limit?: number): Observable<MusicStore> {
-    const httpArray: Array<Observable<any>> = [];
-    let musicStore = {} as MusicStore;
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.httpClient.get<MusicStore>(`${environment.apiUrl}${this.endPointUrl.preview}${limit}`, this.httpOptions)
+
+  getMusicDetails(limit?: number): Observable<AlbumDetail[]> {
+    const httpArray: Array<Observable<AlbumDetail>> = [];
+    return this.store.pipe(select(getItems(CategoryType.Music, false, 'items')))
       .pipe(
         map((data) => {
-          musicStore = data;
-          data.items.map((item: Album) => {
+          data.map((item: Preview) => {
             httpArray.push(this.httpClient.get<any>(`${environment.apiUrl}${this.endPointUrl.details}${item.id}`, this.httpOptions));
           });
         }),
         switchMap(() => {
           return forkJoin(httpArray);
         }),
-        map((albumsArray: Album[]) => {
-          musicStore.items = albumsArray;
-          return musicStore;
+        map((musicDetails: AlbumDetail[]) => {
+          return musicDetails;
         })
 
       );
-
   }
 
   /**

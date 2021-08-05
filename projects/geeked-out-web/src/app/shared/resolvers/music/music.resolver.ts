@@ -20,7 +20,7 @@ export class MusicResolver implements Resolve<boolean | undefined> {
     let cat = '';
     return this.store.pipe(select(isLoaded))
       .pipe(
-        filter((loaded:any ): boolean => {
+        filter((loaded: any): boolean => {
           return !!loaded;
         }),
         //  switchMap get category

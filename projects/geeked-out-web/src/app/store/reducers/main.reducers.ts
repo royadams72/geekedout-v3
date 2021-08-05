@@ -26,28 +26,44 @@ export const initialAppState: AppState = {
 
 export const appReducer = createReducer(
     initialAppState,
-    on(AppActions.initAppComplete, (state) => ({...state, uiData: {...state.uiData, loadedItems: {...state.uiData.loadedItems, appInit: true}}})),
+    on(AppActions.initAppComplete, (state) =>
+        ({...state, uiData: {...state.uiData, loadedItems: {...state.uiData.loadedItems, appInit: true}}})),
     on(AppActions.getDetail, getDetail),
+
     on(AppActions.loadComics, (state) => (state)),
-    on(AppActions.loadComicsComplete, (state, {comics}) => ({...state, comics, uiData: {...state.uiData, loadedItems: {...state.uiData.loadedItems, comicsLoaded: true}}})),
+    on(AppActions.loadComicsComplete, (state, {comics}) =>
+        ({...state, comics, uiData: {...state.uiData, loadedItems: {...state.uiData.loadedItems, comicsLoaded: true}}})),
+
     on(AppActions.loadMovies, (state) => (state)),
-    on(AppActions.loadMoviesComplete, (state, {movies}) => ({...state, movies, uiData: {...state.uiData, loadedItems: {...state.uiData.loadedItems, moviesLoaded: true}}})),
+    on(AppActions.loadMoviesComplete, (state, {movies}) =>
+        ({...state, movies, uiData: {...state.uiData, loadedItems: {...state.uiData.loadedItems, moviesLoaded: true}}})),
+
     on(AppActions.loadGames, (state) => (state)),
-    on(AppActions.loadGamesComplete, (state, {games}) => ({...state, games, uiData: {...state.uiData, loadedItems: {...state.uiData.loadedItems, gamesLoaded: true}}})),
+    on(AppActions.loadGamesComplete, (state, {games}) =>
+        ({...state, games, uiData: {...state.uiData, loadedItems: {...state.uiData.loadedItems, gamesLoaded: true}}})),
+
     on(AppActions.loadMusic, (state) => (state)),
-    on(AppActions.loadMusicComplete, (state, {music}) => ({...state, music, uiData: {...state.uiData, loadedItems: {...state.uiData.loadedItems, musicLoaded: true}}})),
+    on(AppActions.loadMusicComplete, (state, {music}) =>
+        ({...state, music, uiData: {...state.uiData, loadedItems: {...state.uiData.loadedItems, musicLoaded: true}}})),
+
     on(AppActions.loadMovieDetails, (state) => (state)),
-    on(AppActions.loadMovieDetailsComplete, (state, {movies}) =>
-        ({ ...state, movies, uiData: {...state.uiData, loadedItems: {...state.uiData.loadedItems, movieDetails: true}}})),
+    on(AppActions.loadMovieDetailsComplete, (state, {movieDetails}) =>
+    ({ ...state, movies: {...state.movies, results: movieDetails},
+      uiData: {...state.uiData, loadedItems: {...state.uiData.loadedItems, movieDetails: true}}})),
+
     on(AppActions.loadMusicDetails, (state) => (state)),
-    on(AppActions.loadMusicDetailsComplete, (state, {music}) =>
-       ({ ...state, music, uiData: {...state.uiData, loadedItems: {...state.uiData.loadedItems, musicDetails: true}} })),
+    on(AppActions.loadMusicDetailsComplete, (state, {musicDetails}) =>
+       ({ ...state, music: {...state.music, items: musicDetails },
+        uiData: {...state.uiData, loadedItems: {...state.uiData.loadedItems, musicDetails: true}} })),
+
     on(AppActions.setPageLoading, (state, { pageLoading }) => ({ ...state, uiData: {...state.uiData, pageLoading }})),
     on(AppActions.setIds, (state, { id }) => ({ ...state, uiData: {...state.uiData, selectedId: id }})),
+
     on(AppActions.setCurrPrevUrls,
       (state, { currentUrl, previousUrl }) =>
       ({ ...state, uiData: {...state.uiData, currPrevUrls: { currentUrl, previousUrl }}})),
     on(AppActions.setSelectedItem, (state, {item}) => ({ ...state, uiData: {...state.uiData, selectedItem: item }})),
+
     on(AppActions.setSearchStatus, (state, {items, searchTerm}) =>
       ({ ...state, uiData: {...state.uiData, searchData: {items, searchTerm} }}))
     );

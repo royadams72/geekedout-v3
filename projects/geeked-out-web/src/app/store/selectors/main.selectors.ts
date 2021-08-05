@@ -1,4 +1,3 @@
-import { state } from '@angular/animations';
 import { createSelector } from '@ngrx/store';
 import { CategoryType } from '@web/shared/enums/category-type.enum';
 import { Paths } from '@web/shared/enums/paths.enums';
@@ -20,8 +19,6 @@ export const isLoaded = createSelector(
     return data;
 });
 
-
-
 export const isMovieDetailsLoaded = createSelector(
       appState,
       (state: AppState): boolean | undefined => {
@@ -31,7 +28,6 @@ export const isMovieDetailsLoaded = createSelector(
         }
         return data;
   });
-
 
 export const isMusicDetailsLoaded = createSelector(
     appState,
@@ -77,7 +73,6 @@ export const isSearch = createSelector(
       (state: AppState) => !!(state.uiData.currPrevUrls.previousUrl === '/search' && state.uiData.searchData.searchTerm));
 
 export const getCategoryState = (category: string): any => {
-
    return createSelector(
             appState,
             (state: any) => {
@@ -86,12 +81,10 @@ export const getCategoryState = (category: string): any => {
         );
 };
 
-
 export const getSearchState = createSelector(
            appState,
            (state: any) => state.uiData.searchData
        );
-
 
 export const search = (searchString: string): any => {
     return createSelector(
@@ -117,10 +110,7 @@ export const search = (searchString: string): any => {
          );
  };
 
-
-
 export const getItems = (category: string, preview: boolean, arrayName?: string) => {
-
     return createSelector(
         getCategoryState(category),
         (state: any): Preview[] => {
