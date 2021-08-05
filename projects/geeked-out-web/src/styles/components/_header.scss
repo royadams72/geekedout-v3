@@ -8,7 +8,7 @@ $bg-colour: $base-bg-colour;
   flex-wrap: wrap;
   height: 120px;
   justify-content: left;
-  margin: 0 0 30px;
+  margin: 0;
   padding: 0;
 
   @include is-medium {

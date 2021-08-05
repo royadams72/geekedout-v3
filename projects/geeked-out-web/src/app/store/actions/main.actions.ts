@@ -17,8 +17,6 @@ export const loadMusic = createAction(`[loadMusic] Loading Music`);
 export const loadMusicComplete = createAction(`[loadMusic] Loading Music Complete`, props<{ music: MusicStore }>());
 
 export const setPageLoading = createAction(`[setPageLoading] Page Is Loading`, props<{ pageLoading: boolean }>());
-export const loadDataComplete = createAction('[loadDataComplete] Data Loaded',
-                                props<{games: Game[], movies: MoviesStore, music: MusicStore, comics: ComicStore}>());
 
 export const loadMovieDetails = createAction('[loadMovieDetails] Loading Movie Details');
 export const loadMovieDetailsComplete = createAction('[loadMovieDetails] Loading Movie Details Complete', props<{movies: MoviesStore}>());
@@ -34,7 +32,7 @@ export const setSelectedItem = createAction('[setSelectedItem] Set Selected Item
                                 props<{item: MovieDetail | AlbumDetail | ComicDetail | GameDetail}>());
 export const setSearchStatus = createAction('[setSearchStatus] Set Search Term and Search Items',
                                 props<{items: Array<Preview>, searchTerm: string}>());
-export type AppActionsUnion = ReturnType<typeof loadDataComplete | typeof setIds | typeof setSelectedItem |
+export type AppActionsUnion = ReturnType<typeof setIds | typeof setSelectedItem |
                                           typeof loadComics | typeof loadGames | typeof loadMovies | typeof loadMusic |
                                           typeof loadComicsComplete | typeof loadGamesComplete | typeof loadMoviesComplete | typeof loadMusicComplete |
                                           typeof clearStore | typeof setPageLoading | typeof setCurrPrevUrls>;

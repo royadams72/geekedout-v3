@@ -125,13 +125,9 @@ export const getItems = (category: string, preview: boolean, arrayName?: string)
         getCategoryState(category),
         (state: any): Preview[] => {
           if(state) {
-
-
             if (Object.entries(state).length === 0) { return [] as Preview[]; }
             let arr = !arrayName ? state : state[`${arrayName}`];
             if (preview) { arr = arr.slice(0, 4); }
-            // getImageDataIfMovies(state);
-
             return arr.map((el: Array<{}>) => {
                 return mapItemForPreview(category, el);
             });
@@ -165,14 +161,14 @@ function mapItemForPreview(category: string, item: any): Preview | undefined {
         };
     } else if (category === CategoryType.Music) {
         data = {
-            category: CategoryType.Music, id: item.id, imageLarge: isImages ? `${item.images[1].url}` : imageNotFound,
-            imageSmall: isImages ? `${item.images[2].url}` : imageNotFound, title: item.name
+            category: CategoryType.Music, id: item.id, imageLarge: isImages ? `${item.images[0].url}` : imageNotFound,
+            imageSmall: isImages ? `${item.images[1].url}` : imageNotFound, title: item.name
         };
     } else if (category === CategoryType.Movies) {
         data = {
           category: CategoryType.Movies, id: item.id,
-          imageLarge: item.poster_path ? `${Paths.MoviesCdnImages}w300${item.poster_path}` : imageNotFound,
-          imageSmall: item.poster_path ? `${Paths.MoviesCdnImages}w154${item.poster_path}` : imageNotFound, title: item.title
+          imageLarge: item.poster_path ? `${Paths.MoviesCdnImages}w400${item.poster_path}` : imageNotFound,
+          imageSmall: item.poster_path ? `${Paths.MoviesCdnImages}w300${item.poster_path}` : imageNotFound, title: item.title
         };
     } else if (category === CategoryType.Games) {
         data = { category: CategoryType.Games, id: item.id, imageLarge: item.image || imageNotFound450x210, title: item.title };

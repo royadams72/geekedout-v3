@@ -17,15 +17,14 @@ export class HomePageResolver implements Resolve<boolean> {
    return this.store.pipe(select(isLoaded))
       .pipe(
         filter((itemsLoaded: any)  => {
-         let isLoadedItems = 0;
+         let categoriesLoaded = 0;
           for (const [item, isLoaded] of Object.entries(itemsLoaded)) {
               if(item !== 'appInit') {
-                isLoaded ? isLoadedItems++ : isLoadedItems;
+                isLoaded ? categoriesLoaded++ : categoriesLoaded;
               }
           }
-          console.log(isLoadedItems);
-          // console.log(itemsLoaded.comicsLoaded, itemsLoaded.moviesLoaded, itemsLoaded.musicLoaded, itemsLoaded.moviesLoaded);
-          return isLoadedItems >= 2;
+          // Load page after two categories are ready
+          return categoriesLoaded >= 2;
         }), first());
   }
 }

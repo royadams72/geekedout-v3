@@ -21,8 +21,7 @@ export class AppEffects {
     withLatestFrom(this.store.pipe(select(isLoaded))),
     filter(([action, loadedItems]) => {
       // const isLoadedItems = loaded ?  Object.values(loaded).filter(item => item === true).length : undefined;
-      // console.log(loadedItems?.appInit);
-      return !loadedItems?.appInit;
+     return !loadedItems?.appInit;
     }),
     switchMap(() => {
       return forkJoin([of(this.store.dispatch(AppActions.loadComics())), of(this.store.dispatch(AppActions.loadMovies())),
@@ -35,14 +34,13 @@ export class AppEffects {
     ofType<Action>(loadComics),
     withLatestFrom(this.store.pipe(select(isLoaded))),
     filter(([action, loadedItems]) => {
-      // console.log(loadedItems?.comicsLoaded);
+    ;
       return !loadedItems?.comicsLoaded;
     }),
     switchMap(() => {
       return this.comicsService.getComics(50)
           .pipe(
             map((comics) => {
-            // console.log(comics);
             return AppActions.loadComicsComplete({comics});
             })
           );
@@ -53,14 +51,13 @@ export class AppEffects {
     ofType<Action>(loadGames),
     withLatestFrom(this.store.pipe(select(isLoaded))),
     filter(([action, loadedItems]) => {
-      // console.log(loadedItems?.gamesLoaded);
+
       return !loadedItems?.gamesLoaded;
     }),
     switchMap(() => {
       return this.gamesService.getGames()
           .pipe(
             map((games) => {
-            // console.log(games);
             return AppActions.loadGamesComplete({games});
             })
           );
@@ -70,15 +67,13 @@ export class AppEffects {
   loadMovies$ = createEffect(() => this.actions$.pipe(
     ofType<Action>(loadMovies),
     withLatestFrom(this.store.pipe(select(isLoaded))),
-    filter(([action, loadedItems]) => {
-      console.log(loadedItems?.moviesLoaded);
+    filter(([action, loadedItems]) => {;
       return !loadedItems?.moviesLoaded;
     }),
     switchMap(() => {
       return this.moviesService.getMovies()
           .pipe(
             map((movies) => {
-            console.log(movies);
             return AppActions.loadMoviesComplete({movies});
             })
           );
@@ -89,14 +84,12 @@ export class AppEffects {
     ofType<Action>(loadMusic),
     withLatestFrom(this.store.pipe(select(isLoaded))),
     filter(([action, loadedItems]) => {
-      console.log(loadedItems?.musicLoaded);
       return !loadedItems?.musicLoaded;
     }),
     switchMap(() => {
       return this.musicService.getMusic(40)
           .pipe(
             map((music) => {
-            // console.log(music);
             return AppActions.loadMusicComplete({music});
             })
           );

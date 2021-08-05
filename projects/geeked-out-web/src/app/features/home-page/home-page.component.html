@@ -1,4 +1,9 @@
-<app-category [categoryTitle]="'Comics'" [items]="(comicPreview$ | async) || []" [link]="'comics'"></app-category>
-<app-category [categoryTitle]="'Music'" [items]="(musicPreview$ | async) || []" [link]="'music'"></app-category>
-<app-category [categoryTitle]="'Games'" [items]="(gamesPreview$ | async) || []" [link]="'games'"></app-category>
-<app-category [categoryTitle]="'Movies'" [items]="(moviesPreview$ | async) || []" [link]="'movies'"></app-category>
+<app-category [categoryTitle]="'Movies'" *ngIf="(moviesPreview$ | async)" [items]="(moviesPreview$ | async) || []" [link]="'movies'"></app-category>
+<div *ngIf="!(moviesPreview$ | async)"><h1 class="category__header pulsate">Loading Movies...</h1></div>
+<app-category [categoryTitle]="'Comics'" *ngIf="(comicPreview$ | async)" [items]="(comicPreview$ | async) || []" [link]="'comics'"></app-category>
+<div *ngIf="!(comicPreview$ | async)"><h1 class="category__header pulsate">Loading Comics...</h1></div>
+<app-category [categoryTitle]="'Games'" *ngIf="(gamesPreview$ | async)" [items]="(gamesPreview$ | async) || []" [link]="'games'"></app-category>
+<div *ngIf="!(gamesPreview$ | async)"><h1 class="category__header pulsate">Loading Games...</h1></div>
+<app-category [categoryTitle]="'Music'"  *ngIf="(musicPreview$ | async)" [items]="(musicPreview$ | async) || []" [link]="'music'"></app-category>
+<div *ngIf="!(musicPreview$ | async)"><h1 class="category__header pulsate">Loading Games...</h1></div>
+

@@ -17,7 +17,6 @@ export class MoviesService extends ResourceService<MoviesStore> {
    }
 
   getMovies(): Observable<MoviesStore> {
-    console.log('movies');
     return this.httpClient.get<MoviesStore>(`${environment.apiUrl}${this.endPointUrl.preview}`, this.httpOptions);
   }
 
@@ -37,7 +36,6 @@ export class MoviesService extends ResourceService<MoviesStore> {
      }),
      map((items: any) => {
        moviesStore.results = items;
-       console.log(moviesStore);
        return moviesStore;
      }));
   }
