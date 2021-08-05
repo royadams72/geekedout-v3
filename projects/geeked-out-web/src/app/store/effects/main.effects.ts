@@ -105,8 +105,8 @@ export class AppEffects {
     switchMap(() => {
       return this.moviesService.getDetailsForMovies()
               .pipe(
-                map((movies) => {
-                return AppActions.loadMovieDetailsComplete({movies});
+                map((movieDetails) => {
+                return AppActions.loadMovieDetailsComplete({movieDetails});
                 })
               );
     })
@@ -121,8 +121,8 @@ export class AppEffects {
     switchMap(() => {
       return this.musicService.getMusicDetails(40)
         .pipe(
-          map((music) => {
-            return AppActions.loadMusicDetailsComplete({music});
+          map((musicDetails) => {
+            return AppActions.loadMusicDetailsComplete({musicDetails});
           })
         );
     })

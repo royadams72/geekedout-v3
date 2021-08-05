@@ -19,10 +19,12 @@ export const loadMusicComplete = createAction(`[loadMusic] Loading Music Complet
 export const setPageLoading = createAction(`[setPageLoading] Page Is Loading`, props<{ pageLoading: boolean }>());
 
 export const loadMovieDetails = createAction('[loadMovieDetails] Loading Movie Details');
-export const loadMovieDetailsComplete = createAction('[loadMovieDetails] Loading Movie Details Complete', props<{movies: MoviesStore}>());
+export const loadMovieDetailsComplete = createAction('[loadMovieDetails] Loading Movie Details Complete',
+                                        props<{movieDetails: MovieDetail[]}>());
 
-export const loadMusicDetails = createAction('[loadMusicDetails] Loading Music Details');
-export const loadMusicDetailsComplete = createAction('[loadMusicDetails] Loading Music Details Complete', props<{music: MusicStore}>());
+export const loadMusicDetails = createAction('[loadMusicDetails ] Loading Music Details');
+export const loadMusicDetailsComplete = createAction('[loadMusicDetails] Loading Music Details Complete',
+                                        props<{musicDetails: AlbumDetail[]}>());
 
 export const setIds = createAction('[Id] Load Ids', props<{ id: string }>());
 export const clearStore = createAction('[clearStore] Clear Store');
@@ -32,10 +34,10 @@ export const setSelectedItem = createAction('[setSelectedItem] Set Selected Item
                                 props<{item: MovieDetail | AlbumDetail | ComicDetail | GameDetail}>());
 export const setSearchStatus = createAction('[setSearchStatus] Set Search Term and Search Items',
                                 props<{items: Array<Preview>, searchTerm: string}>());
-export type AppActionsUnion = ReturnType<typeof setIds | typeof setSelectedItem |
-                                          typeof loadComics | typeof loadGames | typeof loadMovies | typeof loadMusic |
-                                          typeof loadComicsComplete | typeof loadGamesComplete | typeof loadMoviesComplete | typeof loadMusicComplete |
-                                          typeof clearStore | typeof setPageLoading | typeof setCurrPrevUrls>;
+export type AppActionsUnion = ReturnType<typeof setIds | typeof setSelectedItem | typeof loadComics | typeof loadGames | typeof loadMovies |
+                                          typeof loadMusic | typeof loadComicsComplete | typeof loadGamesComplete |
+                                          typeof loadMoviesComplete | typeof loadMusicComplete | typeof clearStore |
+                                          typeof setPageLoading | typeof setCurrPrevUrls>;
 
 
 
