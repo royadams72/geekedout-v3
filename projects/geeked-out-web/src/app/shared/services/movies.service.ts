@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { forkJoin, Observable, of } from 'rxjs';
 import { environment } from '@web-env/environment';
-import { map, mergeMap, switchMap } from 'rxjs/operators';
+import { first, map, mergeMap, switchMap } from 'rxjs/operators';
 import { MoviesStore, MoviesImageData, Movie, MovieDetail } from '@web/shared/interfaces/movies';
 import { ResourceService } from './resource.service';
 import { select, Store } from '@ngrx/store';
@@ -41,7 +41,7 @@ export class MoviesService extends ResourceService<MoviesStore> {
      }),
      map((items: MovieDetail[]) => {
        return items;
-     }));
+     }), first());
   }
 
 }

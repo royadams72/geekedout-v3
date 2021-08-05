@@ -8,8 +8,8 @@
       <div class="column">
         <img *ngIf="item?.image" (error)="onImageError()" src="{{item?.image}}" class="details__image" alt="{{item?.title}} image" #image>
       </div>
-      <div class="column text-left details__info">
-        <h1 class="text-left">{{item?.title}}</h1>
+      <div class="column details__info">
+        <h1 class="details__title">{{item?.title}}</h1>
         <h4 *ngIf="item?.release_date" class="details__sub-heading"><span class="details--alt-colour">Release Date:</span> {{item?.release_date | date}}</h4>
         <h4 *ngIf="item?.overview" class="details__sub-heading details--alt-colour">Overview</h4>
         <p class="details__copy details__copy--top-0">{{item?.overview}}</p>
