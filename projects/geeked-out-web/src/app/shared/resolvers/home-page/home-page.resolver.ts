@@ -17,14 +17,19 @@ export class HomePageResolver implements Resolve<boolean> {
    return this.store.pipe(select(isLoaded))
       .pipe(
         filter((itemsLoaded: any)  => {
-         let categoriesLoaded = 0;
-          for (const [item, isLoaded] of Object.entries(itemsLoaded)) {
-              if(item !== 'appInit') {
-                isLoaded ? categoriesLoaded++ : categoriesLoaded;
-              }
-          }
+          // KEEP: may have to revist this --fix-loading-issues
+          // let categoriesLoaded = 0;
+          // for (const [item, loaded] of Object.entries(itemsLoaded)) {
+          //     console.log(item, loaded);
+          //     if (item !== 'appInit') {
+          //       loaded ? categoriesLoaded++ : categoriesLoaded = categoriesLoaded;
+          //       console.log(categoriesLoaded);
+          //     }
+          // }
           // Load page after two categories are ready
-          return categoriesLoaded >= 2;
+          // return categoriesLoaded >= 2;
+
+          return itemsLoaded.appInit;
         }), first());
   }
 }
