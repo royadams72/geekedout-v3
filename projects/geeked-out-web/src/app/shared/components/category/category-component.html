@@ -1,5 +1,5 @@
 <div class="category" *ngIf="items">
-    <h1 class="category__header {{categoryTitleColour}}" [ngStyle]="{'margin-top': categoryTitle ==='Movies' && link ? '20px' : null}" [style.opacity]="isLoaded ? 1 : 0">{{categoryTitle}}</h1>
+    <h1 class="category__header {{categoryTitleColour}}" [ngStyle]="{'margin-top': categoryTitle ==='Movies' && link ? '10px' : (!link ? '10px' : '50px')}" [style.opacity]="isLoaded ? 1 : 0">{{categoryTitle}}</h1>
   <div class="category__items-container" *ngIf="displayItems">
       <div class="category__item"  *ngFor="let item of displayItems; let i = index">
         <a class="category__anchor" [routerLink]="link ? [link] : item.id">
