@@ -34,7 +34,6 @@ export class AppEffects {
     ofType<Action>(loadComics),
     withLatestFrom(this.store.pipe(select(isLoaded))),
     filter(([action, loadedItems]) => {
-    ;
       return !loadedItems?.comicsLoaded;
     }),
     switchMap(() => {
@@ -51,7 +50,6 @@ export class AppEffects {
     ofType<Action>(loadGames),
     withLatestFrom(this.store.pipe(select(isLoaded))),
     filter(([action, loadedItems]) => {
-
       return !loadedItems?.gamesLoaded;
     }),
     switchMap(() => {
@@ -67,7 +65,7 @@ export class AppEffects {
   loadMovies$ = createEffect(() => this.actions$.pipe(
     ofType<Action>(loadMovies),
     withLatestFrom(this.store.pipe(select(isLoaded))),
-    filter(([action, loadedItems]) => {;
+    filter(([action, loadedItems]) => {
       return !loadedItems?.moviesLoaded;
     }),
     switchMap(() => {
