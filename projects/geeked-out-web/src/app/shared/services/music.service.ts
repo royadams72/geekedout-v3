@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { forkJoin, Observable, of } from 'rxjs';
 import { environment } from '@web-env/environment';
-import { catchError, map, mergeMap, switchMap } from 'rxjs/operators';
+import { catchError, first, map, mergeMap, switchMap } from 'rxjs/operators';
 import { Album, AlbumDetail, MusicStore } from '@web/shared/interfaces/music';
 import { ResourceService } from './resource.service';
 import { select, Store } from '@ngrx/store';
@@ -40,9 +40,7 @@ export class MusicService extends ResourceService<MusicStore>{
         }),
         map((musicDetails: AlbumDetail[]) => {
           return musicDetails;
-        })
-
-      );
+        }), first());
   }
 
   /**

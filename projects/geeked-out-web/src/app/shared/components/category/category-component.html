@@ -1,5 +1,5 @@
 <div class="category" *ngIf="items">
-    <h1 class="category__header {{categoryTitleColour}}" [ngClass]="{'util-helper__margin-top-xl': categoryTitle !=='Movies'}" [style.opacity]="isLoaded ? 1 : 0">{{categoryTitle}}</h1>
+    <h1 class="category__header {{categoryTitleColour}}" [ngStyle]="{'margin-top': categoryTitle ==='Movies' && link ? '20px' : null}" [style.opacity]="isLoaded ? 1 : 0">{{categoryTitle}}</h1>
   <div class="category__items-container" *ngIf="displayItems">
       <div class="category__item"  *ngFor="let item of displayItems; let i = index">
         <a class="category__anchor" [routerLink]="link ? [link] : item.id">
@@ -8,15 +8,15 @@
                 mediumScreen || !item.imageSmall"  class="category__image">
           <p class="category__footer" [style.opacity]="isLoaded ? 1 : 0">
             <span *ngIf="smallScreen">
-              <span *ngIf="isStringLongerThan(item.title, 15) else doNotTruncate">{{item.title | slice: 0:14 }}...</span>
+              <span *ngIf="isStringLongerThan(item?.title, 15) else doNotTruncate">{{item.title | slice: 0:14 }}...</span>
               <ng-template #doNotTruncate>{{item.title}}</ng-template>
             </span>
             <span *ngIf="mediumScreen">
-              <span *ngIf="isStringLongerThan(item.title, 19) else doNotTruncate">{{item.title | slice: 0:18 }}...</span>
+              <span *ngIf="isStringLongerThan(item?.title, 19) else doNotTruncate">{{item.title | slice: 0:18 }}...</span>
               <ng-template #doNotTruncate>{{item.title}}</ng-template>
             </span>
             <span *ngIf="largeScreen">
-              <span *ngIf="isStringLongerThan(item.title, 31) else doNotTruncate">{{item.title | slice: 0:30 }}...</span>
+              <span *ngIf="isStringLongerThan(item?.title, 31) else doNotTruncate">{{item.title | slice: 0:30 }}...</span>
               <ng-template #doNotTruncate>{{item.title}}</ng-template>
             </span>
           </p>

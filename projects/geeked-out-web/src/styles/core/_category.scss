@@ -1,14 +1,15 @@
 $opacity-transition: opacity 1s;
-$music-header-colour: #a34d8b;
-$movies-header-colour: #4c836d;
-$comics-header-colour: #a19840;
-$games-header-colour: #9b3e41;
+$music-header-colour:   #d26cb5;
+$movies-header-colour:  #35ab7c;
+$comics-header-colour:  #caba1d;
+$games-header-colour:   #d44d51;
 
 .category {
 
   &__header {
     font-size: 40px;
     margin-bottom: 8px;
+    margin-top: 50px;
 
     &-comics-colour {
       color: $comics-header-colour;

@@ -56,11 +56,7 @@ export class CategoryComponent implements OnInit {
   }
 
   isStringLongerThan(str: string, n: number): boolean {
-    return  str.length >= n;
-  }
-
-  isStringShorterThan(str: string, n: number): boolean {
-    return  str.length < n;
+    return  str?.length >= n;
   }
 
   setErrorImage(): string {
