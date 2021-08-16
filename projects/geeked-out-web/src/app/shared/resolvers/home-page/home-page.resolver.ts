@@ -18,18 +18,18 @@ export class HomePageResolver implements Resolve<boolean> {
       .pipe(
         filter((itemsLoaded: any)  => {
           // KEEP: may have to revist this --fix-loading-issues
-          // let categoriesLoaded = 0;
-          // for (const [item, loaded] of Object.entries(itemsLoaded)) {
-          //     console.log(item, loaded);
-          //     if (item !== 'appInit') {
-          //       loaded ? categoriesLoaded++ : categoriesLoaded = categoriesLoaded;
-          //       console.log(categoriesLoaded);
-          //     }
-          // }
+          let categoriesLoaded = 0;
+          for (const [item, loaded] of Object.entries(itemsLoaded)) {
+              console.log(item, loaded);
+              if (item !== 'appInit') {
+                loaded ? categoriesLoaded++ : categoriesLoaded = categoriesLoaded;
+                console.log(categoriesLoaded);
+              }
+          }
           // Load page after two categories are ready
-          // return categoriesLoaded >= 2;
+          return categoriesLoaded >= 1;
 
-          return itemsLoaded.appInit;
+          // return itemsLoaded.appInit;
         }), first());
   }
 }
