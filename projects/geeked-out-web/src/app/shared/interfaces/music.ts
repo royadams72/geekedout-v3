@@ -40,13 +40,13 @@ export interface ArtistDetails {
     spotifyUrl: string;
 }
 export interface MusicStore {
-    href: string;
-    items: Album[];
-    limit: number;
-    next: string;
-    offset: number;
-    previous: number;
-    total: number;
+    href?: string;
+    items: Album[] | AlbumDetail[];
+    limit?: number;
+    next?: string;
+    offset?: number;
+    previous?: number;
+    total?: number;
 }
 
 export interface Tracks {

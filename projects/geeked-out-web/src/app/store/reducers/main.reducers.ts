@@ -11,7 +11,6 @@ export interface AppState {
   comics: ComicStore | undefined;
   music: MusicStore | undefined | any;
   games: Game[] | undefined | any;
-  selectedItem?: MovieDetail | AlbumDetail | ComicDetail | GameDetail | undefined;
   uiData: UiData;
 }
 
@@ -20,7 +19,6 @@ export const initialAppState: AppState = {
   comics: undefined,
   music: undefined,
   games: undefined,
-  selectedItem: undefined,
   uiData: {} as UiData
 };
 
